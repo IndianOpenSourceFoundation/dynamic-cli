@@ -1,0 +1,6 @@
+.idea/*
+dynamic-cli-env
+dynamic.egg-info
+src/search /__pycache__
+__pycache__
+src/arguments/__pycache__

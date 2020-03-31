@@ -1,1 +1,1 @@
-# demo-cli
+# dynamic-cli

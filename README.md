@@ -12,9 +12,9 @@
 
 >
 
-##Setup 
+## Setup 
  
- - Install dependancy of  
+ - Install dependancies  
  ```shell
 $ sudo pip install -r requirments.txt
 ```

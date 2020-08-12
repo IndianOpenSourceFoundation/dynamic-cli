@@ -14,10 +14,27 @@
 
 ## Setup 
  
- - Install dependancies  
+ - 1 Install dependancies  
  ```shell
 $ sudo pip install -r requirments.txt
 ```
+
+- 2 Clone this repository to your local drive
+ ```shell
+$ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
+```
+
+-3 Build the code
+ ```shell
+$ python3 dynamic-cli/setup.py build
+```
+
+-4 Install
+ ```shell
+$ python3 dynamic-cli/setup.py install
+```
+
+
 
 
 ## License

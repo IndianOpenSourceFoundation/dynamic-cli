@@ -24,12 +24,12 @@ $ sudo pip install -r requirments.txt
 $ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 ```
 
--3 Build the code
+- 3 Build the code
  ```shell
 $ python3 dynamic-cli/setup.py build
 ```
 
--4 Install
+- 4 Install
  ```shell
 $ python3 dynamic-cli/setup.py install
 ```

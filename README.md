@@ -1,5 +1,6 @@
 # Dynamic - CLI
 >  A CLI utility that can connect to an external databases.
+>
 >  Also fetch suggestions from different dev communities like stackoverflow and reddit.
 
 <div align="center">

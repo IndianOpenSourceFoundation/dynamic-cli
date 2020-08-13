@@ -1,7 +1,5 @@
 # Dynamic - CLI
->  A CLI utility that can connect to external databases.
->
->  Also fetch suggestions from different dev communities like stackoverflow and reddit.
+>  A CLI utility that can connect to external databases. It fetches the data from different dev communities like stackoverflow and reddit and display in the terminal itself.
 
 <div align="center">
 <img src="https://forthebadge.com/images/badges/made-with-python.svg" >

@@ -12,27 +12,29 @@
 
 >
 
+
 ## Setup 
+
+ - 1 Installing pip [Python Package Manager]
+  ```shell
+# apt-get install python3-pip
+```
  
- - 1 Install dependencies  
+ - 2 Install dependencies  
  ```shell
-$ sudo pip install -r requirments.txt
+$ pip3 install -r requirments.txt
 ```
 
-- 2 Clone this repository to your local drive
+- 3 Clone this repository to your local drive
  ```shell
 $ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 ```
 
-- 3 Build the code
+- 4 Install with pip
  ```shell
-$ python3 dynamic-cli/setup.py build
+$ pip3 install -e dynamic-cli/
 ```
 
-- 4 Install
- ```shell
-$ python3 dynamic-cli/setup.py install
-```
 
 
 

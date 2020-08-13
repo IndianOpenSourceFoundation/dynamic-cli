@@ -17,7 +17,7 @@
 
  - 1 Installing pip [Python Package Manager]
   ```shell
-# apt-get install python3-pip
+$ sudo apt-get install python3-pip
 ```
  
  - 2 Install dependencies  
@@ -32,7 +32,7 @@ $ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 
 - 4 Install with pip
  ```shell
-$ pip3 install -e dynamic-cli/
+$ sudo pip3 install -e dynamic-cli/
 ```
 
 

@@ -1,5 +1,5 @@
 # Dynamic - CLI
->  A CLI utility that can connect to an external databases.
+>  A CLI utility that can connect to external databases.
 >
 >  Also fetch suggestions from different dev communities like stackoverflow and reddit.
 
@@ -14,7 +14,7 @@
 
 ## Setup 
  
- - 1 Install dependancies  
+ - 1 Install dependencies  
  ```shell
 $ sudo pip install -r requirments.txt
 ```

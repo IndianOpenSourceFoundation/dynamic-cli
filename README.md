@@ -32,6 +32,11 @@ $ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 $ sudo pip3 install -e dynamic-cli/
 ```
 
+- To verify the installation 
+ ```shell
+$ dynamic -s
+```
+If you get the message "What do you want to search - ", the installation is successful.
 
 
 

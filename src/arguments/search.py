@@ -9,6 +9,17 @@ ARGV = PARSER.parse_args()
 
 def make_request(que, tag):
 	
+	"""
+	This function uses the requests library to make the rest api call to the stackexchange server.
+
+	:param que: The user questions that servers as a question in the api.
+	:type que: String 
+	:param tag: The tags that user wants for searching the relevant answers. For e.g. TypeError might be for multiple languages so is tag is used as "Python" then the api will return answers based on the tags and question.
+	:type tag: String
+	:return: Json response from the api call.
+	:rtype: Json format data
+	"""
+
 	print("Searching for the answer")
 	resp = requests.get("https://api.stackexchange.com/"+"/2.2/search/advanced?order=desc&sort=relevance&tagged={}&title={}&site=stackoverflow".format(tag,que))
 	return resp.json()

@@ -38,8 +38,9 @@ $ dynamic -s
 ```
 If you get the message "What do you want to search - ", the installation is successful.
 
-
-
+-> Type the question you want to search.
+-> Include the tags relevant for the question.
+-> Answers will be displayed based on relevance, no of upvotes and based on question tags.
 
 ## License
 

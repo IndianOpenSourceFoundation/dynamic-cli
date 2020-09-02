@@ -4,3 +4,4 @@ dynamic.egg-info
 src/search /__pycache__
 __pycache__
 src/arguments/__pycache__
+.vscode/

@@ -1,13 +1,5 @@
 # Dynamic - CLI
->  A CLI utility that can connect to external databases. It fetches the data from different dev communities like stackoverflow and reddit and display in the terminal itself.
-
-<div align="center">
-<img src="https://forthebadge.com/images/badges/made-with-python.svg" >
-</div>
-
-
-
->
+>  A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI
 
 
 ## Setup
@@ -29,18 +21,8 @@ $ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 
 - Install with pip
  ```shell
-$ sudo pip3 install -e dynamic-cli/
+$ pip3 install -e dynamic-cli/
 ```
-
-- To verify the installation 
- ```shell
-$ dynamic -s
-```
-If you get the message "What do you want to search - ", the installation is successful.
-
--> Type the question you want to search.
--> Include the tags relevant for the question.
--> Answers will be displayed based on relevance, no of upvotes and based on question tags.
 
 ## License
 

@@ -9,14 +9,14 @@
 $ sudo apt-get install python3-pip
 ```
 
- - Install dependencies  
- ```shell
-$ pip3 install -r requirements.txt
-```
-
 - Clone this repository to your local drive
  ```shell
 $ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
+```
+
+ - Install dependencies  
+ ```shell
+$ pip3 install -r requirements.txt
 ```
 
 - Install with pip

@@ -27,3 +27,45 @@ $ pip3 install -e dynamic-cli/
 ## License
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+### Contributing
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&logo=git&logoColor=white)](https://github.com/IndianOpenSourceFoundation/dynamic-cli/pulls) [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/IndianOpenSourceFoundation/dynamic-cli)
+
+**We're accepting PRs for our open and unassigned [issues](https://github.com/IndianOpenSourceFoundation/dynamic-cli/issues)**. Please check [CONTRIBUTING.md](CONTRIBUTING.md). We'd love your contributions! **Kindly follow the steps below to get started:** 
+
+**1.** Fork [this](https://github.com/IndianOpenSourceFoundation/dynamic-cli) repository.
+
+**2.** Clone the forked repository. Open terminal and type:
+
+```bash
+git clone https://github.com/<your-github-username>/project_name.git
+```
+
+**3.** Navigate to the project directory.
+
+```bash
+cd dynamic-cli
+```
+
+**4.** Make changes in source code.
+
+**5.** Stage your changes and commit
+
+```bash
+#Add changes to Index
+git add .
+
+#Commit to the local repo
+git commit -m "<your_commit_message>"
+```
+
+**7.** Push your local commits to the remote repo.
+
+```bash
+git push
+```
+
+**8.** Create a [PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) !
+
+**9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.

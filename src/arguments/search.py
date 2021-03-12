@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 import argparse
-from lol.prompt import Prompt
 from termcolor import colored
 from .utility import Utility, SearchError
 import sys as sys
 
+class Prompt():
+    def __init__(self, message):
+        self.message = message
 
+    def prompt(self):
+        print(colored(f"{self.message} [?] ", 'cyan'), end='')
+        data = input()
 
+        return str(data)
 class Search():
     def __init__(self, arguments):
         self.arguments = arguments

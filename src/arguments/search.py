@@ -1,10 +1,23 @@
 #!/usr/bin/env python
 import argparse
+from lol.prompt import Prompt
 from termcolor import colored
 from .utility import Utility
 
 
-class Search:
+class SearchError():
+    def __init__(self, error_statement, suggestion):
+        self.error_statement = error_statement
+        self.suggestion = suggestion
+
+        self.evoke_search_error(self.error_statement)
+
+    def evoke_search_error(self, error_statement):
+        print_text = [colored(error_statement, 'red'), colored(self.suggestion, 'green')]
+        for text_to_print in print_text:
+            print(text_to_print)
+
+class Search():
     def __init__(self, arguments):
         self.arguments = arguments
         self.utility_object = Utility()
@@ -12,14 +25,24 @@ class Search:
 
     def search_args(self):
         if self.arguments.search:
-            print("What do you want to search - ", end=" ")
-            question = input()
-            print("Tags : ", end=" ")
-            tags = input()
-            json_output = utility_obj.make_request(question, tags)
-            questions = utility_obj.get_que(json_output)
+            queries = [
+                "What do you want to search",
+                "Tags"
+            ]
+            query_solutions = []
+            
+            for each_query in queries:
+                prompt = Prompt(str(each_query)).prompt()
+
+                query_solutions.append(prompt)
+
+            question, tags = query_solutions[0], query_solutions[1]
+            json_output = self.utility_object.make_request(question, tags)
+            questions = self.utility_object.get_que(json_output)
             if questions == []:
-                print(colored('No answer found,', 'red'),
-                      colored('Please try reddit', 'green'))
+                search_error = SearchError(
+                    "No answer found",
+                    "Please try reddit"
+                )
             else:
-                utility_obj.get_ans(questions)
+                self.utility_object.get_ans(questions)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from src.arguments.search import Search
+from src.arguments import Search
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("-s", "--search", help="enable debug mode",

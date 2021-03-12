@@ -33,7 +33,10 @@ class Search():
             query_solutions = []
             
             for each_query in queries:
-                prompt = Prompt(str(each_query)).prompt()
+                try:
+                    prompt = Prompt(str(each_query)).prompt()
+                except:
+                    sys.exit()
 
                 query_solutions.append(prompt)
 

@@ -7,8 +7,11 @@ import sys as sys
 
 
 class SearchError():
-    def __init__(self, error_statement, suggestion):
+    def __init__(self, error_statement, suggestion="Try again"):
+        # the error statement
         self.error_statement = error_statement
+
+        # the suggestion statement
         self.suggestion = suggestion
 
         self.evoke_search_error(self.error_statement)
@@ -32,7 +35,10 @@ class Search():
             queries = ["What do you want to search", "Tags"]
             query_solutions = []
 
+            # ask quesiton
             for each_query in queries:
+                # Be careful if there are 
+                # KeyBpard Interupts or EOErrors
                 try:
                     prompt = Prompt(str(each_query)).prompt()
                 except:
@@ -44,6 +50,7 @@ class Search():
             json_output = self.utility_object.make_request(question, tags)
             questions = self.utility_object.get_que(json_output)
             if questions == []:
+                # evoke an error
                 search_error = SearchError("No answer found",
                                            "Please try reddit")
             else:

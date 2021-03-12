@@ -3,9 +3,10 @@ from termcolor import colored
 from rich.console import Console
 from rich.markdown import Markdown
 
+# the rich console
 console = Console()
 
-
+# render markdown text in the terminal
 def print_markdown(markdown):
     md = Markdown(markdown)
     console.print(md)
@@ -13,6 +14,7 @@ def print_markdown(markdown):
 
 class Utility():
     def __init__(self):
+        # the parent url
         self.search_content_url = "https://api.stackexchange.com/"
 
     def __get_search_url(self, question, tags):
@@ -57,6 +59,13 @@ class Utility():
                 ]
 
                 for output_index, output_text in enumerate(output_content):
+                    """
+                    Loop through the output_text and print the element
+                    if it the last one, the text[0] is printed
+                    along with text[-1]
+
+                    if text is markdown , render the markdown
+                    """
                     if output_index == len(output_content) - 1:
                         console.print(output_text)
 

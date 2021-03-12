@@ -1,7 +1,7 @@
 from pprint import pprint
 import requests
 from termcolor import colored
-
+import re
 
 
 
@@ -24,9 +24,9 @@ class reddit:
 		print(
                 colored("------------------------------------------------------------------------------------------------", 'red'))
 		for i in range(len(value["data"]["children"])):
-			print("Title: ", value["data"]["children"][i]["data"]["title"])
-			print("\nPublic Description: ", value["data"]["children"][i]["data"]["public_description"])
-			print("\nDescription: ", value["data"]["children"][i]["data"]["description"])
-			print("\nURL: ","www.reddit.com"+value["data"]["children"][i]["data"]["url"])
+			print("Title: ", re.sub(' +', ' ',value["data"]["children"][i]["data"]["title"]))
+			#print("\nPublic Description: ", value["data"]["children"][i]["data"]["public_description"])
+			print("\nDescription: ", re.sub(' +', ' ',value["data"]["children"][i]["data"]["description"]))
+			print("\nURL: ",re.sub(' +', ' ',"www.reddit.com"+value["data"]["children"][i]["data"]["url"]))
 			print(
                 colored("------------------------------------------------------------------------------------------------", 'red'))

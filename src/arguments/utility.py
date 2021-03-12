@@ -1,8 +1,21 @@
 import requests
 from termcolor import colored
+from rich.console import Console
+from rich.markdown import Markdown
+
+console = Console()
+
+def print_markdown(markdown):
+    md = Markdown(markdown)
+    console.print(md)
 
 
-class Utility:
+class Utility():
+    def __init__(self):
+        self.search_content_url = "https://api.stackexchange.com/"
+
+    def __get_search_url(self, question, tags):
+        return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&title={question}&site=stackoverflow"
 
     def make_request(self, que, tag: str):
         """
@@ -16,8 +29,7 @@ class Utility:
         :rtype: Json format data
         """
         print("Searching for the answer")
-        resp = requests.get("https://api.stackexchange.com/" +
-                            "/2.2/search/advanced?order=desc&sort=relevance&tagged={}&title={}&site=stackoverflow".format(tag, que))
+        resp = requests.get(self.__get_search_url(que, tag))
         return resp.json()
 
     def get_que(self, json_data):
@@ -30,14 +42,27 @@ class Utility:
     def get_ans(self, questions_list):
         # ans = []
         for questions in range(1):
-            resp = requests.get("https://api.stackexchange.com/" +
-                                "/2.2/questions/{}/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZwsgqvRX".format(questions_list[questions]))
+            resp = requests.get(f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZwsgqvRX")
             json_ans_data = resp.json()
-            print(
-                colored("--------------------------------------------------------", 'red'))
-            for data in json_ans_data['items']:
-                print(data["body_markdown"])
-                print("Link to answer : ", end=" ")
-                print(data["link"])
-                print(
-                    colored("--------------------------------------------------------", 'red'))
+
+            for data in json_ans_data["items"]:
+                output_content = [
+                    colored("--------------------------------------------------------", 'red'),
+                    data["body_markdown"],
+                    f"Link to the answer:{data['link']}"
+                ]
+                
+                for output_index, output_text in enumerate(output_content):
+                    if output_index == len(output_content) - 1:
+                        console.print(output_text)
+
+                        console.print(output_content[0])
+                        break
+
+                    if output_index == len(output_content) - 2:
+                        print_markdown(output_text)
+
+                        continue
+
+
+                    console.print(output_text)

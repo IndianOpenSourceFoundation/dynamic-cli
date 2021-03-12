@@ -2,7 +2,8 @@
 import argparse
 from lol.prompt import Prompt
 from termcolor import colored
-from .utility import Utility
+from src.arguments.utility import Utility
+import sys as sys
 
 
 class SearchError():

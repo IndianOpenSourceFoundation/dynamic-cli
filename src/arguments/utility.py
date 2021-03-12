@@ -34,10 +34,10 @@ class Utility:
                                 "/2.2/questions/{}/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZwsgqvRX".format(questions_list[questions]))
             json_ans_data = resp.json()
             print(
-                colored("--------------------------------------------------------", 'red'))
+                colored("------------------------------------------------------------------------------------------------", 'red'))
             for data in json_ans_data['items']:
                 print(data["body_markdown"])
                 print("Link to answer : ", end=" ")
                 print(data["link"])
                 print(
-                    colored("--------------------------------------------------------", 'red'))
+                    colored("------------------------------------------------------------------------------------------------", 'red'))

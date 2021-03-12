@@ -2,6 +2,8 @@
 import argparse
 from termcolor import colored
 from .utility import Utility
+from .reddit import reddit
+import getpass
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument(
@@ -9,6 +11,7 @@ PARSER.add_argument(
 
 ARGV = PARSER.parse_args()
 utility_obj = Utility()
+reddit_obj = reddit()
 
 
 class Search:
@@ -23,6 +26,10 @@ class Search:
             questions = utility_obj.get_que(json_output)
             if questions == []:
                 print(colored('No answer found,', 'red'),
-                      colored('Please try reddit', 'green'))
+                      colored('searching on reddit', 'green'))
+               
+                val=reddit_obj.getjson(question)
+                reddit_obj.getdata(val)
+
             else:
                 utility_obj.get_ans(questions)

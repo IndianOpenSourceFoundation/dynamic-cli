@@ -2,6 +2,7 @@ import requests
 from termcolor import colored
 from rich.console import Console
 from rich.markdown import Markdown
+import sys as sys
 
 # the rich console
 console = Console()
@@ -10,6 +11,25 @@ console = Console()
 def print_markdown(markdown):
     md = Markdown(markdown)
     console.print(md)
+
+class SearchError():
+    def __init__(self, error_statement, suggestion="Try again"):
+        # the error statement
+        self.error_statement = error_statement
+
+        # the suggestion statement
+        self.suggestion = suggestion
+
+        self.evoke_search_error(self.error_statement)
+
+    def evoke_search_error(self, error_statement):
+        print_text = [
+            colored(error_statement, 'red'),
+            colored(self.suggestion, 'green')
+        ]
+        for text_to_print in print_text:
+            print(text_to_print)
+
 
 
 class Utility():
@@ -32,7 +52,11 @@ class Utility():
         :rtype: Json format data
         """
         print("Searching for the answer")
-        resp = requests.get(self.__get_search_url(que, tag))
+        try:
+            resp = requests.get(self.__get_search_url(que, tag))
+        except:
+            SearchError("Search Failed", "Try connecting to the internet")
+            sys.exit()
         return resp.json()
 
     def get_que(self, json_data):
@@ -45,9 +69,13 @@ class Utility():
     def get_ans(self, questions_list):
         # ans = []
         for questions in range(1):
-            resp = requests.get(
-                f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZwsgqvRX"
-            )
+            try:
+                resp = requests.get(
+                    f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZwsgqvRX"
+                )
+            except:
+                SearchError("Search Failed", "Try connecting to the internet")
+                sys.exit()
             json_ans_data = resp.json()
 
             for data in json_ans_data["items"]:

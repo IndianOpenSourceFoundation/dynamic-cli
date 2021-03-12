@@ -14,24 +14,24 @@ class SearchError():
         self.evoke_search_error(self.error_statement)
 
     def evoke_search_error(self, error_statement):
-        print_text = [colored(error_statement, 'red'), colored(self.suggestion, 'green')]
+        print_text = [
+            colored(error_statement, 'red'),
+            colored(self.suggestion, 'green')
+        ]
         for text_to_print in print_text:
             print(text_to_print)
+
 
 class Search():
     def __init__(self, arguments):
         self.arguments = arguments
         self.utility_object = Utility()
 
-
     def search_args(self):
         if self.arguments.search:
-            queries = [
-                "What do you want to search",
-                "Tags"
-            ]
+            queries = ["What do you want to search", "Tags"]
             query_solutions = []
-            
+
             for each_query in queries:
                 try:
                     prompt = Prompt(str(each_query)).prompt()
@@ -44,9 +44,7 @@ class Search():
             json_output = self.utility_object.make_request(question, tags)
             questions = self.utility_object.get_que(json_output)
             if questions == []:
-                search_error = SearchError(
-                    "No answer found",
-                    "Please try reddit"
-                )
+                search_error = SearchError("No answer found",
+                                           "Please try reddit")
             else:
                 self.utility_object.get_ans(questions)

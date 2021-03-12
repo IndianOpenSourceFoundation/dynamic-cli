@@ -5,6 +5,7 @@ from rich.markdown import Markdown
 
 console = Console()
 
+
 def print_markdown(markdown):
     md = Markdown(markdown)
     console.print(md)
@@ -42,16 +43,19 @@ class Utility():
     def get_ans(self, questions_list):
         # ans = []
         for questions in range(1):
-            resp = requests.get(f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZwsgqvRX")
+            resp = requests.get(
+                f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZwsgqvRX"
+            )
             json_ans_data = resp.json()
 
             for data in json_ans_data["items"]:
                 output_content = [
-                    colored("--------------------------------------------------------", 'red'),
-                    data["body_markdown"],
+                    colored(
+                        "--------------------------------------------------------",
+                        'red'), data["body_markdown"],
                     f"Link to the answer:{data['link']}"
                 ]
-                
+
                 for output_index, output_text in enumerate(output_content):
                     if output_index == len(output_content) - 1:
                         console.print(output_text)
@@ -63,6 +67,5 @@ class Utility():
                         print_markdown(output_text)
 
                         continue
-
 
                     console.print(output_text)

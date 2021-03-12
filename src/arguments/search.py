@@ -3,18 +3,15 @@ import argparse
 from termcolor import colored
 from .utility import Utility
 
-PARSER = argparse.ArgumentParser()
-PARSER.add_argument(
-    "-s", "--search", help="enable debug mode", action="store_true")
-
-ARGV = PARSER.parse_args()
-utility_obj = Utility()
-
 
 class Search:
+    def __init__(self, arguments):
+        self.arguments = arguments
+        self.utility_object = Utility()
+
 
     def search_args(self):
-        if ARGV.search:
+        if self.arguments.search:
             print("What do you want to search - ", end=" ")
             question = input()
             print("Tags : ", end=" ")

@@ -70,3 +70,16 @@ git push
 **8.** Create a [PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) !
 
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
+
+## Contributors:
+### Credits goes to these peoples:✨
+
+<table>
+	<tr>
+		<td>
+			<a href="https://github.com/IndianOpenSourceFoundation/dynamic-cli/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=IndianOpenSourceFoundation/dynamic-cli" />
+</a>
+		</td>
+	</tr>
+</table>

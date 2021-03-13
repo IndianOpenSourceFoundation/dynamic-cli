@@ -12,6 +12,7 @@ console = Console()
 #     md = Markdown(markdown)
 #     console.print(md)
 
+
 class MarkdownRenderer(object):
     def __init__(self, markdown_text, console_print=True):
         assert isinstance(markdown_text, str), "Expected a string"
@@ -34,6 +35,7 @@ class MarkdownRenderer(object):
     def __repr__(self):
         return str(self.render)
 
+
 class SearchError():
     def __init__(self, error_statement, suggestion="Try again"):
         # the error statement
@@ -51,7 +53,6 @@ class SearchError():
         ]
         for text_to_print in print_text:
             print(text_to_print)
-
 
 
 class Utility():

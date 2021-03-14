@@ -1,28 +1,45 @@
 #!/usr/bin/env python
 import argparse
 from termcolor import colored
-from .utility import Utility
+from .utility import Utility, SearchError
+import sys as sys
 
-PARSER = argparse.ArgumentParser()
-PARSER.add_argument(
-    "-s", "--search", help="enable debug mode", action="store_true")
+class Prompt():
+    def __init__(self, message):
+        self.message = message
 
-ARGV = PARSER.parse_args()
-utility_obj = Utility()
+    def prompt(self):
+        print(colored(f"{self.message} [?] ", 'cyan'), end='')
+        data = input()
 
-
-class Search:
+        return str(data)
+class Search():
+    def __init__(self, arguments):
+        self.arguments = arguments
+        self.utility_object = Utility()
 
     def search_args(self):
-        if ARGV.search:
-            print("What do you want to search - ", end=" ")
-            question = input()
-            print("Tags : ", end=" ")
-            tags = input()
-            json_output = utility_obj.make_request(question, tags)
-            questions = utility_obj.get_que(json_output)
+        if self.arguments.search:
+            queries = ["What do you want to search", "Tags"]
+            query_solutions = []
+
+            # ask quesiton
+            for each_query in queries:
+                # Be careful if there are 
+                # KeyBpard Interupts or EOErrors
+                try:
+                    prompt = Prompt(str(each_query)).prompt()
+                except:
+                    sys.exit()
+
+                query_solutions.append(prompt)
+
+            question, tags = query_solutions[0], query_solutions[1]
+            json_output = self.utility_object.make_request(question, tags)
+            questions = self.utility_object.get_que(json_output)
             if questions == []:
-                print(colored('No answer found,', 'red'),
-                      colored('Please try reddit', 'green'))
+                # evoke an error
+                search_error = SearchError("No answer found",
+                                           "Please try reddit")
             else:
-                utility_obj.get_ans(questions)
+                self.utility_object.get_ans(questions)

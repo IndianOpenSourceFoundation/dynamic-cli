@@ -1,4 +1,5 @@
 import requests
+import html
 from termcolor import colored
 from rich.console import Console
 from rich.markdown import Markdown
@@ -17,6 +18,7 @@ class MarkdownRenderer(object):
     def __init__(self, markdown_text, console_print=True):
         assert isinstance(markdown_text, str), "Expected a string"
 
+        markdown_text = html.unescape(markdown_text)
         self.markdown_text = markdown_text
         self.do_console_print = bool(console_print)
 
@@ -94,7 +96,7 @@ class Utility():
         for questions in range(1):
             try:
                 resp = requests.get(
-                    f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZwsgqvRX"
+                    f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
                 )
             except:
                 SearchError("Search Failed", "Try connecting to the internet")

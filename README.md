@@ -23,8 +23,14 @@ $ pip3 install -r requirements.txt
 
 **4.** Install with pip
  ```shell
-$ pip3 install -e dynamic-cli/
+$ pip3 install -e .
 ```
+
+## Usage
+
+Dynamic CLI allows users to search for keywords/issues with some relevant tags.
+
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/49693160/111326116-4bcceb00-8692-11eb-9d3a-51350a006d34.gif)
 
 ## License
 

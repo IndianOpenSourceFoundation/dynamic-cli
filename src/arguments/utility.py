@@ -4,6 +4,8 @@ from termcolor import colored
 from rich.console import Console
 from rich.markdown import Markdown
 import sys as sys
+from keyboard import is_pressed
+from os import system, name 
 
 # the rich console
 console = Console()
@@ -58,9 +60,19 @@ class SearchError():
 
 
 class Utility():
+
     def __init__(self):
         # the parent url
         self.search_content_url = "https://api.stackexchange.com/"
+
+    def clear(self):    # function to clear Screen
+        # for windows 
+        if name == 'nt': 
+            _ = system('cls') 
+      
+        # for mac and linux(here, os.name is 'posix') 
+        else: 
+            _ = system('clear') 
 
     def __get_search_url(self, question, tags):
         return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&title={question}&site=stackoverflow"
@@ -103,13 +115,27 @@ class Utility():
                 sys.exit()
             json_ans_data = resp.json()
 
-            for data in json_ans_data["items"]:
-                output_content = [
-                    colored(
-                        "--------------------------------------------------------",
-                        'red'), data["body_markdown"],
-                    f"Link to the answer:{data['link']}"
-                ]
+            answers = json_ans_data["items"]
+            
+
+            #loop that handles each Answers
+
+            i = 0
+            run = True
+
+            while run:
+
+                self.clear()
+
+                print(colored("Use",'red'),colored("Arrow Keys (Up & Down)",'cyan'),colored("to Navigate through",'red'))
+                print(colored("Press",'red'),colored("Esc",'cyan'),colored("to Exit",'red'))
+
+                data = answers[i]
+
+                
+                output_content = [colored("--------------------------------------------------------",'red'), data["body_markdown"],f"Link to the answer : {data['link']}"]
+
+                console.print('\n'+output_content[0]+'\n')
 
                 for output_index, output_text in enumerate(output_content):
                     """
@@ -119,15 +145,41 @@ class Utility():
 
                     if text is markdown , render the markdown
                     """
+
+                              
                     if output_index == len(output_content) - 1:
-                        console.print(output_text)
+                        console.print('\n'+output_content[0])
+
+                        console.print('\n' + output_text + '\n')
 
                         console.print(output_content[0])
                         break
+
 
                     if output_index == len(output_content) - 2:
                         renderer = MarkdownRenderer(output_text)
 
                         continue
 
-                    console.print(output_text)
+
+
+                while True:         #loop that makes navigation through keyboard possible
+
+                    if is_pressed('down'):
+                        if(i != len(answers)-1):
+                            i = i + 1
+                            break
+                            
+
+                    if is_pressed('up'):
+                        if(i != 0):
+                            i = i - 1
+                            break
+                            
+
+                    if is_pressed('esc'):
+                        run = False
+                        break
+                        
+
+                    #console.print(output_text)

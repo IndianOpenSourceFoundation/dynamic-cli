@@ -14,7 +14,7 @@ setuptools.setup(
     url="https://github.com/IndianOpenSourceFoundation/dynamic-cli",
     packages=setuptools.find_packages(),
     install_requires=DEPENDENCIES,
-    entry_points={"console_scripts": ['dynamic=main:search_obj.search_args']},
+    entry_points={"console_scripts": ['dynamic=main:search_flag.search_args']},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

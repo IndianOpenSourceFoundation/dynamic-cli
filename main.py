@@ -3,11 +3,18 @@
 import argparse
 from src.arguments.search import Search
 
+version = "0.1"
+
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("-s",
                     "--search",
                     help="enable debug mode",
                     action="store_true")
+
+PARSER.add_argument("-V",
+                    "--version",
+                    version=f"Dynamic-CLI version {version}",
+                    action='version')
 
 ARGV = PARSER.parse_args()
 

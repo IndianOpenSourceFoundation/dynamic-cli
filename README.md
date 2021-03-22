@@ -32,6 +32,17 @@ Dynamic CLI allows users to search for keywords/issues with some relevant tags.
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/49693160/111326116-4bcceb00-8692-11eb-9d3a-51350a006d34.gif)
 
+### Arguments
+Usage: Dynamic [OPTIONS]<br>
+
+Options: <br>
+
+`-v, --version -> Gives the Version of the CLI` <br>
+`-s, --search -> Search a question on Stackoverflow` <br>
+`-d, --debug -> Turn on Debugging mode` <br>
+`-h, --help -> Shows this message and exit` <br>
+
+
 ## License
 
 
@@ -78,13 +89,13 @@ git push
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
 
 ## Contributors:
-### Credits goes to these peoples:✨
+### Credit goes to these peoples:✨
 
 <table>
 	<tr>
 		<td>
 			<a href="https://github.com/IndianOpenSourceFoundation/dynamic-cli/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=IndianOpenSourceFoundation/dynamic-cli" />
+  <img src="https://contrib.rocks/image?repo=IndianOpenSourceFoundation/dynamic-cli" alt="Dynamic Cli Contributors"/>
 </a>
 		</td>
 	</tr>

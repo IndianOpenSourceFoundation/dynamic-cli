@@ -6,6 +6,7 @@ import sys as sys
 
 from .error import SearchError
 from .utility import Utility
+from .save import SaveSearchResults
 
 
 class Prompt():
@@ -27,7 +28,8 @@ class Search():
     def search_args(self):
         if self.arguments.search:
             self.search_for_results()
-
+        elif self.arguments.file:
+            self.search_for_results(True)
         elif self.arguments.new:
             url = "https://stackoverflow.com/questions/ask"
             if type(self.arguments.new) == str:
@@ -61,4 +63,7 @@ class Search():
             data = self.utility_object.get_ans(questions)
 
             if save:
-                SaveSearchResults(data)
+                filename = SaveSearchResults(data)
+                print(
+                    colored(f"Answers successfully saved into {filename}", "green")
+                )

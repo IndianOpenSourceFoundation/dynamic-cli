@@ -28,3 +28,6 @@ class SaveSearchResults(object):
             filename = str(uuid.uuid4()).replace("-", "_")[:4]
 
         return filename 
+
+    def __repr__(self):
+        return str(self.save_results_filename)

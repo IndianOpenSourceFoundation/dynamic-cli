@@ -24,6 +24,11 @@ parser.add_argument(
     metavar="title (optional)",
     nargs="?")
 
+parser.add_argument("-file",
+                    "--file",
+                    help="Save answer to a file",
+                    action="store_true")
+
 ARGV = parser.parse_args()
 
 search_flag = Search(ARGV)

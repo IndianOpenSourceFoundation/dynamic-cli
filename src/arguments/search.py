@@ -6,6 +6,8 @@ import sys as sys
 from .utility import Utility
 from .error import SearchError
 from .save import SaveSearchResults
+
+
 class Prompt():
     def __init__(self, message):
         self.message = message
@@ -31,9 +33,9 @@ class Search():
     def search_for_answer(self, save=False):
         queries = ["What do you want to search", "Tags"]
         query_solutions = []
-        
+
         for each_query in queries:
-                
+
             try:
                 prompt = Prompt(str(each_query)).prompt()
             except:
@@ -45,10 +47,9 @@ class Search():
         json_output = self.utility_object.make_request(question, tags)
         questions = self.utility_object.get_que(json_output)
         if questions == []:
-            search_error = SearchError("No answer found",
-                                       "Please try reddit")
+            search_error = SearchError("No answer found", "Please try reddit")
         else:
             data = self.utility_object.get_ans(questions)
-            
+
             if save:
                 SaveSearchResults(data)

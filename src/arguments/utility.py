@@ -86,4 +86,3 @@ class Utility():
                         continue
             ans.append(json_ans_data["items"])
         return ans
-            

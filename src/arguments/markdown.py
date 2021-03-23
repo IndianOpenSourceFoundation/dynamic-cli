@@ -25,3 +25,14 @@ class MarkdownRenderer(object):
 
     def __repr__(self):
         return str(self.render)
+
+    def __len__(self):
+        if isinstance(self.render, str):
+            return len(self.render)
+        return -1
+
+    def __str__(self):
+        return str(self.render)
+
+    def __repr__(self):
+        return str(self.render) 

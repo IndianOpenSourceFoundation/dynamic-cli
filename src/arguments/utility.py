@@ -1,18 +1,11 @@
 import requests
 import html
-from termcolor import colored
+from clint.textui import colored as TextColor
 from rich.console import Console
 from rich.markdown import Markdown
 import sys as sys
 
-# the rich console
 console = Console()
-
-# render markdown text in the terminal
-# def print_markdown(markdown):
-#     md = Markdown(markdown)
-#     console.print(md)
-
 
 class MarkdownRenderer(object):
     def __init__(self, markdown_text, console_print=True):
@@ -50,8 +43,8 @@ class SearchError():
 
     def evoke_search_error(self, error_statement):
         print_text = [
-            colored(error_statement, 'red'),
-            colored(self.suggestion, 'green')
+            TextColor.red(error_statement),
+            TextColor.green(self.suggestion)
         ]
         for text_to_print in print_text:
             print(text_to_print)
@@ -105,9 +98,9 @@ class Utility():
 
             for data in json_ans_data["items"]:
                 output_content = [
-                    colored(
+                    TextColor.red(
                         "--------------------------------------------------------",
-                        'red'), data["body_markdown"],
+                        ), data["body_markdown"],
                     f"Link to the answer:{data['link']}"
                 ]
 
@@ -119,10 +112,12 @@ class Utility():
 
                     if text is markdown , render the markdown
                     """
+                    if output_index == 0:print(output_text)
+
                     if output_index == len(output_content) - 1:
                         console.print(output_text)
 
-                        console.print(output_content[0])
+                        print(output_content[0])
                         break
 
                     if output_index == len(output_content) - 2:
@@ -130,4 +125,3 @@ class Utility():
 
                         continue
 
-                    console.print(output_text)

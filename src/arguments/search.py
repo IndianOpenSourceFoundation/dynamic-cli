@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import argparse
-from termcolor import colored
+from clint.textui import colored as TextColor
 from .utility import Utility, SearchError
 import sys as sys
 
@@ -9,7 +9,7 @@ class Prompt():
         self.message = message
 
     def prompt(self):
-        print(colored(f"{self.message} [?] ", 'cyan'), end='')
+        print(TextColor.cyan(f"{self.message} [?] "), end='')
         data = input()
 
         return str(data)

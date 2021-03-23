@@ -27,7 +27,7 @@ class SaveSearchResults(object):
         while filename in file_list:
             filename = str(uuid.uuid4()).replace("-", "_")[:4]
 
-        return filename 
+        return filename
 
     def __repr__(self):
         return str(self.save_results_filename)

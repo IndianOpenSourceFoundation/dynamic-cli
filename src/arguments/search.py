@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 import argparse
+import webbrowser
 from termcolor import colored
 from .utility import Utility, SearchError
 import sys as sys
+
 
 class Prompt():
     def __init__(self, message):
@@ -13,6 +15,8 @@ class Prompt():
         data = input()
 
         return str(data)
+
+
 class Search():
     def __init__(self, arguments):
         self.arguments = arguments
@@ -25,7 +29,7 @@ class Search():
 
             # ask quesiton
             for each_query in queries:
-                # Be careful if there are 
+                # Be careful if there are
                 # KeyBpard Interupts or EOErrors
                 try:
                     prompt = Prompt(str(each_query)).prompt()
@@ -43,3 +47,10 @@ class Search():
                                            "Please try reddit")
             else:
                 self.utility_object.get_ans(questions)
+
+        elif self.arguments.new:
+            url = "https://stackoverflow.com/questions/ask"
+            if type(self.arguments.new) == str:
+                webbrowser.open(f"{url}?title={self.arguments.new}")
+            else:
+                webbrowser.open(url)

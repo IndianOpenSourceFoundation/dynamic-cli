@@ -45,7 +45,7 @@ class Utility():
         return que_id
 
     def get_ans(self, questions_list):
-        # ans = []
+        ans = []
         for questions in range(1):
             try:
                 resp = requests.get(
@@ -84,3 +84,6 @@ class Utility():
                         renderer = MarkdownRenderer(output_text)
 
                         continue
+            ans.append(json_ans_data["items"])
+        return ans
+            

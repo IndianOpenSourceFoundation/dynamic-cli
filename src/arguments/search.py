@@ -24,26 +24,31 @@ class Search():
 
     def search_args(self):
         if self.arguments.search:
-            queries = ["What do you want to search", "Tags"]
-            query_solutions = []
+            self.search_for_answer()
+        elif self.arguments.file:
+            self.search_for_answer(True)
 
-            # ask quesiton
-            for each_query in queries:
-                # Be careful if there are
-                # KeyBpard Interupts or EOErrors
-                try:
-                    prompt = Prompt(str(each_query)).prompt()
-                except:
-                    sys.exit()
+    def search_for_answer(self, save=False):
+        queries = ["What do you want to search", "Tags"]
+        query_solutions = []
+        
+        for each_query in queries:
+                
+            try:
+                prompt = Prompt(str(each_query)).prompt()
+            except:
+                sys.exit()
 
-                query_solutions.append(prompt)
+            query_solutions.append(prompt)
 
-            question, tags = query_solutions[0], query_solutions[1]
-            json_output = self.utility_object.make_request(question, tags)
-            questions = self.utility_object.get_que(json_output)
-            if questions == []:
-                # evoke an error
-                search_error = SearchError("No answer found",
-                                           "Please try reddit")
-            else:
-                self.utility_object.get_ans(questions)
+        question, tags = query_solutions[0], query_solutions[1]
+        json_output = self.utility_object.make_request(question, tags)
+        questions = self.utility_object.get_que(json_output)
+        if questions == []:
+            search_error = SearchError("No answer found",
+                                       "Please try reddit")
+        else:
+            data = self.utility_object.get_ans(questions)
+            
+            if save:
+                print(data)

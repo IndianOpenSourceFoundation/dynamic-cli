@@ -4,6 +4,7 @@ from rich.console import Console
 import sys as sys
 
 from .error import SearchError
+from .save import SaveSearchResults
 from .markdown import MarkdownRenderer
 
 console = Console()
@@ -44,7 +45,7 @@ class Utility():
         return que_id
 
     def get_ans(self, questions_list):
-        # ans = []
+        ans = []
         for questions in range(1):
             try:
                 resp = requests.get(
@@ -83,3 +84,5 @@ class Utility():
                         continue
 
                     console.print(output_text)
+            ans.append(json_ans_data["items"])
+        return ans

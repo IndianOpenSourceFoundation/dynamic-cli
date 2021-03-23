@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import argparse
 from clint.textui import colored as TextColor
-from .utility import Utility
-from .error import SearchError
 import sys as sys
 
-
+from .utility import Utility
+from .error import SearchError
+from .save import SaveSearchResults
 class Prompt():
     def __init__(self, message):
         self.message = message
@@ -51,4 +51,4 @@ class Search():
             data = self.utility_object.get_ans(questions)
             
             if save:
-                print(data)
+                SaveSearchResults(data)

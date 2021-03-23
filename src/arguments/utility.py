@@ -60,7 +60,7 @@ class Utility():
                 output_content = [
                     TextColor.red(
                         "--------------------------------------------------------",
-                        ), data["body_markdown"],
+                    ), data["body_markdown"],
                     f"Link to the answer:{data['link']}"
                 ]
 
@@ -72,7 +72,7 @@ class Utility():
 
                     if text is markdown , render the markdown
                     """
-                    if output_index == 0:print(output_text)
+                    if output_index == 0: print(output_text)
 
                     if output_index == len(output_content) - 1:
                         console.print(output_text)
@@ -84,4 +84,3 @@ class Utility():
                         renderer = MarkdownRenderer(output_text)
 
                         continue
-

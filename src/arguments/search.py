@@ -5,6 +5,7 @@ from .utility import Utility
 from .error import SearchError
 import sys as sys
 
+
 class Prompt():
     def __init__(self, message):
         self.message = message
@@ -14,6 +15,8 @@ class Prompt():
         data = input()
 
         return str(data)
+
+
 class Search():
     def __init__(self, arguments):
         self.arguments = arguments
@@ -26,7 +29,7 @@ class Search():
 
             # ask quesiton
             for each_query in queries:
-                # Be careful if there are 
+                # Be careful if there are
                 # KeyBpard Interupts or EOErrors
                 try:
                     prompt = Prompt(str(each_query)).prompt()

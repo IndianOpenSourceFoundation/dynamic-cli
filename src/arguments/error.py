@@ -1,5 +1,6 @@
 from clint.textui import colored as TextColor
 
+
 class SearchError():
     def __init__(self, error_statement, suggestion="Try again"):
         self.error_statement = error_statement

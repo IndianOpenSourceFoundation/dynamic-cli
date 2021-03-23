@@ -2,8 +2,10 @@
 import argparse
 import webbrowser
 from termcolor import colored
-from .utility import Utility, SearchError
 import sys as sys
+
+from .error import SearchError
+from .utility import Utility
 
 
 class Prompt():

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import argparse
 from clint.textui import colored as TextColor
-from .utility import Utility, SearchError
+from .utility import Utility
+from .error import SearchError
 import sys as sys
 
 class Prompt():

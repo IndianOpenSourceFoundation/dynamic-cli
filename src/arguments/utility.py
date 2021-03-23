@@ -8,6 +8,7 @@ from .markdown import MarkdownRenderer
 
 console = Console()
 
+
 class Utility():
     def __init__(self):
         # the parent url

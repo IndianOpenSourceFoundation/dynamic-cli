@@ -2,6 +2,7 @@ from rich.markdown import Markdown
 from rich.console import Console
 import html as html
 
+
 class MarkdownRenderer(object):
     def __init__(self, markdown_text, console_print=True):
         assert isinstance(markdown_text, str), "Expected a string"

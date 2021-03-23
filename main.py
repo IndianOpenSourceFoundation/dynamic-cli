@@ -16,6 +16,13 @@ PARSER.add_argument("-V",
                     version=f"Dynamic-CLI version {version}",
                     action='version')
 
+PARSER.add_argument("-n",
+                    "--new",
+                    help="Opens browser to create new Stack Overflow question.",
+                    const=True,
+                    metavar="title (optional)",
+                    nargs="?")
+
 ARGV = PARSER.parse_args()
 
 search_flag = Search(ARGV)

@@ -32,8 +32,10 @@ Dynamic CLI allows users to search for keywords/issues with some relevant tags.
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/49693160/111326116-4bcceb00-8692-11eb-9d3a-51350a006d34.gif)
 
-### Arguments
-Usage: Dynamic [OPTIONS]<br>
+## Arguments
+Usage: Dynamic [OPTIONS] <br>
+
+A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI. <br>
 
 Options: <br>
 

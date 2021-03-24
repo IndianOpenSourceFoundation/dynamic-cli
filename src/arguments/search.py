@@ -14,10 +14,13 @@ class Prompt():
         self.message = message
 
     def prompt(self):
-        print(colored(f"{self.message} [?] ", 'cyan'), end='')
+        print(colored(f"{self.message} : ", 'cyan'), end='')
         data = input()
-
-        return str(data)
+        if data == "":
+            SearchError("Input data empty", "Please try again ")
+            sys.exit()
+        else:
+            return str(data)
 
 
 class Search():

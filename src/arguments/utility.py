@@ -1,60 +1,13 @@
-import requests
-import html
 from termcolor import colored
+import requests
 from rich.console import Console
-from rich.markdown import Markdown
 import sys as sys
 
-# the rich console
+from .error import SearchError
+from .save import SaveSearchResults
+from .markdown import MarkdownRenderer
+
 console = Console()
-
-# render markdown text in the terminal
-# def print_markdown(markdown):
-#     md = Markdown(markdown)
-#     console.print(md)
-
-
-class MarkdownRenderer(object):
-    def __init__(self, markdown_text, console_print=True):
-        assert isinstance(markdown_text, str), "Expected a string"
-
-        markdown_text = html.unescape(markdown_text)
-        self.markdown_text = markdown_text
-        self.do_console_print = bool(console_print)
-
-        self.console = Console()  # rich console
-
-        self.render = self.print_mark_down_text()
-
-    def print_mark_down_text(self):
-        rendered_markdown = Markdown(self.markdown_text)
-
-        if self.do_console_print:
-            self.console.print(rendered_markdown)
-
-        return rendered_markdown
-
-    def __repr__(self):
-        return str(self.render)
-
-
-class SearchError():
-    def __init__(self, error_statement, suggestion="Try again"):
-        # the error statement
-        self.error_statement = error_statement
-
-        # the suggestion statement
-        self.suggestion = suggestion
-
-        self.evoke_search_error(self.error_statement)
-
-    def evoke_search_error(self, error_statement):
-        print_text = [
-            colored(error_statement, 'red'),
-            colored(self.suggestion, 'green')
-        ]
-        for text_to_print in print_text:
-            print(text_to_print)
 
 
 class Utility():
@@ -92,7 +45,7 @@ class Utility():
         return que_id
 
     def get_ans(self, questions_list):
-        # ans = []
+        ans = []
         for questions in range(1):
             try:
                 resp = requests.get(
@@ -131,3 +84,5 @@ class Utility():
                         continue
 
                     console.print(output_text)
+            ans.append(json_ans_data["items"])
+        return ans

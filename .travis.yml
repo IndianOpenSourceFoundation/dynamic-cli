@@ -1,0 +1,17 @@
+# Travis-CI Config file
+os: linux
+
+dist: focal
+
+language: python
+
+python: 
+  - "3.7"
+  - "3.8"
+  - "3.9" 
+
+install:
+  - pip3 install -r requirements.txt
+
+script:
+  - py.test -v

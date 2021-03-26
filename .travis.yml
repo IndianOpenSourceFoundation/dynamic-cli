@@ -17,4 +17,4 @@ install:
 
 # Test command
 script:
-  - py.test -v
+  - py.test-3 -v

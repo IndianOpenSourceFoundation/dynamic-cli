@@ -5,13 +5,16 @@ dist: focal
 
 language: python
 
+# The test will run on the given python versions
 python: 
   - "3.7"
   - "3.8"
   - "3.9" 
 
+# Installing all the dependencies before testing
 install:
   - pip3 install -r requirements.txt
 
+# Test command
 script:
   - py.test -v

@@ -47,6 +47,19 @@ class Utility():
     def get_ans(self, questions_list):
         ans = []
         for questions in range(1):
+            """ Print Most Relevant Question details """
+            try:
+                resp = requests.get(
+                    f"{self.search_content_url}/2.2/questions/{questions_list[questions]}?order=desc&sort=activity&site=stackoverflow"
+                )
+            except:
+                SearchError("Search Failed", "Try connecting to the internet")
+                sys.exit()
+            json_ques_data = resp.json()
+            MarkdownRenderer('## Most Relevant Question Found')
+            console.print(json_ques_data["items"][0]["title"])
+
+            """ Code to print the most upvoted answer"""
             try:
                 resp = requests.get(
                     f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
@@ -56,33 +69,47 @@ class Utility():
                 sys.exit()
             json_ans_data = resp.json()
 
-            for data in json_ans_data["items"]:
-                output_content = [
-                    colored(
-                        "--------------------------------------------------------",
-                        'red'), data["body_markdown"],
-                    f"Link to the answer:{data['link']}"
-                ]
+            MarkdownRenderer('## Most Upvoted Answer')
+            most_upvoted = json_ans_data["items"][0]
+            output_content = [colored("--------------------------------------------------------",'red'), most_upvoted["body_markdown"], f"Link to the answer:{most_upvoted['link']}"]
+            del most_upvoted
+            for output_index, output_text in enumerate(output_content):
+                """
+                Loop through the output_text and print the element
+                if it the last one, the text[0] is printed
+                along with text[-1]
 
-                for output_index, output_text in enumerate(output_content):
-                    """
-                    Loop through the output_text and print the element
-                    if it the last one, the text[0] is printed
-                    along with text[-1]
-
-                    if text is markdown , render the markdown
-                    """
-                    if output_index == len(output_content) - 1:
-                        console.print(output_text)
-
-                        console.print(output_content[0])
-                        break
-
-                    if output_index == len(output_content) - 2:
-                        renderer = MarkdownRenderer(output_text)
-
-                        continue
-
+                if text is markdown , render the markdown
+                """
+                if output_index == len(output_content) - 1:
                     console.print(output_text)
-            ans.append(json_ans_data["items"])
-        return ans
+
+                    console.print(output_content[0])
+                    break
+
+                if output_index == len(output_content) - 2:
+                    renderer = MarkdownRenderer(output_text)
+
+                    continue
+
+                console.print(output_text)
+
+        """ Code to print the links to the remaining Questions """
+        batch_ques_id = ""
+        for ques_id in questions_list[1:]:
+            batch_ques_id += str(ques_id)+";"
+
+        try:
+            resp = requests.get(
+                f"{self.search_content_url}/2.2/questions/{batch_ques_id[:-1]}?order=desc&sort=activity&site=stackoverflow"
+            )
+        except:
+            SearchError("Search Failed", "Try connecting to the internet")
+            sys.exit()
+        json_ans_data = resp.json()
+
+        MarkdownRenderer('## Relevant Questions')
+
+        for question_index, question in enumerate(json_ans_data["items"]):
+            console.print("{}. {}  |  {}".format(question_index, question["title"], question["link"]))
+        console.print(colored("--------------------------------------------------------",'red'))

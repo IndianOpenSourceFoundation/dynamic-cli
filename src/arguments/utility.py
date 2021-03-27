@@ -1,4 +1,4 @@
-from termcolor import colored
+from clint.textui import colored
 import requests
 from rich.console import Console
 import sys as sys
@@ -58,9 +58,8 @@ class Utility():
 
             for data in json_ans_data["items"]:
                 output_content = [
-                    colored(
-                        "--------------------------------------------------------",
-                        'red'), data["body_markdown"],
+                    colored.red(
+                        "--------------------------------------------------------"), data["body_markdown"],
                     f"Link to the answer:{data['link']}"
                 ]
 
@@ -72,10 +71,13 @@ class Utility():
 
                     if text is markdown , render the markdown
                     """
+                    if output_index == 0:
+                        print(output_text)
+                        continue
                     if output_index == len(output_content) - 1:
                         console.print(output_text)
 
-                        console.print(output_content[0])
+                        print(output_content[0])
                         break
 
                     if output_index == len(output_content) - 2:

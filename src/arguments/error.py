@@ -1,4 +1,4 @@
-from termcolor import colored
+from clint.textui import colored
 
 
 class SearchError():
@@ -13,8 +13,8 @@ class SearchError():
 
     def evoke_search_error(self, error_statement):
         print_text = [
-            colored(error_statement, 'red'),
-            colored(self.suggestion, 'green')
+            colored.red(error_statement),
+            colored.green(self.suggestion)
         ]
         for text_to_print in print_text:
             print(text_to_print)

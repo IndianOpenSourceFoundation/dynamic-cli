@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import webbrowser
-from termcolor import colored
+from clint.textui import colored
 import sys as sys
 
 from .error import SearchError
@@ -14,7 +14,7 @@ class Prompt():
         self.message = message
 
     def prompt(self):
-        print(colored(f"{self.message} : ", 'cyan'), end='')
+        print(colored.cyan(f"{self.message} : "), end='')
         data = input()
         if data == "":
             SearchError("Input data empty", "Please try again ")
@@ -67,5 +67,4 @@ class Search():
             if save:
                 filename = SaveSearchResults(data)
                 print(
-                    colored(f"Answers successfully saved into {filename}",
-                            "green"))
+                    colored.green(f"Answers successfully saved into {filename}"))

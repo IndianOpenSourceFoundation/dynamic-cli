@@ -39,6 +39,15 @@ search_flag = Search(ARGV)
 
 if __name__ == "__main__":
     if ARGV.start:
-        print("add an introduction and emojis here")
+        print('''
+        \U0001F604 Hello and Welcome to Dynamic CLI 
+        \U0001F917 Use the following commands to get started 
+        \U0001F50E Search on StackOverflow with '-s' 
+        \U0001F4C4 Open browser to create new Stack Overflow question with '-n[title(optional)] 
+        \U0001F4C2 Save answer to a file with '-file'
+        \U00002728 Know the version of Dynamic CLI with '-V' 
+        \U0001F609 See this message again with '-start'
+        \U00002755 Get help with '-h'
+        ''')
     else:
         search_flag.search_args()

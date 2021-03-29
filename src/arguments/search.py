@@ -65,7 +65,7 @@ class Search():
             data = self.utility_object.get_ans(questions)
             print('''
             \U0001F604 Hopefully you found what you were looking for! 
-            \U0001F4C2 You can save an answer to a file with '-file
+            \U0001F4C2 You can save an answer to a file with '-file'
 
             Not found what you were looking for \U00002754
             \U0001F4C4 Open browser and post your question on StackOverflow with '-n[title(optional)]

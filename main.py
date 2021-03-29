@@ -12,7 +12,7 @@ parser.add_argument("-start",
 
 parser.add_argument("-s",
                     "--search",
-                    help="enable debug mode",
+                    help="search a question on StackOverflow",
                     action="store_true")
 
 parser.add_argument("-V",
@@ -23,7 +23,7 @@ parser.add_argument("-V",
 parser.add_argument(
     "-n",
     "--new",
-    help="Opens browser to create new Stack Overflow question.",
+    help="Opens browser to create new StackOverflow question.",
     const=True,
     metavar="title (optional)",
     nargs="?")

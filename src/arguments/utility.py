@@ -33,7 +33,7 @@ class Utility():
         try:
             resp = requests.get(self.__get_search_url(que, tag))
         except:
-            SearchError("Search Failed", "Try connecting to the internet")
+            SearchError("\U0001F613 Search Failed", "\U0001F4BB Try connecting to the internet")
             sys.exit()
         return resp.json()
 
@@ -52,7 +52,7 @@ class Utility():
                     f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
                 )
             except:
-                SearchError("Search Failed", "Try connecting to the internet")
+                SearchError("\U0001F613 Search Failed", "\U0001F4BB Try connecting to the internet")
                 sys.exit()
             json_ans_data = resp.json()
 
@@ -61,7 +61,7 @@ class Utility():
                     colored(
                         "--------------------------------------------------------",
                         'red'), data["body_markdown"],
-                    f"Link to the answer:{data['link']}"
+                    f"\U0001F517 Link to the answer:{data['link']}"
                 ]
 
                 for output_index, output_text in enumerate(output_content):

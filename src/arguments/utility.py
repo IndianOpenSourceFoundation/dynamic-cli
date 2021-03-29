@@ -29,7 +29,7 @@ class Utility():
         :return: Json response from the api call.
         :rtype: Json format data
         """
-        print("Searching for the answer")
+        print("\U0001F50E Searching for the answer")
         try:
             resp = requests.get(self.__get_search_url(que, tag))
         except:

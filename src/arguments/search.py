@@ -47,7 +47,7 @@ class Search():
         # ask quesiton
         for each_query in queries:
             # Be careful if there are
-            # KeyBpard Interupts or EOErrors
+            # KeyBoard Interrupts or EOErrors
             try:
                 prompt = Prompt(str(each_query)).prompt()
             except:
@@ -68,7 +68,7 @@ class Search():
             \U0001F4C2 You can save an answer to a file with '-file'
 
             Not found what you were looking for \U00002754
-            \U0001F4C4 Open browser and post your question on StackOverflow with '-n [title (oprional)]'
+            \U0001F4C4 Open browser and post your question on StackOverflow with '-n [title (optional)]'
             
             \U0001F50E To search more use '-s'
             ''')

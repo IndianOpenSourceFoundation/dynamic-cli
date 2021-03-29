@@ -17,7 +17,7 @@ class Prompt():
         print(colored(f"{self.message} : ", 'cyan'), end='')
         data = input()
         if data == "":
-            SearchError("Input data empty", "Please try again ")
+            SearchError("\U0001F613 Input data empty", "\U0001F504 Please try again ")
             sys.exit()
         else:
             return str(data)
@@ -60,7 +60,7 @@ class Search():
         questions = self.utility_object.get_que(json_output)
         if questions == []:
             # evoke an error
-            search_error = SearchError("No answer found", "Please try reddit")
+            search_error = SearchError("\U0001F613 No answer found", "\U0001F604 Please try reddit")
         else:
             data = self.utility_object.get_ans(questions)
             print('''
@@ -76,5 +76,5 @@ class Search():
             if save:
                 filename = SaveSearchResults(data)
                 print(
-                    colored(f"Answers successfully saved into {filename}",
+                    colored(f"\U0001F604 Answers successfully saved into {filename}",
                             "green"))

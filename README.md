@@ -98,7 +98,7 @@ git push
 
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
 
-## Contributors👨🏽‍💻👩🏽‍💻
+## Contributors👨🏽‍💻
 
 ### Credit goes to these people:✨
 

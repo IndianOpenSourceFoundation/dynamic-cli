@@ -40,7 +40,7 @@ A Modern, user-friendly command-line HTTP client for the API testing, and if you
 
 Options: <br>
 
-`-start -> Introduces Dynamic CLI` <br>
+`-st, --start -> Introduces Dynamic CLI` <br>
 `-v, --version -> Gives the Version of the CLI` <br>
 `-s, --search -> Search a question on Stackoverflow` <br>
 `-d, --debug -> Turn on Debugging mode` <br>
@@ -69,6 +69,14 @@ cd dynamic-cli
 ```
 
 **4.** Make changes in source code.
+<br />
+P.S. If you want to add emojis 😁, use `unicodes`.
+Emoji `unicodes` can be found at [https://unicode.org/emoji/charts/full-emoji-list.html](https://unicode.org/emoji/charts/full-emoji-list.html)
+<br />
+To include an emoji in a string, copy the unicode (Eg: `U+1F600`), replace `+` with `000` and
+prefix it with a `\`.
+<br />
+Eg: `\U0001F604`
 
 **5.** Stage your changes and commit
 

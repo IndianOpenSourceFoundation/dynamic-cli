@@ -6,8 +6,8 @@ from src.arguments.search import Search
 version = "0.1"
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-st", 
-                    "--start", 
+parser.add_argument("-st",
+                    "--start",
                     help="introduce you to dynamic",
                     action="store_true")
 

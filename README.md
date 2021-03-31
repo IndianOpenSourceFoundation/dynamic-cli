@@ -98,6 +98,13 @@ git push
 
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
 
+## Dynamic CLI is a part of these open source programs:
+
+<p align="center">
+ <a>
+ <img  width="70%" height="30%" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">
+
+
 ## Contributors:
 
 ### Credit goes to these people:✨

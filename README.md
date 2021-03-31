@@ -98,7 +98,7 @@ git push
 
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
 
-## Dynamic CLI is a part of these open source programs:
+# Dynamic CLI is a part of these open source programs
 
 <p align="center">
  <a>

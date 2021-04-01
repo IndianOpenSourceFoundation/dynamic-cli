@@ -1,16 +1,17 @@
 import requests as requests
 from termcolor import colored
-import sys as sys
 import webbrowser as webbrowser
 
 from .error import SearchError
 
 class UpdateApplication(object):
     def __init__(self, current_version):
+        """
+        Check for updates in the application
+        via github releases API
+        """
         self.current_version = current_version
-        self.release_api_url = "https://api.github.com/repos/IndianOpenSourceFoundation/dynamic-cli/releases/latest"
-
-        self.check_for_updates()
+        self.release_api_url = "https://api.github.com/repos/IndianOpenSourceFoundation/dynamic-cli/releases/latest
 
     def check_for_updates(self):
         try:
@@ -30,3 +31,5 @@ class UpdateApplication(object):
             
         except Exception as exception:
             exception = SearchError(str(exception), "Try later")
+
+    

@@ -42,6 +42,7 @@ class Search():
                 webbrowser.open(url)
         elif self.arguments.update:
             update = UpdateApplication(version)
+            update.check_for_updates()
 
     def search_for_results(self, save=False):
         queries = ["What do you want to search", "Tags"]

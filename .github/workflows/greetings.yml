@@ -1,13 +1,13 @@
 name: Greetings
 
-on: [pull_request, issues]
+on: [pull_request_target, issues]
 
 jobs:
   greeting:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/first-interaction@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: 'Thank you for submitting an issue to IOSF. Someone will address it soon , first issue'
-        pr-message: 'Thank you for submitting a PR to IOSF. Someone will review it soon. Happy Coding :tada: first pr'
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: "Hi👋 thanks for creating your first issue for IOSF, Will get back to you soon !. "
+          pr-message: "🎉Congratulations!!🎉 for making your first PR , our mentors will review it soon."

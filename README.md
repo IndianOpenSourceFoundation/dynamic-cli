@@ -1,6 +1,6 @@
 ![dynamic-cli](https://socialify.git.ci/IndianOpenSourceFoundation/dynamic-cli/image?description=1&descriptionEditable=A%20Modern%2C%20user-friendly%20command-line%20%20for%20the%20API%20testing%2C%20and%20if%20you%27re%20stuck%20-%20Search%20and%20browse%20StackOverflow%20without%20leaving%20the%20CLI&font=Inter&forks=1&issues=1&language=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Light)
 
-## Setup
+## Setup📦
 
 **1.** Installing pip [Python Package Manager]
 
@@ -26,13 +26,13 @@ $ pip3 install -r requirements.txt
 $ pip3 install -e .
 ```
 
-## Usage
+## Usage🛠
 
 Dynamic CLI allows users to search for keywords/issues with some relevant tags.
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/49693160/111326116-4bcceb00-8692-11eb-9d3a-51350a006d34.gif)
 
-## Arguments
+## Arguments⚙
 
 Usage: Dynamic [OPTIONS] <br>
 
@@ -46,7 +46,7 @@ Options: <br>
 `-d, --debug -> Turn on Debugging mode` <br>
 `-h, --help -> Shows this message and exit` <br>
 
-## License
+## License🗄
 
 ### Contributing
 
@@ -98,7 +98,7 @@ git push
 
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
 
-## Contributors:
+## Contributors👨🏽‍💻
 
 ### Credit goes to these people:✨
 

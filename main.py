@@ -21,6 +21,7 @@ parser.add_argument("-V",
                     version=f"Dynamic-CLI version {version}",
                     action='version')
 
+
 parser.add_argument(
     "-n",
     "--new",
@@ -32,6 +33,11 @@ parser.add_argument(
 parser.add_argument("-file",
                     "--file",
                     help="Save answer to a file",
+                    action="store_true")
+
+parser.add_argument("-u",
+                    "--update",
+                    help="Check updates for the application",
                     action="store_true")
 
 ARGV = parser.parse_args()

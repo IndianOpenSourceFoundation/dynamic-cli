@@ -3,7 +3,8 @@
 import argparse
 from src.arguments.search import Search
 
-version = "0.1"
+
+version = "0.1.0"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-st",

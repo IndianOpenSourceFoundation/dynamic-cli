@@ -1,6 +1,7 @@
 import requests as requests
 from termcolor import colored
 import sys as sys
+import webbrowser as webbrowser
 
 from .error import SearchError
 
@@ -21,10 +22,11 @@ class UpdateApplication(object):
                     print(colored("The application do not have any release", "yellow"))
                     return None
 
-            if data.tag_name == self.current_version:
+            if data["tag_name"] == self.current_version:
                 print(colored("Yeah! You have the latest version", "green"))
             else:
                 print(colored(f"New release found - {data.tag_name}", "red"))
+                webbrowser.open(data["html_url"])
             
         except Exception as exception:
             exception = SearchError(str(exception), "Try later")

@@ -65,7 +65,8 @@ class Utility():
         # the parent url
         self.search_content_url = "https://api.stackexchange.com/"
 
-    def clear(self):
+    @classmethod
+    def clear(cls):
         """Clear the screen based on the operating system."""
         if name == 'nt':
             _ = system('cls')

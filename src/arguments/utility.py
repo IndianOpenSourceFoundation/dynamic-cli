@@ -144,7 +144,7 @@ class Utility():
                     if text is markdown , render the markdown
                     """
 
-                              
+
                     if output_index == len(output_content) - 1:
                         console.print('\n'+output_content[0])
 

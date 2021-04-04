@@ -65,14 +65,9 @@ class Utility():
         # the parent url
         self.search_content_url = "https://api.stackexchange.com/"
 
-    def clear(self):    # function to clear Screen
-        # for windows 
-        if name == 'nt': 
-            _ = system('cls') 
-      
-        # for mac and linux(here, os.name is 'posix') 
-        else: 
-            _ = system('clear') 
+    def clear(self):
+    """ Clear the screen based on the operating system """
+    _ = system("cls") if os.name == "nt" else system("clear")
 
     def __get_search_url(self, question, tags):
         return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&title={question}&site=stackoverflow"
@@ -155,31 +150,21 @@ class Utility():
                         console.print(output_content[0])
                         break
 
-
                     if output_index == len(output_content) - 2:
                         renderer = MarkdownRenderer(output_text)
 
                         continue
 
 
-
                 while True:         #loop that makes navigation through keyboard possible
-
                     if is_pressed('down'):
                         if(i != len(answers)-1):
                             i = i + 1
                             break
-                            
-
                     if is_pressed('up'):
                         if(i != 0):
                             i = i - 1
                             break
-                            
-
                     if is_pressed('esc'):
                         run = False
                         break
-                        
-
-                    #console.print(output_text)

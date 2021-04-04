@@ -131,7 +131,6 @@ class Utility():
 
                 data = answers[i]
 
-                
                 output_content = [colored("--------------------------------------------------------",'red'), data["body_markdown"],f"Link to the answer : {data['link']}"]
 
                 console.print('\n'+output_content[0]+'\n')

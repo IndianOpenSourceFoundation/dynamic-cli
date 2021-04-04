@@ -66,7 +66,7 @@ class Utility():
         self.search_content_url = "https://api.stackexchange.com/"
 
     def clear(self):
-        """Clear the screen based on the operating system"""
+        """Clear the screen based on the operating system."""
         if name == 'nt':
             _ = system('cls')
         else:
@@ -114,7 +114,7 @@ class Utility():
             json_ans_data = resp.json()
 
             answers = json_ans_data["items"]
-            
+
 
             #loop that handles each Answers
 

@@ -66,8 +66,8 @@ class Utility():
         self.search_content_url = "https://api.stackexchange.com/"
 
     def clear(self):
-    """ Clear the screen based on the operating system """
-    _ = system("cls") if os.name == "nt" else system("clear")
+        """ Clear the screen based on the operating system """
+        _ = system("cls") if os.name == "nt" else system("clear")
 
     def __get_search_url(self, question, tags):
         return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&title={question}&site=stackoverflow"

@@ -34,6 +34,11 @@ parser.add_argument("-file",
                     help="Save answer to a file",
                     action="store_true")
 
+parser.add_argument("-c",
+                    "--custom",
+                    help="Set a custom API key",
+                    action="store_true")
+
 ARGV = parser.parse_args()
 
 search_flag = Search(ARGV)

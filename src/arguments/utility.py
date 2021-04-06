@@ -94,13 +94,14 @@ class Utility():
         return ans
 
     # Get an access token and extract to a JSON file "access_token.json"
+    @classmethod
     def setCustomKey(self):
         client_id = 20013
 
         # scopes possible values:
         # read_inbox - access a user's global inbox
         # no_expiry - access_token's with this scope do not expire
-        # write_access - perform write operations as a user 
+        # write_access - perform write operations as a user
         # private_info - access full history of a user's private actions on the site
         scopes = 'read_inbox'
 
@@ -121,7 +122,7 @@ class Utility():
         jsonDict = {
             "access_token": accessTokenData['access_token'],
             "expires": accessTokenData['expires'],
-            "state": accessTokenData['state']
+            "state": state
         }
 
         with open('access_token.json', 'w') as jsonFile:

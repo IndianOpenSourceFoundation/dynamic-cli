@@ -117,7 +117,7 @@ class Utility():
         callback_url = input("Paste URL after authenticating here: ")
         accessTokenData = stackApps.token_from_fragment(callback_url)
 
-        # Store the access token data in a JSON file
+        # Store the access token data in a dictionary
         jsonDict = {
             "access_token": accessTokenData['access_token'],
             "expires": accessTokenData['expires'],

@@ -13,6 +13,17 @@ import webbrowser
 from oauthlib.oauth2 import MobileApplicationClient
 from requests_oauthlib import OAuth2Session
 
+# Required for Selenium script and for web_driver_manager
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
 console = Console()
 
 
@@ -111,11 +122,36 @@ class Utility():
         # Create an OAuth session and open the auth_url in a browser for the user to authenticate
         stackApps = OAuth2Session(client=MobileApplicationClient(client_id=client_id), scope=scopes, redirect_uri=redirect_uri)
         auth_url, state = stackApps.authorization_url(authorization_url)
-        print(f"Visit this page in your browser: {auth_url}")
-        webbrowser.open(auth_url)
 
-        # Extract the access token data and save to a variable
-        callback_url = input("Paste URL after authenticating here: ")
+        # Try to install web drivers for one of these browsers
+        # Chrome, Firefox, Edge (One of them must be installed)
+        try:
+            driver = webdriver.Chrome(ChromeDriverManager().install())
+        except ValueError:
+            try:
+                driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+            except ValueError:
+                try:
+                    driver = webdriver.Edge(EdgeChromiumDriverManager().install())
+                except ValueError:
+                    print("You do not have one of these supported browsers: Chrome, Firefox, Edge")
+
+        # Open auth_url in one of the supported browsers
+        driver.get(auth_url)
+
+        # Close the window after 20s (Assuming that the user logs in within 30 seconds)
+        time.sleep(30)
+        
+        # Close the windows as soon as authorization is done
+        try:
+            element = WebDriverWait(driver, 1).until(
+                EC.presence_of_element_located((By.TAG_NAME, "h2"))
+            )
+            callback_url = driver.current_url
+        finally:
+            driver.quit()
+        
+        # Extract access token data from callback_url
         accessTokenData = stackApps.token_from_fragment(callback_url)
 
         # Store the access token data in a dictionary

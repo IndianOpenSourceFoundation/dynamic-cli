@@ -7,8 +7,9 @@ import sys as sys
 from .error import SearchError
 from .utility import Utility
 from .save import SaveSearchResults
+from .update import UpdateApplication
 
-
+version = "0.1.0"
 class Prompt():
     def __init__(self, message):
         self.message = message
@@ -39,6 +40,9 @@ class Search():
                 webbrowser.open(f"{url}?title={self.arguments.new}")
             else:
                 webbrowser.open(url)
+        elif self.arguments.update:
+            update = UpdateApplication(version)
+            update.check_for_updates()
 
     def search_for_results(self, save=False):
         queries = ["What do you want to search", "Tags"]

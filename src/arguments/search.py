@@ -40,14 +40,11 @@ class Search():
                 webbrowser.open(f"{url}?title={self.arguments.new}")
             else:
                 webbrowser.open(url)
-<<<<<<< HEAD
         elif self.arguments.custom:
             self.utility_object.setCustomKey()
-=======
         elif self.arguments.update:
             update = UpdateApplication(version)
             update.check_for_updates()
->>>>>>> 8953712129b15eb66ca2240c2e01e01e3bcfd7ee
 
     def search_for_results(self, save=False):
         queries = ["What do you want to search", "Tags"]

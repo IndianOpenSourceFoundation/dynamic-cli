@@ -148,7 +148,7 @@ class Utility():
             callback_url = driver.current_url
         finally:
             driver.quit()
-        
+
         # Extract access token data from callback_url
         accessTokenData = stackApps.token_from_fragment(callback_url)
 

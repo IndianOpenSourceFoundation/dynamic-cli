@@ -140,7 +140,6 @@ class Utility():
 
         # Close the window after 20s (Assuming that the user logs in within 30 seconds)
         time.sleep(30)
-        
         # Close the windows as soon as authorization is done
         try:
             WebDriverWait(driver, 1).until(

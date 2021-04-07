@@ -9,7 +9,6 @@ from .markdown import MarkdownRenderer
 
 # Required for OAuth
 import json
-import webbrowser
 from oauthlib.oauth2 import MobileApplicationClient
 from requests_oauthlib import OAuth2Session
 
@@ -144,7 +143,7 @@ class Utility():
         
         # Close the windows as soon as authorization is done
         try:
-            element = WebDriverWait(driver, 1).until(
+            WebDriverWait(driver, 1).until(
                 EC.presence_of_element_located((By.TAG_NAME, "h2"))
             )
             callback_url = driver.current_url

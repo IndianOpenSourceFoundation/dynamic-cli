@@ -3,7 +3,8 @@
 import argparse
 from src.arguments.search import Search
 
-version = "0.1"
+
+version = "0.1.0"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-st",
@@ -21,6 +22,7 @@ parser.add_argument("-V",
                     version=f"Dynamic-CLI version {version}",
                     action='version')
 
+
 parser.add_argument(
     "-n",
     "--new",
@@ -37,6 +39,11 @@ parser.add_argument("-file",
 parser.add_argument("-c",
                     "--custom",
                     help="Set a custom API key",
+                    action="store_true")
+
+parser.add_argument("-u",
+                    "--update",
+                    help="Check updates for the application",
                     action="store_true")
 
 ARGV = parser.parse_args()

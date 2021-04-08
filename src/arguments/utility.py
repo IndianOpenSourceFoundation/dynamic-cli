@@ -3,7 +3,7 @@ import html
 from termcolor import colored
 from rich.console import Console
 from rich.markdown import Markdown
-import sys as sys
+import sys
 from keyboard import is_pressed
 from os import system, name
 

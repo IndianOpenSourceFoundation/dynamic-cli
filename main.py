@@ -36,6 +36,11 @@ parser.add_argument("-file",
                     help="Save answer to a file",
                     action="store_true")
 
+parser.add_argument("-c",
+                    "--custom",
+                    help="Set a custom API key",
+                    action="store_true")
+
 parser.add_argument("-u",
                     "--update",
                     help="Check updates for the application",

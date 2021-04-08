@@ -7,6 +7,22 @@ from .error import SearchError
 from .save import SaveSearchResults
 from .markdown import MarkdownRenderer
 
+# Required for OAuth
+import json
+from oauthlib.oauth2 import MobileApplicationClient
+from requests_oauthlib import OAuth2Session
+
+# Required for Selenium script and for web_driver_manager
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
 console = Console()
 
 
@@ -86,3 +102,62 @@ class Utility():
                     console.print(output_text)
             ans.append(json_ans_data["items"])
         return ans
+
+    # Get an access token and extract to a JSON file "access_token.json"
+    @classmethod
+    def setCustomKey(self):
+        client_id = 20013
+
+        # scopes possible values:
+        # read_inbox - access a user's global inbox
+        # no_expiry - access_token's with this scope do not expire
+        # write_access - perform write operations as a user
+        # private_info - access full history of a user's private actions on the site
+        scopes = 'read_inbox'
+
+        authorization_url = 'https://stackoverflow.com/oauth/dialog'
+        redirect_uri = 'https://stackexchange.com/oauth/login_success'
+
+        # Create an OAuth session and open the auth_url in a browser for the user to authenticate
+        stackApps = OAuth2Session(client=MobileApplicationClient(client_id=client_id), scope=scopes, redirect_uri=redirect_uri)
+        auth_url, state = stackApps.authorization_url(authorization_url)
+
+        # Try to install web drivers for one of these browsers
+        # Chrome, Firefox, Edge (One of them must be installed)
+        try:
+            driver = webdriver.Chrome(ChromeDriverManager().install())
+        except ValueError:
+            try:
+                driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+            except ValueError:
+                try:
+                    driver = webdriver.Edge(EdgeChromiumDriverManager().install())
+                except ValueError:
+                    print("You do not have one of these supported browsers: Chrome, Firefox, Edge")
+
+        # Open auth_url in one of the supported browsers
+        driver.get(auth_url)
+
+        # Close the window after 20s (Assuming that the user logs in within 30 seconds)
+        time.sleep(30)
+        # Close the windows as soon as authorization is done
+        try:
+            WebDriverWait(driver, 1).until(
+                EC.presence_of_element_located((By.TAG_NAME, "h2"))
+            )
+            callback_url = driver.current_url
+        finally:
+            driver.quit()
+
+        # Extract access token data from callback_url
+        accessTokenData = stackApps.token_from_fragment(callback_url)
+
+        # Store the access token data in a dictionary
+        jsonDict = {
+            "access_token": accessTokenData['access_token'],
+            "expires": accessTokenData['expires'],
+            "state": state
+        }
+
+        with open('access_token.json', 'w') as jsonFile:
+            json.dump(jsonDict, jsonFile)

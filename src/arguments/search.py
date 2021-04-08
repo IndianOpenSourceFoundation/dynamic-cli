@@ -40,6 +40,8 @@ class Search():
                 webbrowser.open(f"{url}?title={self.arguments.new}")
             else:
                 webbrowser.open(url)
+        elif self.arguments.custom:
+            self.utility_object.setCustomKey()
         elif self.arguments.update:
             update = UpdateApplication(version)
             update.check_for_updates()

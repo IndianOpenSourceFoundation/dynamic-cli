@@ -44,6 +44,7 @@ Options: <br>
 `-v, --version -> Gives the Version of the CLI` <br>
 `-s, --search -> Search a question on Stackoverflow` <br>
 `-d, --debug -> Turn on Debugging mode` <br>
+`-c, --custom -> Setup a custom API key` <br>
 `-h, --help -> Shows this message and exit` <br>
 
 ## License🗄

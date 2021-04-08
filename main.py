@@ -17,7 +17,7 @@ parser.add_argument("-s",
                     help="search a question on StackOverflow",
                     action="store_true")
 
-parser.add_argument("-V",
+parser.add_argument("-V","-v",
                     "--version",
                     version=f"Dynamic-CLI version {version}",
                     action='version')
@@ -49,13 +49,13 @@ if __name__ == "__main__":
     if ARGV.start:
         print('''
         \U0001F604 Hello and Welcome to Dynamic CLI 
-        \U0001F917 Use the following commands to get started 
-        \U0001F50E Search on StackOverflow with '-s' 
-        \U0001F4C4 Open browser to create new Stack Overflow question with '-n [title(optional)]' 
-        \U0001F4C2 Save answer to a file with '-file'
-        \U00002728 Know the version of Dynamic CLI with '-V' 
-        \U0001F609 See this message again with '-st'
-        \U00002755 Get help with '-h'
+        Use the following commands to get started 
+        \U0001F50E to search StackOverflow, type  'dynamic -s' 
+        \U0001F4C4 to create a new StackOverflow question in the Website, type 'dynamic -n [title(optional)]' 
+        \U0001F4C2 to save answer inside a file, type 'dynamic -file'
+        \U00002728 to know the Version, type 'dynamic -V' or 'dynamic -v' 
+        \U0001F609 to restart, type 'dynamic -st'
+        \U00002755 to get help, type 'dynamic -h'
         ''')
     else:
         search_flag.search_args()

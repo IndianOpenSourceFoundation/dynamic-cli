@@ -8,7 +8,7 @@ from .error import SearchError
 from .utility import Utility
 from .save import SaveSearchResults
 from .update import UpdateApplication
-from .api_test import Api_Testing
+from .api_test import ApiTesting
 
 version = "0.1.0"
 class Prompt():
@@ -29,7 +29,7 @@ class Search():
     def __init__(self, arguments):
         self.arguments = arguments
         self.utility_object = Utility()
-        self.api_test_object = Api_Testing()
+        self.api_test_object = ApiTesting()
 
     def search_args(self):
         if self.arguments.search:

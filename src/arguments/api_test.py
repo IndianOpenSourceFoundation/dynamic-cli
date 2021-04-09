@@ -1,19 +1,18 @@
 import requests, json
-import re
 
-class Api_Testing():
+class ApiTesting():
     default_url = "127.0.0.1:8000"
 
     # Make GET request
     @classmethod
-    def get_request(self):
-        request_url = Api_Testing.default_url
+    def get_request(cls):
+        request_url = ApiTesting.default_url
         input_url = input('Enter URL: ')
         if input_url != '':
             request_url = input_url
 
         # Check whether the request_url has an endpoint or not
-        has_endpoint = self.check_endpoint(request_url)
+        has_endpoint = ApiTesting.check_endpoint(request_url)
 
         # Ask the user for endpoint if not present in request_url
         if not(has_endpoint):

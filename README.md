@@ -46,6 +46,7 @@ Options: <br>
 `-d, --debug -> Turn on Debugging mode` <br>
 `-c, --custom -> Setup a custom API key` <br>
 `-h, --help -> Shows this message and exit` <br>
+`-GET -> Make a GET request to an API` <br>
 
 ## License🗄
 

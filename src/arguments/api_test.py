@@ -1,4 +1,5 @@
 import requests, json
+from pygments import highlight, lexers, formatters
 
 class ApiTesting():
     default_url = "127.0.0.1:8000"
@@ -28,10 +29,17 @@ class ApiTesting():
         try:
             response = requests.get(request_url)
             print(f"Reponse Status Code: {response.status_code}")
-            print("Response data stored in response_data.json")
-            parsed = json.loads(response.content)
-            with open('response_data.json', 'w') as jsonFile:
-                json.dump(parsed, jsonFile, indent=4)
+            response_data = json.loads(response.content)
+            parsed_json = json.dumps(response_data, indent=4)
+            output_json = highlight(parsed_json, lexers.JsonLexer(), formatters.TerminalFormatter())
+            print(output_json)
+
+            store_data = input('Store response data? (Y/N): ')
+            if(store_data == 'Y' or store_data == 'y'):
+                with open('response_data.json', 'w') as jsonFile:
+                    json.dump(response_data, jsonFile, indent=4)
+                print("Response data stored in response_data.json")
+
         except requests.exceptions.InvalidSchema:
             print("Check whether the URL is valid or check if the localhost server is active or not")
         except Exception as e:

@@ -2,18 +2,24 @@ import requests, json
 from pygments import highlight, lexers, formatters
 
 class ApiTesting():
-    default_url = "127.0.0.1:8000"
+    default_url = "https://127.0.0.1:8000"
 
     # Make GET request
     @classmethod
-    def get_request(cls):
-        request_url = ApiTesting.default_url
+    def get_request(self):
+        request_url = self.default_url
         input_url = input('Enter URL: ')
         if input_url != '':
             request_url = input_url
 
         # Check whether the request_url has an endpoint or not
-        has_endpoint = ApiTesting.check_endpoint(request_url)
+        has_endpoint = self.__check_endpoint(request_url)
+
+        # Check if http:// or https:// is present in request_url
+        has_protocol = self.__check_protocol(request_url)
+
+        if not(has_protocol):
+            request_url = "https://" + request_url
 
         # Ask the user for endpoint if not present in request_url
         if not(has_endpoint):
@@ -45,25 +51,16 @@ class ApiTesting():
         except Exception as e:
             print(e)
 
-    # This method works by first checking whether the url is a localhost url
-    # If it is, the length of the substring after ':' (Example, 127.0.0.1:8000) is checked
-    # The length should be less than 6 as either 8000 or 8000/ can be possible (No endpoint)
-    # If the url is not a localhost url
-    # The length of the substring after '.' is checked
-    # The length should be less than 5 (Example: com/, com, io/, io) (For no endpoint)
-    def check_endpoint(url):
-        check_string = url
-        is_localhost_url = False
-
-        if(len(check_string.split(":")[-1]) <= 5):
-            is_localhost_url = True
-
-        if(is_localhost_url):
-            check_string = check_string.split(':')[-1]
-        else:
-            check_string = check_string.split('.')[-1]
-
-        if(len(check_string) <= 5):
+    @classmethod
+    def __check_endpoint(self, request_url):
+        if(request_url == self.default_url):
             return False
         else:
             return True
+
+    @classmethod
+    def __check_protocol(self, request_url):
+        if(request_url[:4] == 'http'):
+            return True
+        else:
+            return False

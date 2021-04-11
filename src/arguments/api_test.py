@@ -6,17 +6,17 @@ class ApiTesting():
 
     # Make GET request
     @classmethod
-    def get_request(self):
-        request_url = self.default_url
+    def get_request(cls):
+        request_url = cls.default_url
         input_url = input('Enter URL: ')
         if input_url != '':
             request_url = input_url
 
         # Check whether the request_url has an endpoint or not
-        has_endpoint = self.__check_endpoint(request_url)
+        has_endpoint = cls.__check_endpoint(request_url)
 
         # Check if http:// or https:// is present in request_url
-        has_protocol = self.__check_protocol(request_url)
+        has_protocol = cls.__check_protocol(request_url)
 
         if not(has_protocol):
             request_url = "https://" + request_url
@@ -52,14 +52,14 @@ class ApiTesting():
             print(e)
 
     @classmethod
-    def __check_endpoint(self, request_url):
-        if(request_url == self.default_url):
+    def __check_endpoint(cls, request_url):
+        if(request_url == cls.default_url):
             return False
         else:
             return True
 
     @classmethod
-    def __check_protocol(self, request_url):
+    def __check_protocol(cls, request_url):
         if(request_url[:4] == 'http'):
             return True
         else:

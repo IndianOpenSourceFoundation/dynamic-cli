@@ -8,6 +8,7 @@ from .error import SearchError
 from .utility import Utility
 from .save import SaveSearchResults
 from .update import UpdateApplication
+from .api_test import ApiTesting
 
 version = "0.1.0"
 class Prompt():
@@ -28,6 +29,7 @@ class Search():
     def __init__(self, arguments):
         self.arguments = arguments
         self.utility_object = Utility()
+        self.api_test_object = ApiTesting()
 
     def search_args(self):
         if self.arguments.search:
@@ -45,6 +47,8 @@ class Search():
         elif self.arguments.update:
             update = UpdateApplication(version)
             update.check_for_updates()
+        elif self.arguments.GET:
+            self.api_test_object.get_request()
 
     def search_for_results(self, save=False):
         queries = ["What do you want to search", "Tags"]

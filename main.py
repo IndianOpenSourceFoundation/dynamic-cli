@@ -46,6 +46,10 @@ parser.add_argument("-u",
                     help="Check updates for the application",
                     action="store_true")
 
+parser.add_argument("-GET",
+                    help="Make a GET request to an API",
+                    action='store_true')
+
 ARGV = parser.parse_args()
 
 search_flag = Search(ARGV)

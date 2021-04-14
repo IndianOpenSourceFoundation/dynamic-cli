@@ -59,6 +59,11 @@ class Utility():
         return resp.json()
 
     def get_que(self, json_data):
+        """
+        This function returns the list of ids of the questions 
+        that have been answered, from the response that we get 
+        from the make_request function.
+        """
         que_id = []
         for data in json_data['items']:
             if data["is_answered"]:

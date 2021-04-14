@@ -34,7 +34,7 @@ class Utility():
     def __get_search_url(self, question, tags):
         """
         This function returns the url that contains all the custom
-        data provided by the user such as tags and question, which 
+        data provided by the user such as tags and question, which
         can finally be used to get answers
         """
         return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&title={question}&site=stackoverflow"
@@ -60,8 +60,8 @@ class Utility():
 
     def get_que(self, json_data):
         """
-        This function returns the list of ids of the questions 
-        that have been answered, from the response that we get 
+        This function returns the list of ids of the questions
+        that have been answered, from the response that we get
         from the make_request function.
         """
         que_id = []
@@ -72,14 +72,14 @@ class Utility():
 
     def get_ans(self, questions_list):
         """
-        This function prints the answer to the queries 
-        (question and tags) provided by the user. It does so 
+        This function prints the answer to the queries
+        (question and tags) provided by the user. It does so
         in the following manner :
         
-        1) Takes in account only th first question id from the 
+        1) Takes in account only th first question id from the
         list of question ids
         
-        2) Tries to get a response from the url obtained by appending 
+        2) Tries to get a response from the url obtained by appending
         question id to the search_content_url variable
         
         3) Use the data received from the above request and loop

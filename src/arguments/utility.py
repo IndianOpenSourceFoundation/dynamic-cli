@@ -32,6 +32,11 @@ class Utility():
         self.search_content_url = "https://api.stackexchange.com/"
 
     def __get_search_url(self, question, tags):
+        """
+        This function returns the url that contains all the custom
+        data provided by the user such as tags and question, which 
+        can finally be used to get answers
+        """
         return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&title={question}&site=stackoverflow"
 
     def make_request(self, que, tag: str):

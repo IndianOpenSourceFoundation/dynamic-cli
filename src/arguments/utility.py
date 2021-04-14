@@ -75,15 +75,15 @@ class Utility():
         This function prints the answer to the queries
         (question and tags) provided by the user. It does so
         in the following manner :
-        
+
         1) Takes in account only th first question id from the
         list of question ids
-        
+
         2) Tries to get a response from the url obtained by appending
         question id to the search_content_url variable
-        
+
         3) Use the data received from the above request and loop
-        through it to print the answer 
+        through it to print the answer
         """
         ans = []
         for questions in range(1):
@@ -107,7 +107,7 @@ class Utility():
                 for output_index, output_text in enumerate(output_content):
                     """
                     Loop through the output_text and print the element
-                    if it the last one, the text[0] is printed
+                    if it is the last one, the text[0] is printed
                     along with text[-1]
 
                     if text is markdown , render the markdown

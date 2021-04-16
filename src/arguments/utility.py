@@ -96,7 +96,7 @@ class Utility():
             SearchError("Search Failed", "Try connecting to the internet")
             sys.exit()
         json_ques_data = resp.json()
-        """ 
+        """
         Store the received questions data into the following data format:
         list(  list( question_title, question_link, question_id )  )
         """
@@ -163,7 +163,7 @@ class Utility():
 
             console.rule("[bold blue]", style="bold red", align="right")
             # Asks the user for next question number. Makes it the active question and loop restarts
-            while True:                           
+            while True:
                 posx = int(input("Enter the question number you want to view (Press 0 to quit): ")) - 1
                 if (posx == -1):
                     return

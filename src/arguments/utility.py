@@ -89,8 +89,7 @@ class Utility():
         batch_ques_id = ""
         for question_id in questions_list:
             batch_ques_id += str(question_id) + ";"
-        print(batch_ques_id)
-
+            
         try:
             resp = requests.get(
                 f"{self.search_content_url}/2.2/questions/{batch_ques_id[:-1]}?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"

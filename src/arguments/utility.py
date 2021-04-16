@@ -84,12 +84,10 @@ class Utility():
         4) The value of "question_posx" changes according to user input, displaying answer to different questions in "questions_data" list.
         3) The answers to the questions requested by the user are stored in cache for faster access time during subsequent calls.
         """
-        
-        """ Create batch request to get details of all the questions """
+        # Create batch request to get details of all the questions
         batch_ques_id = ""
         for question_id in questions_list:
             batch_ques_id += str(question_id) + ";"
-            
         try:
             resp = requests.get(
                 f"{self.search_content_url}/2.2/questions/{batch_ques_id[:-1]}?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
@@ -98,30 +96,36 @@ class Utility():
             SearchError("Search Failed", "Try connecting to the internet")
             sys.exit()
         json_ques_data = resp.json()
-
-        """ Store the received questions data into the following data format 
-            list(  list( question_title, question_link, question_id )  )
+        """ 
+        Store the received questions data into the following data format:
+        list(  list( question_title, question_link, question_id )  )
         """
         questions_data = [[item['title'], item['link'], item['question_id']] for item in json_ques_data["items"] ]
+        # Clear terminal
+        os.system('cls' if os.name == 'nt' else 'clear')
 
-        os.system('cls' if os.name == 'nt' else 'clear')            # Clear terminal
+        # cache array to store the requested answers. Format of storage { question_id:[answer_body, answer_link] }
+        downloaded_questions_cache = defaultdict(lambda: False)
 
-        downloaded_questions_cache = defaultdict(lambda: False)     # cache array to store the requested answers. Format of storage { question_id:[answer_body, answer_link] }
-        
-        question_posx = 0                                           # Stores the currently showing question index in questions_data
+        # Stores the currently showing question index in questions_data
+        question_posx = 0
+
         while True:
             os.system('cls' if os.name == 'nt' else 'clear')
-
+            # Printing all the questions. The active question is printed GREEN.
             console.rule('[bold blue] Relevant Questions', style="bold red")
-            for idx, question_data in enumerate(questions_data):                                                # Printing all the questions. The active question is printed GREEN.
+            for idx, question_data in enumerate(questions_data):
                 if question_posx == idx:
                     console.print("[green]{}. {}  |  {}".format(idx+1, question_data[0], question_data[1]))
                 else:
                     console.print("{}. {}  |  {}".format(idx+1, question_data[0], question_data[1]))
-
             console.rule("[bold blue] Answer of question {}".format(question_posx+1), style="bold red")
-            current_question_id = questions_data[question_posx][2]                                          # Gets the question_id of active question
-            if(downloaded_questions_cache[current_question_id]):                                            # Searches for the id in cache. If present then prints it
+
+            # Gets the question_id of active question
+            current_question_id = questions_data[question_posx][2]
+
+            # Searches for the id in cache. If present then prints it
+            if(downloaded_questions_cache[current_question_id]):
                 output_content = downloaded_questions_cache[current_question_id]
                 for output_index, output_text in enumerate(output_content):
                     """
@@ -140,9 +144,10 @@ class Utility():
                         continue
 
                     console.print(output_text)
-
-            else:                                                                                       # If the cache has no entry for the said question id, the downloads the answer 
-                try:                                                                                    # and makes an entry for it in the said format [Line 110] and restarts the loop.
+            # If the cache has no entry for the said question id, then downloads the answer
+            # and makes an entry for it in the said format [Line 110] and restarts the loop.
+            else:
+                try:
                     resp = requests.get(
                         f"{self.search_content_url}/2.2/questions/{current_question_id}/answers?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
                     )
@@ -157,9 +162,10 @@ class Utility():
                 continue
 
             console.rule("[bold blue]", style="bold red", align="right")
+            # Asks the user for next question number. Makes it the active question and loop restarts
             while True:                           
-                posx = int(input("Enter the question number you want to view (Press 0 to quit): ")) - 1     # Asks the user for next question number. Makes it the active question and loop restarts
-                if (posx == -1):                                                                            # Press 0 to exit
+                posx = int(input("Enter the question number you want to view (Press 0 to quit): ")) - 1
+                if (posx == -1):
                     return
                 elif (0<=posx<len(questions_data)):
                     question_posx = posx

@@ -77,10 +77,10 @@ class Utility():
         This function prints the answer to the queries
         (question and tags) provided by the user. It does so
         in the following manner :
-        1) Gets the details of all the relavant question and stores their title, link and id in "question_data" list.
+        1) Gets the details of all the relevant question and stores their title, link and id in "question_data" list.
         2) I have introduced the concept of active question, i.e. , the question whose answer is currently being displayed.
         3) The index of the active question in "question_data" array is stored in "question_posx"
-        2) By Default, shows the answer to the first question. Creates an breakable infinite loop asking the user asnwer to which question he wants to see.
+        2) By Default, shows the answer to the first question. Creates an breakable infinite loop asking the user answer to which question he wants to see.
         4) The value of "question_posx" changes according to user input, displaying answer to different questions in "questions_data" list.
         3) The answers to the questions requested by the user are stored in cache for faster access time during subsequent calls.
         """
@@ -145,7 +145,7 @@ class Utility():
 
                     console.print(output_text)
             # If the cache has no entry for the said question id, then downloads the answer
-            # and makes an entry for it in the said format and restarts the loop.
+            # and makes an for it entry in the cache array in the said format and restarts the loop.
             else:
                 try:
                     resp = requests.get(
@@ -162,7 +162,7 @@ class Utility():
                 continue
 
             console.rule("[bold blue]", style="bold red", align="right")
-            # Asks the user for next question number. Makes it the active question and loop restarts
+            # Asks the user for next question number. Makes it the active question and the loop restarts
             while True:
                 posx = int(input("Enter the question number you want to view (Press 0 to quit): ")) - 1
                 if (posx == -1):

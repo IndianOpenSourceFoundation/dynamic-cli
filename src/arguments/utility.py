@@ -145,7 +145,7 @@ class Utility():
 
                     console.print(output_text)
             # If the cache has no entry for the said question id, then downloads the answer
-            # and makes an entry for it in the said format [Line 110] and restarts the loop.
+            # and makes an entry for it in the said format and restarts the loop.
             else:
                 try:
                     resp = requests.get(

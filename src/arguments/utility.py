@@ -77,7 +77,7 @@ class Utility():
         This function prints the answer to the queries
         (question and tags) provided by the user. It does so
         in the following manner :
-        1) Gets the details of all the relavant question and stores their title, link and id in "question_data" list. [See line 104]
+        1) Gets the details of all the relavant question and stores their title, link and id in "question_data" list.
         2) I have introduced the concept of active question, i.e. , the question whose answer is currently being displayed.
         3) The index of the active question in "question_data" array is stored in "question_posx"
         2) By Default, shows the answer to the first question. Creates an breakable infinite loop asking the user asnwer to which question he wants to see.
@@ -130,7 +130,7 @@ class Utility():
                 for output_index, output_text in enumerate(output_content):
                     """
                     Loop through the output_text and print the element
-                    if it the last one, the text[0] is printed
+                    if it is the last one, the text[0] is printed
                     along with text[-1]
 
                     if text is markdown , render the markdown

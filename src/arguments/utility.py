@@ -2,6 +2,9 @@ from termcolor import colored
 import requests
 from rich.console import Console
 import sys as sys
+import os
+import time
+from collections import defaultdict
 
 from .error import SearchError
 from .save import SaveSearchResults
@@ -42,7 +45,6 @@ class Utility():
     def make_request(self, que, tag: str):
         """
         This function uses the requests library to make the rest api call to the stackexchange server.
-
         :param que: The user questions that servers as a question in the api.
         :type que: String
         :param tag: The tags that user wants for searching the relevant answers. For e.g. TypeError might be for multiple languages so is tag is used as "Python" then the api will return answers based on the tags and question.
@@ -75,35 +77,56 @@ class Utility():
         This function prints the answer to the queries
         (question and tags) provided by the user. It does so
         in the following manner :
-
-        1) Takes in account only th first question id from the
-        list of question ids
-
-        2) Tries to get a response from the url obtained by appending
-        question id to the search_content_url variable
-
-        3) Use the data received from the above request and loop
-        through it to print the answer
+        1) Gets the details of all the relevant question and stores their title, link and id in "question_data" list.
+        2) I have introduced the concept of active question, i.e. , the question whose answer is currently being displayed.
+        3) The index of the active question in "question_data" array is stored in "question_posx"
+        2) By Default, shows the answer to the first question. Creates an breakable infinite loop asking the user answer to which question he wants to see.
+        4) The value of "question_posx" changes according to user input, displaying answer to different questions in "questions_data" list.
+        3) The answers to the questions requested by the user are stored in cache for faster access time during subsequent calls.
         """
-        ans = []
-        for questions in range(1):
-            try:
-                resp = requests.get(
-                    f"{self.search_content_url}/2.2/questions/{questions_list[questions]}/answers?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
-                )
-            except:
-                SearchError("\U0001F613 Search Failed", "\U0001F4BB Try connecting to the internet")
-                sys.exit()
-            json_ans_data = resp.json()
+        # Create batch request to get details of all the questions
+        batch_ques_id = ""
+        for question_id in questions_list:
+            batch_ques_id += str(question_id) + ";"
+        try:
+            resp = requests.get(
+                f"{self.search_content_url}/2.2/questions/{batch_ques_id[:-1]}?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
+            )
+        except:
+            SearchError("Search Failed", "Try connecting to the internet")
+            sys.exit()
+        json_ques_data = resp.json()
+        """
+        Store the received questions data into the following data format:
+        list(  list( question_title, question_link, question_id )  )
+        """
+        questions_data = [[item['title'], item['link'], item['question_id']] for item in json_ques_data["items"] ]
+        # Clear terminal
+        os.system('cls' if os.name == 'nt' else 'clear')
 
-            for data in json_ans_data["items"]:
-                output_content = [
-                    colored(
-                        "--------------------------------------------------------",
-                        'red'), data["body_markdown"],
-                    f"\U0001F517 Link to the answer:{data['link']}"
-                ]
+        # cache array to store the requested answers. Format of storage { question_id:[answer_body, answer_link] }
+        downloaded_questions_cache = defaultdict(lambda: False)
 
+        # Stores the currently showing question index in questions_data
+        question_posx = 0
+
+        while True:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # Printing all the questions. The active question is printed GREEN.
+            console.rule('[bold blue] Relevant Questions', style="bold red")
+            for idx, question_data in enumerate(questions_data):
+                if question_posx == idx:
+                    console.print("[green]{}. {}  |  {}".format(idx+1, question_data[0], question_data[1]))
+                else:
+                    console.print("{}. {}  |  {}".format(idx+1, question_data[0], question_data[1]))
+            console.rule("[bold blue] Answer of question {}".format(question_posx+1), style="bold red")
+
+            # Gets the question_id of active question
+            current_question_id = questions_data[question_posx][2]
+
+            # Searches for the id in cache. If present then prints it
+            if(downloaded_questions_cache[current_question_id]):
+                output_content = downloaded_questions_cache[current_question_id]
                 for output_index, output_text in enumerate(output_content):
                     """
                     Loop through the output_text and print the element
@@ -113,19 +136,43 @@ class Utility():
                     if text is markdown , render the markdown
                     """
                     if output_index == len(output_content) - 1:
-                        console.print(output_text)
-
-                        console.print(output_content[0])
+                        console.print("Link to the answer: " + output_text)
                         break
 
                     if output_index == len(output_content) - 2:
-                        renderer = MarkdownRenderer(output_text)
-
+                        MarkdownRenderer(output_text)
                         continue
 
                     console.print(output_text)
-            ans.append(json_ans_data["items"])
-        return ans
+            # If the cache has no entry for the said question id, then downloads the answer
+            # and makes an for it entry in the cache array in the said format and restarts the loop.
+            else:
+                try:
+                    resp = requests.get(
+                        f"{self.search_content_url}/2.2/questions/{current_question_id}/answers?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
+                    )
+                except:
+                    SearchError("Search Failed", "Try connecting to the internet")
+                    sys.exit()
+                json_ans_data = resp.json()
+                print(json_ans_data["items"])
+                most_upvoted = json_ans_data["items"][0]
+                downloaded_questions_cache[current_question_id] = [most_upvoted["body_markdown"], most_upvoted['link']]
+                del most_upvoted
+                continue
+
+            console.rule("[bold blue]", style="bold red", align="right")
+            # Asks the user for next question number. Makes it the active question and the loop restarts
+            while True:
+                posx = int(input("Enter the question number you want to view (Press 0 to quit): ")) - 1
+                if (posx == -1):
+                    return
+                elif (0<=posx<len(questions_data)):
+                    question_posx = posx
+                    break
+                else:
+                    console.print("Please enter a valid question number")
+                    continue
 
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod

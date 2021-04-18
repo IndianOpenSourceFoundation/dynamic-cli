@@ -164,7 +164,10 @@ class Utility():
             console.rule("[bold blue]", style="bold red", align="right")
             # Asks the user for next question number. Makes it the active question and the loop restarts
             while True:
-                posx = int(input("Enter the question number you want to view (Press 0 to quit): ")) - 1
+                try:
+                    posx = int(input("Enter the question number you want to view (Press 0 to quit): ")) - 1
+                except ValueError:
+                    SearchError("You didn't enter a question number", "Enter a question number from the relevant questions list")
                 if (posx == -1):
                     return
                 elif (0<=posx<len(questions_data)):

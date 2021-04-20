@@ -35,7 +35,7 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 console = Console()
 
-class Questions_Panel_Stackoverflow():
+class Questions_Panel_stackoverflow():
     def __init__(self):
         self.questions_data = []                        # list(  list( question_title, question_link, question_id )...  )
         self.answer_data = defaultdict(lambda: False)   # dict( question_id:list( body, link )) corresponding to self.questions_data
@@ -61,7 +61,6 @@ class Questions_Panel_Stackoverflow():
             sys.exit()
         json_ques_data = resp.json()
         self.questions_data = [[item['title'], item['question_id'], item['link']] for item in json_ques_data["items"]]
-        return
 
     def populate_answer_data(self):
         """ Function to populate answer data property
@@ -110,7 +109,7 @@ class Questions_Panel_Stackoverflow():
             options_index = question_menu.show()
             try:
                 options_choice = options[options_index]
-            except:
+            except Exception:
                 return
             else:
                 question_link = self.questions_data[options_index][2]
@@ -160,7 +159,7 @@ class Utility():
         return que_id
 
     def get_ans(self, questions_list):
-        stackoverflow_panel = Questions_Panel_Stackoverflow()
+        stackoverflow_panel = Questions_Panel_stackoverflow()
         stackoverflow_panel.populate_question_data(questions_list)
         stackoverflow_panel.populate_answer_data()
         stackoverflow_panel.navigate_questions_panel()

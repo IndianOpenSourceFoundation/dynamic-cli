@@ -11,7 +11,8 @@ from simple_term_menu import TerminalMenu
 import webbrowser
 from pygments import highlight
 from pygments.lexers.markup import MarkdownLexer
-from pygments.formatters import Terminal256Formatter
+from pygments.lexers.html import HtmlLexer
+from pygments.formatters import TerminalFormatter
 
 from .error import SearchError
 from .save import SaveSearchResults
@@ -35,63 +36,67 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 console = Console()
 
-class Questions_Panel_stackoverflow():
+class QuestionsPanel_stackoverflow():
     def __init__(self):
-        self.questions_data = []                        # list(  list( question_title, question_link, question_id )...  )
+        self.questions_data = []                        # list(  list( question_title, question_id, question_link )...  )
         self.answer_data = defaultdict(lambda: False)   # dict( question_id:list( body, link )) corresponding to self.questions_data
-        self.batch_ques_id = ""
         self.line_color = "bold red"
         self.heading_color = "bold blue"
-        self.search_content_url = "https://api.stackexchange.com/"
+        self.utility = Utility()
 
     def populate_question_data(self, questions_list):
-        """ Function to populate question data property
-            Creates batch_id request to stackexchange API and
-            Stores the returned data data in the following format:
-                list(  list( question_title, question_link, question_id )  )
         """
-        for question_id in questions_list:
-            self.batch_ques_id += str(question_id) + ";"
-        try:
-            resp = requests.get(
-                f"{self.search_content_url}/2.2/questions/{self.batch_ques_id[:-1]}?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
-            )
-        except:
-            SearchError("Search Failed", "Try connecting to the internet")
-            sys.exit()
+        Function to populate question data property
+        Creates batch request to stackexchange API and to get question details of
+        questions with id in the list. Stores the returned data data in the following format:
+            list(  list( question_title, question_link, question_id )  )
+        """
+        with console.status("Getting the questions..."):
+            try:
+                resp = requests.get(
+                    self.utility.get_batch_ques_url(questions_list)
+                )
+            except:
+                SearchError("Search Failed", "Try connecting to the internet")
+                sys.exit()
         json_ques_data = resp.json()
         self.questions_data = [[item['title'], item['question_id'], item['link']] for item in json_ques_data["items"]]
 
-    def populate_answer_data(self):
-        """ Function to populate answer data property
-            Creates batch_id request to stackexchange API and
-            Stores the returned data data in the following format:
-                list(  list( question_title, question_link, question_id )  )
+    def populate_answer_data(self, questions_list):
         """
-        try:
-            resp = requests.get(
-                f"{self.search_content_url}/2.2/questions/{self.batch_ques_id[:-1]}/answers?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
-            )
-        except:
-            SearchError("Search Failed", "Try connecting to the internet")
-            sys.exit()
-        json_ans_data = resp.json()
-        for item in json_ans_data["items"]:
-            self.answer_data[item['question_id']] = item['body_markdown']
+        Function to populate answer data property
+        Creates batch request to stackexchange API to get ans of questions with
+        question id in the list. Stores the returned data data in the following format:
+            dict( question_id:list( body, link ) )
+        """
+        with console.status("Searching answers..."):
+            try:
+                resp = requests.get(
+                    self.utility.get_batch_ans_url(questions_list)
+                )
+            except:
+                SearchError("Search Failed", "Try connecting to the internet")
+                sys.exit()
+            json_ans_data = resp.json()
+            for item in json_ans_data["items"]:
+                if not(self.answer_data[item['question_id']]):
+                    self.answer_data[item['question_id']] = item['body_markdown'] 
 
-    def return_formatted_ans(self, id):
+        # Sometimes the StackExchange API fails to deliver some answers. The below code is to fetch them
+        failed_ques_id = [question[1] for question in self.questions_data if not(self.answer_data[question[1]])]
+        if not(len(failed_ques_id) == 0):
+            self.populate_answer_data(failed_ques_id)                
+
+    def return_formatted_ans(self, ques_id):
         # This function uses pygments lexers ad formatters to format the content in the preview screen
-        body_markdown = self.answer_data[int(id)]
+        body_markdown = self.answer_data[int(ques_id)]
         if(body_markdown):
             body_markdown = str(body_markdown)
-            body_markdown = body_markdown.replace("&amp;", "&")
-            body_markdown = body_markdown.replace("&lt;", "<")
-            body_markdown = body_markdown.replace("&gt;", ">")
-            body_markdown = body_markdown.replace("&quot;", "\"")
-            body_markdown = body_markdown.replace("&apos;", "\'")
-            body_markdown = body_markdown.replace("&#39;", "\'")
+            xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), ("&quot;", "\""), ("&apos;", "\'"), ("&#39;", "\'")]
+            for convert_from, convert_to in xml_markup_replacement:
+                body_markdown = body_markdown.replace(convert_from, convert_to)
             lexer = MarkdownLexer()
-            formatter = Terminal256Formatter(bg="light")
+            formatter = TerminalFormatter()
             highlighted = highlight(body_markdown, lexer, formatter)
         else:
             highlighted = "Answer not viewable. Press enter to open in a browser"
@@ -103,17 +108,21 @@ class Questions_Panel_stackoverflow():
         console.print("[yellow] Use arrow keys to navigate. 'q' or 'Esc' to quit. 'Enter' to open in a browser")
         console.print()
         options = ["|".join(map(str, question)) for question in self.questions_data]
-        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans)
+        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans, preview_size=0.75, )
         quitting = False
         while not(quitting):
             options_index = question_menu.show()
             try:
-                options_choice = options[options_index]
+                question_link = self.questions_data[options_index][2]
             except Exception:
                 return
             else:
-                question_link = self.questions_data[options_index][2]
                 webbrowser.open(question_link)
+
+    def display_panel(self, questions_list):
+        self.populate_question_data(questions_list)
+        self.populate_answer_data(questions_list)
+        self.navigate_questions_panel()
 
 class Utility():
     def __init__(self):
@@ -127,6 +136,22 @@ class Utility():
         can finally be used to get answers
         """
         return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&title={question}&site=stackoverflow"
+
+    def get_batch_ques_url(self, ques_id_list):
+        """
+        Returns URL which contains ques_ids which can be use to get
+        get the details of all the corresponding questions
+        """
+        batch_ques_id = ""
+        for question_id in ques_id_list:
+            batch_ques_id += str(question_id) + ";"
+        return f"{self.search_content_url}/2.2/questions/{batch_ques_id[:-1]}?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
+
+    def get_batch_ans_url(self, ques_id_list):
+        batch_ques_id = ""
+        for question_id in ques_id_list:
+            batch_ques_id += str(question_id) + ";"
+        return f"{self.search_content_url}/2.2/questions/{batch_ques_id[:-1]}/answers?order=desc&sort=votes&site=stackoverflow&filter=!--1nZwsgqvRX"
 
     def make_request(self, que, tag: str):
         """
@@ -159,10 +184,13 @@ class Utility():
         return que_id
 
     def get_ans(self, questions_list):
-        stackoverflow_panel = Questions_Panel_stackoverflow()
-        stackoverflow_panel.populate_question_data(questions_list)
-        stackoverflow_panel.populate_answer_data()
-        stackoverflow_panel.navigate_questions_panel()
+        """
+        This Function creates QuestionsPanel_stackoverflow class which supports
+        Rendering, navigation, searching and redirecting capabilities
+        """
+        stackoverflow_panel = QuestionsPanel_stackoverflow()
+        stackoverflow_panel.display_panel(questions_list)
+        # Support for reddit searching can also be implemented from here
 
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod

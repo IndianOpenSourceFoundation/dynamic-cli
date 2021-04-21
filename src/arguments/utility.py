@@ -35,7 +35,7 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 console = Console()
 
-class QuestionsPanel_stackoverflow():
+class QuestionsPanelStackoverflow():
     def __init__(self):
         self.questions_data = []                        # list(  list( question_title, question_id, question_link )...  )
         self.answer_data = defaultdict(lambda: False)   # dict( question_id:list( body, link )) corresponding to self.questions_data
@@ -186,7 +186,7 @@ class Utility():
         This Function creates QuestionsPanel_stackoverflow class which supports
         Rendering, navigation, searching and redirecting capabilities
         """
-        stackoverflow_panel = QuestionsPanel_stackoverflow()
+        stackoverflow_panel = QuestionsPanelStackoverflow()
         stackoverflow_panel.display_panel(questions_list)
         # Support for reddit searching can also be implemented from here
 

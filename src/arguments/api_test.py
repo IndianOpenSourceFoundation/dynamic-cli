@@ -11,18 +11,13 @@ class ApiTesting():
         request_headers = cls.default_headers
         input_url = input('Enter URL: ')
         input_headers = input('Enter Headers: ')
-        
         if input_url != '':
             request_url = input_url
-
         if input_headers != '':
             try:
                 request_headers = json.loads(input_headers)
-            # If Exception Occurs while Parsing Headers Printing info    
             except Exception:
                 print("Failed to parse Input Headers")
-
-
         # Check whether the request_url has an endpoint or not
         has_endpoint = cls.__check_endpoint(request_url)
 

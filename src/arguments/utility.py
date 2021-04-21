@@ -79,12 +79,11 @@ class QuestionsPanel_stackoverflow():
             json_ans_data = resp.json()
             for item in json_ans_data["items"]:
                 if not(self.answer_data[item['question_id']]):
-                    self.answer_data[item['question_id']] = item['body_markdown'] 
-
+                    self.answer_data[item['question_id']] = item['body_markdown']
         # Sometimes the StackExchange API fails to deliver some answers. The below code is to fetch them
         failed_ques_id = [question[1] for question in self.questions_data if not(self.answer_data[question[1]])]
         if not(len(failed_ques_id) == 0):
-            self.populate_answer_data(failed_ques_id)                
+            self.populate_answer_data(failed_ques_id)
 
     def return_formatted_ans(self, ques_id):
         # This function uses pygments lexers ad formatters to format the content in the preview screen

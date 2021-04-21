@@ -59,7 +59,7 @@ class QuestionsPanel_stackoverflow():
                 SearchError("Search Failed", "Try connecting to the internet")
                 sys.exit()
         json_ques_data = resp.json()
-        self.questions_data = [[item['title'], item['question_id'], item['link']] for item in json_ques_data["items"]]
+        self.questions_data = [[item['title'].replace('|',''), item['question_id'], item['link']] for item in json_ques_data["items"]]
 
     def populate_answer_data(self, questions_list):
         """

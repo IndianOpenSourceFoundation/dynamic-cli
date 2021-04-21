@@ -11,7 +11,6 @@ from simple_term_menu import TerminalMenu
 import webbrowser
 from pygments import highlight
 from pygments.lexers.markup import MarkdownLexer
-from pygments.lexers.html import HtmlLexer
 from pygments.formatters import TerminalFormatter
 
 from .error import SearchError

@@ -19,7 +19,7 @@ class ApiTesting():
             try:
                 request_headers = json.loads(input_headers)
             # If Exception Occurs while Parsing Headers Printing info    
-            except Exception as ex:
+            except Exception:
                 print("Failed to parse Input Headers")
 
 

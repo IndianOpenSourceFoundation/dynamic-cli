@@ -3,15 +3,21 @@ from pygments import highlight, lexers, formatters
 
 class ApiTesting():
     default_url = "https://127.0.0.1:8000"
-
+    default_headers = {}
     # Make GET request
     @classmethod
     def get_request(cls):
         request_url = cls.default_url
+        request_headers = cls.default_headers
         input_url = input('Enter URL: ')
+        input_headers = input('Enter Headers: ')
         if input_url != '':
             request_url = input_url
-
+        if input_headers != '':
+            try:
+                request_headers = json.loads(input_headers)
+            except Exception:
+                print("Failed to parse Input Headers")
         # Check whether the request_url has an endpoint or not
         has_endpoint = cls.__check_endpoint(request_url)
 
@@ -33,7 +39,7 @@ class ApiTesting():
 
         # Make GET request and store the response in response_data.json
         try:
-            response = requests.get(request_url)
+            response = requests.get(request_url, headers=request_headers)
             print(f"Reponse Status Code: {response.status_code}")
             response_data = json.loads(response.content)
             parsed_json = json.dumps(response_data, indent=4)

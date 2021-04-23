@@ -1,6 +1,8 @@
 from termcolor import colored
 import requests
 from rich.console import Console
+from rich.markdown import Markdown
+from rich.style import Style
 import sys as sys
 
 # Required for Questions Panel
@@ -9,9 +11,6 @@ import time
 from collections import defaultdict
 from simple_term_menu import TerminalMenu
 import webbrowser
-from pygments import highlight
-from pygments.lexers.markup import MarkdownLexer
-from pygments.formatters import TerminalFormatter
 
 from .error import SearchError
 from .save import SaveSearchResults
@@ -88,16 +87,19 @@ class QuestionsPanelStackoverflow():
     def return_formatted_ans(self, ques_id):
         # This function uses pygments lexers ad formatters to format the content in the preview screen
         body_markdown = self.answer_data[int(ques_id)]
-        if(body_markdown):
-            body_markdown = str(body_markdown)
-            xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), ("&quot;", "\""), ("&apos;", "\'"), ("&#39;", "\'")]
-            for convert_from, convert_to in xml_markup_replacement:
-                body_markdown = body_markdown.replace(convert_from, convert_to)
-            lexer = MarkdownLexer()
-            formatter = TerminalFormatter()
-            highlighted = highlight(body_markdown, lexer, formatter)
-        else:
-            highlighted = "Answer not viewable. Press enter to open in a browser"
+        body_markdown = str(body_markdown)
+        xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), ("&quot;", "\""), ("&apos;", "\'"), ("&#39;", "\'")]
+        for convert_from, convert_to in xml_markup_replacement:
+            body_markdown = body_markdown.replace(convert_from, convert_to)
+        width = os.get_terminal_size().columns
+        console = Console(width=width-4)
+        markdown = Markdown(body_markdown, hyperlinks=False)
+        with console.capture() as capture:
+            console.print(markdown)
+        highlighted = capture.get()
+        box_replacement = [("─", "-"), ("═","="), ("║","|"), ("│", "|"), ('┌', '+'), ("└", "+"), ("┐", "+"), ("┘", "+"), ("╔", "+"), ("╚", "+"), ("╗","+"), ("╝", "+"), ("•","*")]
+        for convert_from, convert_to in box_replacement:
+            highlighted = highlighted.replace(convert_from, convert_to)
         return highlighted
 
     def navigate_questions_panel(self):

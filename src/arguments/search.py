@@ -54,7 +54,7 @@ class Search():
         queries = ["What do you want to search", "Tags"]
         query_solutions = []
 
-        # ask quesiton
+        # ask question
         for each_query in queries:
             # Be careful if there are
             # KeyBoard Interrupts or EOErrors

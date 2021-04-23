@@ -33,6 +33,3 @@ class MarkdownRenderer(object):
 
     def __str__(self):
         return str(self.render)
-
-    def __repr__(self):
-        return str(self.render)

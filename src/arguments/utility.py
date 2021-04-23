@@ -2,7 +2,6 @@ from termcolor import colored
 import requests
 from rich.console import Console
 from rich.markdown import Markdown
-from rich.style import Style
 import sys as sys
 
 # Required for Questions Panel

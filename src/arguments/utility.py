@@ -10,6 +10,7 @@ import time
 from collections import defaultdict
 from simple_term_menu import TerminalMenu
 import webbrowser
+import time
 
 from .error import SearchError
 from .save import SaveSearchResults
@@ -33,6 +34,70 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 console = Console()
 
+class Playbook():
+    def __init__(self):
+        self.linux_path = "/home/{}/Documents/dynamic".format(os.getenv('USER'))
+        self.windows_path = repr("c:\\Users\\{}\\My Documents".format(os.getenv('USERNAME')))
+        self.unix_path = "." # Add mac support here
+        self.file_name = 'dynamic_playbook.json'
+
+    @property
+    def playbook_path(self):
+        if(sys.platform=='linux'):
+            return os.path.join(self.linux_path, self.file_name)
+        elif(sys.platform=='win32'):
+            return os.path.join(self.windows_path, self.file_name)
+
+    @property
+    def playbook_content(self):
+        try:
+            with open(self.playbook_path, 'r') as playbook:
+                return json.load(playbook)
+        except FileNotFoundError:
+            os.makedirs(os.path.dirname(self.playbook_path), exist_ok=True)
+            with open(self.playbook_path, 'w') as playbook:
+                playbook.write('[]')
+            return self.playbook_content
+
+    @playbook_content.setter
+    def playbook_content(self, value):
+        """
+        Saves playbook in the following format
+        [
+            {
+                time: unix timestamp
+                question_id: 123456,
+                question_title: 'question_title',
+                question_link:  'link',
+                answer_body: 'body of the answer'
+            },
+            ...
+        ]
+        """
+        if type(value) == list:
+            with open(self.playbook_path, 'w') as playbook:
+                json.dump(value, playbook, ensure_ascii=False)
+            pass
+        else:
+            raise ValueError("value should be of type list")
+
+    def add_to_playbook(self, stackoverflow_object, question_id):
+        """
+        Receives a QuestionsPanelStackoverflow object and 
+        saves data of a particular question into playbook
+        """
+        for question in stackoverflow_object.questions_data:
+            if(int(question[1])==int(question_id)):
+                content = self.playbook_content
+                content.append({
+                    'time_of_creation': time.time(),
+                    'question_id': int(question_id),
+                    'question_title': question[0],
+                    'question_link': question[2],
+                    'answer_body': stackoverflow_object.answer_data[int(question_id)]
+                })
+                self.playbook_content = content
+
 class QuestionsPanelStackoverflow():
     def __init__(self):
         self.questions_data = []                        # list(  list( question_title, question_id, question_link )...  )
@@ -40,6 +105,8 @@ class QuestionsPanelStackoverflow():
         self.line_color = "bold red"
         self.heading_color = "bold blue"
         self.utility = Utility()
+        self.playbook = Playbook()
+        self.log = open('logs.txt', 'w')
 
     def populate_question_data(self, questions_list):
         """
@@ -107,7 +174,7 @@ class QuestionsPanelStackoverflow():
         console.print("[yellow] Use arrow keys to navigate. 'q' or 'Esc' to quit. 'Enter' to open in a browser")
         console.print()
         options = ["|".join(map(str, question)) for question in self.questions_data]
-        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans, preview_size=0.75, )
+        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans, preview_size=0.75, accept_keys=('p', 'enter'))
         quitting = False
         while not(quitting):
             options_index = question_menu.show()
@@ -116,7 +183,11 @@ class QuestionsPanelStackoverflow():
             except Exception:
                 return
             else:
-                webbrowser.open(question_link)
+                if(question_menu.chosen_accept_key == 'enter'):
+                    webbrowser.open(question_link)
+                elif(question_menu.chosen_accept_key == 'p'):
+                    self.playbook.add_to_playbook(self, self.questions_data[options_index][1])
+                    pass
 
     def display_panel(self, questions_list):
         self.populate_question_data(questions_list)

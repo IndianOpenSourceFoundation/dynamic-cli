@@ -228,10 +228,7 @@ class QuestionsPanelStackoverflow():
             try:
                 question_link = self.questions_data[options_index][2]
             except Exception:
-                if(playbook):
-                    sys.exit()
-                else:
-                    return
+                return sys.exit() if playbook else None
             else:
                 if(question_menu.chosen_accept_key == 'enter'):
                     webbrowser.open(question_link)

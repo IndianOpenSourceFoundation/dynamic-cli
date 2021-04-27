@@ -118,6 +118,7 @@ class Playbook():
                     'answer_body': stackoverflow_object.answer_data[int(question_id)]
                 })
                 self.playbook_content = content
+                console.print("[green] Question added to the playbook")
 
     def delete_from_playbook(self, stackoverflow_object, question_id):
         content = self.playbook_content

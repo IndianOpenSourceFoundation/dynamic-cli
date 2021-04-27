@@ -7,10 +7,10 @@ import sys as sys
 # Required for Questions Panel
 import os
 import time
+import locale
 from collections import defaultdict
 from simple_term_menu import TerminalMenu
 import webbrowser
-import time
 
 from .error import SearchError
 from .save import SaveSearchResults
@@ -106,7 +106,7 @@ class Playbook():
         """
         if self.is_question_in_playbook(question_id):
             SearchError("Question is already in the playbook", "No need to add")
-            sys.exit()
+            return
         for question in stackoverflow_object.questions_data:
             if(int(question[1])==int(question_id)):
                 content = self.playbook_content
@@ -209,9 +209,10 @@ class QuestionsPanelStackoverflow():
         with console.capture() as capture:
             console.print(markdown)
         highlighted = capture.get()
-        box_replacement = [("─", "-"), ("═","="), ("║","|"), ("│", "|"), ('┌', '+'), ("└", "+"), ("┐", "+"), ("┘", "+"), ("╔", "+"), ("╚", "+"), ("╗","+"), ("╝", "+"), ("•","*")]
-        for convert_from, convert_to in box_replacement:
-            highlighted = highlighted.replace(convert_from, convert_to)
+        if locale.getlocale()[1] !='UTF-8':
+            box_replacement = [("─", "-"), ("═","="), ("║","|"), ("│", "|"), ('┌', '+'), ("└", "+"), ("┐", "+"), ("┘", "+"), ("╔", "+"), ("╚", "+"), ("╗","+"), ("╝", "+"), ("•","*")]
+            for convert_from, convert_to in box_replacement:
+                highlighted = highlighted.replace(convert_from, convert_to)
         return highlighted
 
     def navigate_questions_panel(self, playbook=False):

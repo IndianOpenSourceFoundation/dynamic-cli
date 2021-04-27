@@ -37,17 +37,15 @@ console = Console()
 class Playbook():
     def __init__(self):
         self.linux_path = "/home/{}/Documents/dynamic".format(os.getenv('USER'))
-        self.windows_path = repr("c:\\Users\\{}\\My Documents".format(os.getenv('USERNAME')))
-        self.unix_path = "." # Add mac support here
+        self.mac_path = "/Users/{}/Documents/dynamic".format(os.getenv('USER'))
         self.file_name = 'dynamic_playbook.json'
-        self.log = open('logplaybook.txt', 'w')
 
     @property
     def playbook_path(self):
         if(sys.platform=='linux'):
             return os.path.join(self.linux_path, self.file_name)
-        elif(sys.platform=='win32'):
-            return os.path.join(self.windows_path, self.file_name)
+        if(sys.platform=='darwin'):
+            return os.path.join(self.mac_path, self.file_name)
 
     @property
     def playbook_template(self):
@@ -123,7 +121,6 @@ class Playbook():
 
     def delete_from_playbook(self, stackoverflow_object, question_id):
         content = self.playbook_content
-        self.log.write(str(len(content["items_stackoverflow"])))
         for i in range(len(content["items_stackoverflow"])):
             if content["items_stackoverflow"][i]["question_id"] == question_id:
                 del content["items_stackoverflow"][i]
@@ -152,7 +149,6 @@ class QuestionsPanelStackoverflow():
         self.heading_color = "bold blue"
         self.utility = Utility()
         self.playbook = Playbook()
-        self.log = open('logs.txt', 'w')
 
     def populate_question_data(self, questions_list):
         """

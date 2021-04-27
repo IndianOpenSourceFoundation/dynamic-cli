@@ -36,6 +36,8 @@ class Search():
             self.search_for_results()
         elif self.arguments.file:
             self.search_for_results(True)
+        elif self.arguments.playbook:
+            self.utility_object.display_playbook()
         elif self.arguments.new:
             url = "https://stackoverflow.com/questions/ask"
             if type(self.arguments.new) == str:

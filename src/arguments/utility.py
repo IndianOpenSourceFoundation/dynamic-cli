@@ -40,6 +40,7 @@ class Playbook():
         self.windows_path = repr("c:\\Users\\{}\\My Documents".format(os.getenv('USERNAME')))
         self.unix_path = "." # Add mac support here
         self.file_name = 'dynamic_playbook.json'
+        self.log = open('logplaybook.txt', 'w')
 
     @property
     def playbook_path(self):
@@ -49,54 +50,99 @@ class Playbook():
             return os.path.join(self.windows_path, self.file_name)
 
     @property
+    def playbook_template(self):
+        # Basic template and fields of playbook
+        return  {"time_of_update": time.time(),"items_stackoverflow":[]}
+
+    @property
     def playbook_content(self):
+        # Reads playbook data from local storage and returns it
         try:
             with open(self.playbook_path, 'r') as playbook:
                 return json.load(playbook)
         except FileNotFoundError:
             os.makedirs(os.path.dirname(self.playbook_path), exist_ok=True)
             with open(self.playbook_path, 'w') as playbook:
-                playbook.write('[]')
+                json.dump(self.playbook_template, playbook, ensure_ascii=False)
             return self.playbook_content
 
     @playbook_content.setter
     def playbook_content(self, value):
         """
         Saves playbook in the following format
-        [
-            {
-                time: unix timestamp
-                question_id: 123456,
-                question_title: 'question_title',
-                question_link:  'link',
-                answer_body: 'body of the answer'
-            },
-            ...
-        ]
+        {   
+            time_of_update: unix,
+            items_stackoverflow:
+            [
+                {
+                    time: unix timestamp
+                    question_id: 123456,
+                    question_title: 'question_title',
+                    question_link:  'link',
+                    answer_body: 'body of the answer'
+                },
+                ...
+            ]
+        }
         """
-        if type(value) == list:
+        if type(value) == dict:
             with open(self.playbook_path, 'w') as playbook:
                 json.dump(value, playbook, ensure_ascii=False)
             pass
         else:
-            raise ValueError("value should be of type list")
+            raise ValueError("value should be of type dict")
 
+    def is_question_in_playbook(self, question_id):
+        content = self.playbook_content
+        for entry in content['items_stackoverflow']:
+            if int(entry['question_id']) == int(question_id):
+                return True
+        return False
+    
     def add_to_playbook(self, stackoverflow_object, question_id):
         """
         Receives a QuestionsPanelStackoverflow object and 
         saves data of a particular question into playbook
         """
+        if self.is_question_in_playbook(question_id):
+            SearchError("Question is already in the playbook", "No need to add")
+            sys.exit()
         for question in stackoverflow_object.questions_data:
             if(int(question[1])==int(question_id)):
                 content = self.playbook_content
-                content.append({
-                    'time_of_creation': time.time(),
+                now = time.time()
+                content['time_of_update'] = now
+                content['items_stackoverflow'].append({
+                    'time_of_creation': now,
                     'question_id': int(question_id),
                     'question_title': question[0],
                     'question_link': question[2],
                     'answer_body': stackoverflow_object.answer_data[int(question_id)]
                 })
                 self.playbook_content = content
+
+    def delete_from_playbook(self, stackoverflow_object, question_id):
+        content = self.playbook_content
+        self.log.write(str(len(content["items_stackoverflow"])))
+        for i in range(len(content["items_stackoverflow"])):
+            if content["items_stackoverflow"][i]["question_id"] == question_id:
+                del content["items_stackoverflow"][i]
+                break
+        self.playbook_content = content
+        os.system('cls' if os.name == 'nt' else 'clear')
+        self = Playbook()
+        self.display_panel()
+                    
+    def display_panel(self):
+        playbook_data = self.playbook_content
+        if(len(playbook_data['items_stackoverflow']) == 0):
+            SearchError("You have no entries in the playbook", "Browse and save entries in playbook with 'p' key")
+            sys.exit()
+        question_panel = QuestionsPanelStackoverflow()
+        for item in playbook_data['items_stackoverflow']:
+            question_panel.questions_data.append( [item['question_title'], item['question_id'], item['question_link']] )
+            question_panel.answer_data[item['question_id']] = item['answer_body']
+        question_panel.display_panel(playbook=True)
 
 class QuestionsPanelStackoverflow():
     def __init__(self):
@@ -151,7 +197,7 @@ class QuestionsPanelStackoverflow():
             self.populate_answer_data(failed_ques_id)
 
     def return_formatted_ans(self, ques_id):
-        # This function uses pygments lexers ad formatters to format the content in the preview screen
+        # This function uses uses Rich Markdown to format answers body.
         body_markdown = self.answer_data[int(ques_id)]
         body_markdown = str(body_markdown)
         xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), ("&quot;", "\""), ("&apos;", "\'"), ("&#39;", "\'")]
@@ -168,31 +214,37 @@ class QuestionsPanelStackoverflow():
             highlighted = highlighted.replace(convert_from, convert_to)
         return highlighted
 
-    def navigate_questions_panel(self):
+    def navigate_questions_panel(self, playbook=False):
         # Code for navigating through the question panel
-        console.rule('[bold blue] Relevant Questions', style="bold red")
-        console.print("[yellow] Use arrow keys to navigate. 'q' or 'Esc' to quit. 'Enter' to open in a browser")
+        (message, instructions, keys) = ('Playbook Questions', ". Press 'd' to delete from playbook", ('enter', 'd')) if(playbook) else ('Relevant Questions', ". Press 'p' to save in playbook", ('p', 'enter'))
+        console.rule('[bold blue] {}'.format(message), style="bold red")
+        console.print("[yellow] Use arrow keys to navigate. 'q' or 'Esc' to quit. 'Enter' to open in a browser" + instructions)
         console.print()
         options = ["|".join(map(str, question)) for question in self.questions_data]
-        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans, preview_size=0.75, accept_keys=('p', 'enter'))
+        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans, preview_size=0.75, accept_keys=keys)
         quitting = False
         while not(quitting):
             options_index = question_menu.show()
             try:
                 question_link = self.questions_data[options_index][2]
             except Exception:
-                return
+                if(playbook):
+                    sys.exit()
+                else:
+                    return
             else:
                 if(question_menu.chosen_accept_key == 'enter'):
                     webbrowser.open(question_link)
                 elif(question_menu.chosen_accept_key == 'p'):
                     self.playbook.add_to_playbook(self, self.questions_data[options_index][1])
-                    pass
+                elif(question_menu.chosen_accept_key == 'd' and playbook):
+                    self.playbook.delete_from_playbook(self, self.questions_data[options_index][1])
 
-    def display_panel(self, questions_list):
-        self.populate_question_data(questions_list)
-        self.populate_answer_data(questions_list)
-        self.navigate_questions_panel()
+    def display_panel(self, questions_list=[], playbook=False):
+        if len(questions_list) != 0:
+            self.populate_question_data(questions_list)
+            self.populate_answer_data(questions_list)
+        self.navigate_questions_panel(playbook=playbook)
 
 class Utility():
     def __init__(self):
@@ -261,6 +313,10 @@ class Utility():
         stackoverflow_panel = QuestionsPanelStackoverflow()
         stackoverflow_panel.display_panel(questions_list)
         # Support for reddit searching can also be implemented from here
+
+    def display_playbook(self):
+        playbook = Playbook()
+        playbook.display_panel()
 
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod

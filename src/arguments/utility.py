@@ -129,7 +129,7 @@ class Playbook():
         os.system('cls' if os.name == 'nt' else 'clear')
         self = Playbook()
         self.display_panel()
-                    
+
     def display_panel(self):
         playbook_data = self.playbook_content
         if(len(playbook_data['items_stackoverflow']) == 0):

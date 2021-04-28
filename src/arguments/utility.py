@@ -68,7 +68,7 @@ class Playbook():
     def playbook_content(self, value):
         """
         Saves playbook in the following format
-        {   
+        {
             time_of_update: unix,
             items_stackoverflow:
             [
@@ -83,10 +83,9 @@ class Playbook():
             ]
         }
         """
-        if type(value) == dict:
+        if isinstance(value, dict):
             with open(self.playbook_path, 'w') as playbook:
                 json.dump(value, playbook, ensure_ascii=False)
-            pass
         else:
             raise ValueError("value should be of type dict")
 
@@ -96,10 +95,10 @@ class Playbook():
             if int(entry['question_id']) == int(question_id):
                 return True
         return False
-    
+
     def add_to_playbook(self, stackoverflow_object, question_id):
         """
-        Receives a QuestionsPanelStackoverflow object and 
+        Receives a QuestionsPanelStackoverflow object and
         saves data of a particular question into playbook
         """
         if self.is_question_in_playbook(question_id):
@@ -136,11 +135,12 @@ class Playbook():
         if(len(playbook_data['items_stackoverflow']) == 0):
             SearchError("You have no entries in the playbook", "Browse and save entries in playbook with 'p' key")
             sys.exit()
+        # Creates QuestionPanelStackoverflow object, populates its question_data and answer_data and displays it
         question_panel = QuestionsPanelStackoverflow()
         for item in playbook_data['items_stackoverflow']:
             question_panel.questions_data.append( [item['question_title'], item['question_id'], item['question_link']] )
             question_panel.answer_data[item['question_id']] = item['answer_body']
-        question_panel.display_panel(playbook=True)
+        question_panel.display_panel([], playbook=True)
 
 class QuestionsPanelStackoverflow():
     def __init__(self):
@@ -235,8 +235,8 @@ class QuestionsPanelStackoverflow():
                 elif(question_menu.chosen_accept_key == 'd' and playbook):
                     self.playbook.delete_from_playbook(self, self.questions_data[options_index][1])
 
-    def display_panel(self, questions_list=[], playbook=False):
-        if len(questions_list) != 0:
+    def display_panel(self, questions_list, playbook=False):
+        if not playbook:
             self.populate_question_data(questions_list)
             self.populate_answer_data(questions_list)
         self.navigate_questions_panel(playbook=playbook)
@@ -308,10 +308,6 @@ class Utility():
         stackoverflow_panel = QuestionsPanelStackoverflow()
         stackoverflow_panel.display_panel(questions_list)
         # Support for reddit searching can also be implemented from here
-
-    def display_playbook(self):
-        playbook = Playbook()
-        playbook.display_panel()
 
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod

@@ -39,13 +39,17 @@ class Playbook():
         self.linux_path = "/home/{}/Documents/dynamic".format(os.getenv('USER'))
         self.mac_path = "/Users/{}/Documents/dynamic".format(os.getenv('USER'))
         self.file_name = 'dynamic_playbook.json'
+        self.key = 'DYNAMIC'
 
     @property
     def playbook_path(self):
-        if(sys.platform=='linux'):
-            return os.path.join(self.linux_path, self.file_name)
-        if(sys.platform=='darwin'):
-            return os.path.join(self.mac_path, self.file_name)
+        # Create an environment variable 'DYNAMIC' containing the path of dynamic_playbook.json and returns it
+        if not os.getenv(self.key):
+            if(sys.platform=='linux'):
+                os.environ[self.key] = os.path.join(self.linux_path, self.file_name)
+            elif(sys.platform=='darwin'):
+                os.environ[self.key] = os.path.join(self.mac_path, self.file_name)
+        return os.getenv(self.key)
 
     @property
     def playbook_template(self):
@@ -66,23 +70,6 @@ class Playbook():
 
     @playbook_content.setter
     def playbook_content(self, value):
-        """
-        Saves playbook in the following format
-        {
-            time_of_update: unix,
-            items_stackoverflow:
-            [
-                {
-                    time: unix timestamp
-                    question_id: 123456,
-                    question_title: 'question_title',
-                    question_link:  'link',
-                    answer_body: 'body of the answer'
-                },
-                ...
-            ]
-        }
-        """
         if isinstance(value, dict):
             with open(self.playbook_path, 'w') as playbook:
                 json.dump(value, playbook, ensure_ascii=False)
@@ -100,9 +87,23 @@ class Playbook():
         """
         Receives a QuestionsPanelStackoverflow object and
         saves data of a particular question into playbook
+        Saves playbook in the following format
+        {
+            time_of_update: unix,
+            items_stackoverflow:
+            [
+                {
+                    time: unix timestamp
+                    question_id: 123456,
+                    question_title: 'question_title',
+                    question_link:  'link',
+                    answer_body: 'body of the answer'
+                },
+                ...
+            ]
         """
         if self.is_question_in_playbook(question_id):
-            SearchError("Question is already in the playbook", "No need to add")
+            console.print("[red] Question is already in the playbook, No need to add")
             return
         for question in stackoverflow_object.questions_data:
             if(int(question[1])==int(question_id)):

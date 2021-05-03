@@ -6,6 +6,7 @@ import sys as sys
 
 from .error import SearchError
 from .utility import Utility
+from .utility import Playbook
 from .save import SaveSearchResults
 from .update import UpdateApplication
 from .api_test import ApiTesting
@@ -30,12 +31,15 @@ class Search():
         self.arguments = arguments
         self.utility_object = Utility()
         self.api_test_object = ApiTesting()
+        self.playbook_object = Playbook()
 
     def search_args(self):
         if self.arguments.search:
             self.search_for_results()
         elif self.arguments.file:
             self.search_for_results(True)
+        elif self.arguments.playbook:
+            self.playbook_object.display_panel()
         elif self.arguments.new:
             url = "https://stackoverflow.com/questions/ask"
             if type(self.arguments.new) == str:

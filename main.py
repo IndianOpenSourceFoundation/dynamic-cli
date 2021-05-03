@@ -50,6 +50,11 @@ parser.add_argument("-GET",
                     help="Make a GET request to an API",
                     action='store_true')
 
+parser.add_argument("-p",
+                    "--playbook",
+                    help="View and organise the playbook",
+                    action='store_true')
+
 ARGV = parser.parse_args()
 
 search_flag = Search(ARGV)

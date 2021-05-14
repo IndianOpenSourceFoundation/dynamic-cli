@@ -18,8 +18,7 @@ class UpdateApplication(object):
 
         """
         self.current_version = current_version
-        self.release_api_url = "https://api.github.com/repos/IndianOpen \
-                                SourceFoundation/dynamic-cli/releases/latest"
+        self.release_api_url = "https://api.github.com/repos/IndianOpenSourceFoundation/dynamic-cli/releases/latest"
 
     def check_for_updates(self):
         try:

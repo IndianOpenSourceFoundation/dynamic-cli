@@ -43,10 +43,7 @@ class Playbook():
 
     @property
     def playbook_path(self):
-        """
-        Create an environment variable 'DYNAMIC' 
-        containing the path of dynamic_playbook.json and returns it
-        """
+        # Create an environment variable 'DYNAMIC' containing the path of dynamic_playbook.json and returns it
         if not os.getenv(self.key):
             if(sys.platform=='linux'):
                 os.environ[self.key] = os.path.join(self.linux_path, self.file_name)
@@ -137,28 +134,19 @@ class Playbook():
     def display_panel(self):
         playbook_data = self.playbook_content
         if(len(playbook_data['items_stackoverflow']) == 0):
-            SearchError("You have no entries in the playbook", 
-                        "Browse and save entries in playbook with 'p' key")
+            SearchError("You have no entries in the playbook", "Browse and save entries in playbook with 'p' key")
             sys.exit()
-        # Creates QuestionPanelStackoverflow object
-        # populates its question_data and answer_data and displays it
+        # Creates QuestionPanelStackoverflow object, populates its question_data and answer_data and displays it
         question_panel = QuestionsPanelStackoverflow()
         for item in playbook_data['items_stackoverflow']:
-            question_panel.questions_data.append( [item['question_title'],
-                                                   item['question_id'],
-                                                   item['question_link']] )
+            question_panel.questions_data.append( [item['question_title'], item['question_id'], item['question_link']] )
             question_panel.answer_data[item['question_id']] = item['answer_body']
         question_panel.display_panel([], playbook=True)
 
 class QuestionsPanelStackoverflow():
     def __init__(self):
-        # list(  list( question_title, question_id, question_link )...  )
-        self.questions_data = []
-
-        # dict( question_id:list( body, link )) 
-        # corresponding to self.questions_data
-        self.answer_data = defaultdict(lambda: False)
-
+        self.questions_data = []                        # list(  list( question_title, question_id, question_link )...  )
+        self.answer_data = defaultdict(lambda: False)   # dict( question_id:list( body, link )) corresponding to self.questions_data
         self.line_color = "bold red"
         self.heading_color = "bold blue"
         self.utility = Utility()
@@ -167,9 +155,8 @@ class QuestionsPanelStackoverflow():
     def populate_question_data(self, questions_list):
         """
         Function to populate question data property
-        Creates batch request to stackexchange API and to get question
-        details of questions with id in the list. Stores the returned
-        data in the following format:
+        Creates batch request to stackexchange API and to get question details of
+        questions with id in the list. Stores the returned data data in the following format:
             list(  list( question_title, question_link, question_id )  )
         """
         with console.status("Getting the questions..."):
@@ -181,9 +168,7 @@ class QuestionsPanelStackoverflow():
                 SearchError("Search Failed", "Try connecting to the internet")
                 sys.exit()
         json_ques_data = resp.json()
-        self.questions_data = [[item['title'].replace('|',''),
-                                item['question_id'], item['link']]
-                                for item in json_ques_data["items"]]
+        self.questions_data = [[item['title'].replace('|',''), item['question_id'], item['link']] for item in json_ques_data["items"]]
 
     def populate_answer_data(self, questions_list):
         """
@@ -204,10 +189,8 @@ class QuestionsPanelStackoverflow():
             for item in json_ans_data["items"]:
                 if not(self.answer_data[item['question_id']]):
                     self.answer_data[item['question_id']] = item['body_markdown']
-        # Sometimes the StackExchange API fails to deliver some answers.
-        # The below code is to fetch them
-        failed_ques_id = [question[1] for question in self.questions_data 
-                          if not(self.answer_data[question[1]])]
+        # Sometimes the StackExchange API fails to deliver some answers. The below code is to fetch them
+        failed_ques_id = [question[1] for question in self.questions_data if not(self.answer_data[question[1]])]
         if not(len(failed_ques_id) == 0):
             self.populate_answer_data(failed_ques_id)
 
@@ -215,8 +198,7 @@ class QuestionsPanelStackoverflow():
         # This function uses uses Rich Markdown to format answers body.
         body_markdown = self.answer_data[int(ques_id)]
         body_markdown = str(body_markdown)
-        xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), 
-                                  ("&quot;", "\""), ("&apos;", "\'"), ("&#39;", "\'")]
+        xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), ("&quot;", "\""), ("&apos;", "\'"), ("&#39;", "\'")]
         for convert_from, convert_to in xml_markup_replacement:
             body_markdown = body_markdown.replace(convert_from, convert_to)
         width = os.get_terminal_size().columns
@@ -225,32 +207,20 @@ class QuestionsPanelStackoverflow():
         with console.capture() as capture:
             console.print(markdown)
         highlighted = capture.get()
-        if not('UTF' in locale.getlocale()[1]):
-            box_replacement = [("─", "-"), ("═","="), ("║","|"), ("│", "|"),
-                               ('┌', '+'), ("└", "+"), ("┐", "+"), ("┘", "+"), 
-                               ("╔", "+"), ("╚", "+"), ("╗","+"), ("╝", "+"), ("•","*")]
+        if locale.getlocale()[1] !='UTF-8':
+            box_replacement = [("─", "-"), ("═","="), ("║","|"), ("│", "|"), ('┌', '+'), ("└", "+"), ("┐", "+"), ("┘", "+"), ("╔", "+"), ("╚", "+"), ("╗","+"), ("╝", "+"), ("•","*")]
             for convert_from, convert_to in box_replacement:
                 highlighted = highlighted.replace(convert_from, convert_to)
         return highlighted
 
     def navigate_questions_panel(self, playbook=False):
         # Code for navigating through the question panel
-        if playbook:
-            message = 'Playbook Questions'
-            instructions = ". Press 'd' to delete from playbook"
-            keys = ('enter', 'd')
-        else:
-            message = 'Relevant Questions'
-            instructions = ". Press 'p' to save in playbook"
-            keys = ('enter', 'p')
+        (message, instructions, keys) = ('Playbook Questions', ". Press 'd' to delete from playbook", ('enter', 'd')) if(playbook) else ('Relevant Questions', ". Press 'p' to save in playbook", ('p', 'enter'))
         console.rule('[bold blue] {}'.format(message), style="bold red")
-        console.print("[yellow] Use arrow keys to navigate. \
-                      'q' or 'Esc' to quit. 'Enter' to open in a browser" + 
-                      instructions)
+        console.print("[yellow] Use arrow keys to navigate. 'q' or 'Esc' to quit. 'Enter' to open in a browser" + instructions)
         console.print()
         options = ["|".join(map(str, question)) for question in self.questions_data]
-        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans,
-                                     preview_size=0.75, accept_keys=keys)
+        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans, preview_size=0.75, accept_keys=keys)
         quitting = False
         while not(quitting):
             options_index = question_menu.show()
@@ -303,15 +273,10 @@ class Utility():
 
     def make_request(self, que, tag: str):
         """
-        This function uses the requests library to make 
-        the rest api call to the stackexchange server.
-        :param que: The user questions that servers as 
-                    a question in the api.
+        This function uses the requests library to make the rest api call to the stackexchange server.
+        :param que: The user questions that servers as a question in the api.
         :type que: String
-        :param tag: The tags that user wants for searching the relevant
-                    answers. For e.g. TypeError might be for multiple 
-                    languages so is tag is used as "Python" then the 
-                    api will return answers based on the tags and question.
+        :param tag: The tags that user wants for searching the relevant answers. For e.g. TypeError might be for multiple languages so is tag is used as "Python" then the api will return answers based on the tags and question.
         :type tag: String
         :return: Json response from the api call.
         :rtype: Json format data
@@ -320,8 +285,7 @@ class Utility():
             try:
                 resp = requests.get(self.__get_search_url(que, tag))
             except:
-                SearchError("\U0001F613 Search Failed", 
-                            "\U0001F4BB Try connecting to the internet")
+                SearchError("\U0001F613 Search Failed", "\U0001F4BB Try connecting to the internet")
                 sys.exit()
         return resp.json()
 
@@ -350,23 +314,19 @@ class Utility():
     @classmethod
     def setCustomKey(self):
         client_id = 20013
-        """
-        scopes possible values:
-        read_inbox - access a user's global inbox
-        no_expiry - access_token's with this scope do not expire
-        write_access - perform write operations as a user
-        private_info - access full history of a user's private 
-                       actions on the site
-        """
+
+        # scopes possible values:
+        # read_inbox - access a user's global inbox
+        # no_expiry - access_token's with this scope do not expire
+        # write_access - perform write operations as a user
+        # private_info - access full history of a user's private actions on the site
         scopes = 'read_inbox'
 
         authorization_url = 'https://stackoverflow.com/oauth/dialog'
         redirect_uri = 'https://stackexchange.com/oauth/login_success'
 
-        # Create an OAuth session and open the auth_url in a browser
-        # for the user to authenticate
-        stackApps = OAuth2Session(client=MobileApplicationClient(client_id=client_id), 
-                                  scope=scopes, redirect_uri=redirect_uri)
+        # Create an OAuth session and open the auth_url in a browser for the user to authenticate
+        stackApps = OAuth2Session(client=MobileApplicationClient(client_id=client_id), scope=scopes, redirect_uri=redirect_uri)
         auth_url, state = stackApps.authorization_url(authorization_url)
 
         # Try to install web drivers for one of these browsers
@@ -380,8 +340,7 @@ class Utility():
                 try:
                     driver = webdriver.Edge(EdgeChromiumDriverManager().install())
                 except ValueError:
-                    print("You do not have one of these supported browsers: \
-                           Chrome, Firefox, Edge")
+                    print("You do not have one of these supported browsers: Chrome, Firefox, Edge")
 
         # Open auth_url in one of the supported browsers
         driver.get(auth_url)

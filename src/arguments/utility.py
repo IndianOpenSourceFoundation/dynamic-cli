@@ -36,8 +36,10 @@ console = Console()
 
 class Playbook():
     def __init__(self):
-        self.linux_path = "/home/{}/Documents/dynamic".format(os.getenv('USER'))
-        self.mac_path = "/Users/{}/Documents/dynamic".format(os.getenv('USER'))
+        self.linux_path = "/home/{}/Documents/dynamic".\
+                          format(os.getenv('USER'))
+        self.mac_path = "/Users/{}/Documents/dynamic".\
+                        format(os.getenv('USER'))
         self.file_name = 'dynamic_playbook.json'
         self.key = 'DYNAMIC'
 
@@ -49,9 +51,11 @@ class Playbook():
         """
         if not os.getenv(self.key):
             if(sys.platform=='linux'):
-                os.environ[self.key] = os.path.join(self.linux_path, self.file_name)
+                os.environ[self.key] = os.path.\
+                                       join(self.linux_path, self.file_name)
             elif(sys.platform=='darwin'):
-                os.environ[self.key] = os.path.join(self.mac_path, self.file_name)
+                os.environ[self.key] = os.path.\
+                                       join(self.mac_path, self.file_name)
         return os.getenv(self.key)
 
     @property
@@ -106,7 +110,8 @@ class Playbook():
             ]
         """
         if self.is_question_in_playbook(question_id):
-            console.print("[red] Question is already in the playbook, No need to add")
+            console.print("[red] Question is already in the playbook," +
+                           "No need to add")
             return
         for question in stackoverflow_object.questions_data:
             if(int(question[1])==int(question_id)):
@@ -118,7 +123,8 @@ class Playbook():
                     'question_id': int(question_id),
                     'question_title': question[0],
                     'question_link': question[2],
-                    'answer_body': stackoverflow_object.answer_data[int(question_id)]
+                    'answer_body': stackoverflow_object.\
+                                   answer_data[int(question_id)]
                 })
                 self.playbook_content = content
                 console.print("[green] Question added to the playbook")
@@ -188,8 +194,10 @@ class QuestionsPanelStackoverflow():
     def populate_answer_data(self, questions_list):
         """
         Function to populate answer data property
-        Creates batch request to stackexchange API to get ans of questions with
-        question id in the list. Stores the returned data data in the following format:
+        Creates batch request to stackexchange API
+        to get ans of questions with question id
+        in the list. Stores the returned data data
+        in the following format:
             dict( question_id:list( body, link ) )
         """
         with console.status("Searching answers..."):
@@ -216,7 +224,8 @@ class QuestionsPanelStackoverflow():
         body_markdown = self.answer_data[int(ques_id)]
         body_markdown = str(body_markdown)
         xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), 
-                                  ("&quot;", "\""), ("&apos;", "\'"), ("&#39;", "\'")]
+                                  ("&quot;", "\""), ("&apos;", "\'"),
+                                  ("&#39;", "\'")]
         for convert_from, convert_to in xml_markup_replacement:
             body_markdown = body_markdown.replace(convert_from, convert_to)
         width = os.get_terminal_size().columns
@@ -228,7 +237,8 @@ class QuestionsPanelStackoverflow():
         if not('UTF' in locale.getlocale()[1]):
             box_replacement = [("─", "-"), ("═","="), ("║","|"), ("│", "|"),
                                ('┌', '+'), ("└", "+"), ("┐", "+"), ("┘", "+"), 
-                               ("╔", "+"), ("╚", "+"), ("╗","+"), ("╝", "+"), ("•","*")]
+                               ("╔", "+"), ("╚", "+"), ("╗","+"), ("╝", "+"),
+                               ("•","*")]
             for convert_from, convert_to in box_replacement:
                 highlighted = highlighted.replace(convert_from, convert_to)
         return highlighted
@@ -244,12 +254,13 @@ class QuestionsPanelStackoverflow():
             instructions = ". Press 'p' to save in playbook"
             keys = ('enter', 'p')
         console.rule('[bold blue] {}'.format(message), style="bold red")
-        console.print("[yellow] Use arrow keys to navigate. \
-                      'q' or 'Esc' to quit. 'Enter' to open in a browser" + 
+        console.print("[yellow] Use arrow keys to navigate." +
+                       "'q' or 'Esc' to quit. 'Enter' to open in a browser" +
                       instructions)
         console.print()
         options = ["|".join(map(str, question)) for question in self.questions_data]
-        question_menu = TerminalMenu(options, preview_command=self.return_formatted_ans,
+        question_menu = TerminalMenu(options,
+                                     preview_command=self.return_formatted_ans,
                                      preview_size=0.75, accept_keys=keys)
         quitting = False
         while not(quitting):
@@ -262,9 +273,11 @@ class QuestionsPanelStackoverflow():
                 if(question_menu.chosen_accept_key == 'enter'):
                     webbrowser.open(question_link)
                 elif(question_menu.chosen_accept_key == 'p'):
-                    self.playbook.add_to_playbook(self, self.questions_data[options_index][1])
+                    self.playbook.\
+                    add_to_playbook(self, self.questions_data[options_index][1])
                 elif(question_menu.chosen_accept_key == 'd' and playbook):
-                    self.playbook.delete_from_playbook(self, self.questions_data[options_index][1])
+                    self.playbook.\
+                    delete_from_playbook(self, self.questions_data[options_index][1])
 
     def display_panel(self, questions_list, playbook=False):
         if not playbook:
@@ -365,7 +378,8 @@ class Utility():
 
         # Create an OAuth session and open the auth_url in a browser
         # for the user to authenticate
-        stackApps = OAuth2Session(client=MobileApplicationClient(client_id=client_id), 
+        stackApps = OAuth2Session(client=
+                                  MobileApplicationClient(client_id=client_id),
                                   scope=scopes, redirect_uri=redirect_uri)
         auth_url, state = stackApps.authorization_url(authorization_url)
 
@@ -375,18 +389,21 @@ class Utility():
             driver = webdriver.Chrome(ChromeDriverManager().install())
         except ValueError:
             try:
-                driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+                driver = webdriver.Firefox(executable_path=
+                                           GeckoDriverManager().install())
             except ValueError:
                 try:
-                    driver = webdriver.Edge(EdgeChromiumDriverManager().install())
+                    driver = webdriver.Edge(EdgeChromiumDriverManager().\
+                                            install())
                 except ValueError:
-                    print("You do not have one of these supported browsers: \
-                           Chrome, Firefox, Edge")
+                    print("You do not have one of these supported browsers:" +
+                          "Chrome, Firefox, Edge")
 
         # Open auth_url in one of the supported browsers
         driver.get(auth_url)
 
-        # Close the window after 20s (Assuming that the user logs in within 30 seconds)
+        # Close the window after 20s
+        # (Assuming that the user logs in within 30 seconds)
         time.sleep(30)
         # Close the windows as soon as authorization is done
         try:

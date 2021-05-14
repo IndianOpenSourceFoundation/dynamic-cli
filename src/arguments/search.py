@@ -20,7 +20,8 @@ class Prompt():
         print(colored(f"{self.message} : ", 'cyan'), end='')
         data = input()
         if data == "":
-            SearchError("\U0001F613 Input data empty", "\U0001F504 Please try again ")
+            SearchError("\U0001F613 Input data empty", 
+                        "\U0001F504 Please try again ")
             sys.exit()
         else:
             return str(data)
@@ -74,7 +75,8 @@ class Search():
         questions = self.utility_object.get_que(json_output)
         if questions == []:
             # evoke an error
-            search_error = SearchError("\U0001F613 No answer found", "\U0001F604 Please try reddit")
+            search_error = SearchError("\U0001F613 No answer found", 
+                                       "\U0001F604 Please try reddit")
         else:
             data = self.utility_object.get_ans(questions)
             print('''
@@ -82,7 +84,8 @@ class Search():
             \U0001F4C2 You can save an answer to a file with '-file'
 
             Not found what you were looking for \U00002754
-            \U0001F4C4 Open browser and post your question on StackOverflow with '-n [title (optional)]'
+            \U0001F4C4 Open browser and post your question 
+            on StackOverflow with '-n [title (optional)]'
             
             \U0001F50E To search more use '-s'
             ''')

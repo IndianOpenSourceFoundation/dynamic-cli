@@ -30,7 +30,8 @@ class ApiTesting():
         # Ask the user for endpoint if not present in request_url
         if not(has_endpoint):
             if(request_url[-1] == '/'):
-                endpoint = input("Input endpoint (Without the starting slash): ")
+                endpoint = input("Input endpoint \
+                                 (Without the starting slash): ")
             else:
                 endpoint = input("Input endpoint (With the starting slash): ")
             request_url += endpoint
@@ -43,7 +44,8 @@ class ApiTesting():
             print(f"Reponse Status Code: {response.status_code}")
             response_data = json.loads(response.content)
             parsed_json = json.dumps(response_data, indent=4)
-            output_json = highlight(parsed_json, lexers.JsonLexer(), formatters.TerminalFormatter())
+            output_json = highlight(parsed_json, lexers.JsonLexer(), 
+                                    formatters.TerminalFormatter())
             print(output_json)
 
             store_data = input('Store response data? (Y/N): ')
@@ -53,7 +55,8 @@ class ApiTesting():
                 print("Response data stored in response_data.json")
 
         except requests.exceptions.InvalidSchema:
-            print("Check whether the URL is valid or check if the localhost server is active or not")
+            print("Check whether the URL is valid or check if \
+                   the localhost server is active or not")
         except Exception as e:
             print(e)
 

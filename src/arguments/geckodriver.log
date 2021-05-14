@@ -1,0 +1,8 @@
+1620819173118	geckodriver	INFO	Listening on 127.0.0.1:43595
+1620819174128	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileJyNk0h"
+1620819175328	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1620819177989	Marionette	INFO	Listening on port 42369
+1620819178065	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+1620819180695	Marionette	INFO	Stopped listening on port 42369

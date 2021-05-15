@@ -46,7 +46,7 @@ class Playbook():
     @property
     def playbook_path(self):
         """
-        Create an environment variable 'DYNAMIC' 
+        Create an environment variable 'DYNAMIC'
         containing the path of dynamic_playbook.json and returns it
         """
         if not os.getenv(self.key):
@@ -143,7 +143,7 @@ class Playbook():
     def display_panel(self):
         playbook_data = self.playbook_content
         if(len(playbook_data['items_stackoverflow']) == 0):
-            SearchError("You have no entries in the playbook", 
+            SearchError("You have no entries in the playbook",
                         "Browse and save entries in playbook with 'p' key")
             sys.exit()
         # Creates QuestionPanelStackoverflow object
@@ -161,7 +161,7 @@ class QuestionsPanelStackoverflow():
         # list(  list( question_title, question_id, question_link )...  )
         self.questions_data = []
 
-        # dict( question_id:list( body, link )) 
+        # dict( question_id:list( body, link ))
         # corresponding to self.questions_data
         self.answer_data = defaultdict(lambda: False)
 
@@ -214,7 +214,7 @@ class QuestionsPanelStackoverflow():
                     self.answer_data[item['question_id']] = item['body_markdown']
         # Sometimes the StackExchange API fails to deliver some answers.
         # The below code is to fetch them
-        failed_ques_id = [question[1] for question in self.questions_data 
+        failed_ques_id = [question[1] for question in self.questions_data
                           if not(self.answer_data[question[1]])]
         if not(len(failed_ques_id) == 0):
             self.populate_answer_data(failed_ques_id)
@@ -223,7 +223,7 @@ class QuestionsPanelStackoverflow():
         # This function uses uses Rich Markdown to format answers body.
         body_markdown = self.answer_data[int(ques_id)]
         body_markdown = str(body_markdown)
-        xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), 
+        xml_markup_replacement = [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"),
                                   ("&quot;", "\""), ("&apos;", "\'"),
                                   ("&#39;", "\'")]
         for convert_from, convert_to in xml_markup_replacement:
@@ -236,7 +236,7 @@ class QuestionsPanelStackoverflow():
         highlighted = capture.get()
         if not('UTF' in locale.getlocale()[1]):
             box_replacement = [("─", "-"), ("═","="), ("║","|"), ("│", "|"),
-                               ('┌', '+'), ("└", "+"), ("┐", "+"), ("┘", "+"), 
+                               ('┌', '+'), ("└", "+"), ("┐", "+"), ("┘", "+"),
                                ("╔", "+"), ("╚", "+"), ("╗","+"), ("╝", "+"),
                                ("•","*")]
             for convert_from, convert_to in box_replacement:
@@ -316,14 +316,14 @@ class Utility():
 
     def make_request(self, que, tag: str):
         """
-        This function uses the requests library to make 
+        This function uses the requests library to make
         the rest api call to the stackexchange server.
-        :param que: The user questions that servers as 
+        :param que: The user questions that servers as
                     a question in the api.
         :type que: String
         :param tag: The tags that user wants for searching the relevant
-                    answers. For e.g. TypeError might be for multiple 
-                    languages so is tag is used as "Python" then the 
+                    answers. For e.g. TypeError might be for multiple
+                    languages so is tag is used as "Python" then the
                     api will return answers based on the tags and question.
         :type tag: String
         :return: Json response from the api call.
@@ -333,7 +333,7 @@ class Utility():
             try:
                 resp = requests.get(self.__get_search_url(que, tag))
             except:
-                SearchError("\U0001F613 Search Failed", 
+                SearchError("\U0001F613 Search Failed",
                             "\U0001F4BB Try connecting to the internet")
                 sys.exit()
         return resp.json()
@@ -368,7 +368,7 @@ class Utility():
         read_inbox - access a user's global inbox
         no_expiry - access_token's with this scope do not expire
         write_access - perform write operations as a user
-        private_info - access full history of a user's private 
+        private_info - access full history of a user's private
                        actions on the site
         """
         scopes = 'read_inbox'

@@ -6,7 +6,7 @@ from .error import SearchError
 
 class UpdateApplication(object):
     def __init__(self, current_version):
-        
+
         """
         Check for updates in the application
 

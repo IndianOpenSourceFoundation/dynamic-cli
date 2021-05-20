@@ -45,11 +45,7 @@ class Playbook():
 
     @property
     def playbook_path(self):
-        """Create an environment variable 'DYNAMIC'
-        
-        Create an environment variable 'DYNAMIC containing 
-        the path of dynamic_playbook.json and returns it
-        """
+        """Create an environment variable 'DYNAMIC containing the path of dynamic_playbook.json and returns i"""
         if not os.getenv(self.key):
             if(sys.platform=='linux'):
                 os.environ[self.key] = os.path.\

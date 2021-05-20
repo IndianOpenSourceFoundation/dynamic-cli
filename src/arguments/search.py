@@ -10,6 +10,7 @@ from .utility import Playbook
 from .save import SaveSearchResults
 from .update import UpdateApplication
 from .api_test import ApiTesting
+from .notion import NotionClient
 
 version = "0.1.0"
 class Prompt():
@@ -53,6 +54,8 @@ class Search():
             update.check_for_updates()
         elif self.arguments.GET:
             self.api_test_object.get_request()
+        elif self.arguments.notion:
+            NotionClient().print_token_v2()
 
     def search_for_results(self, save=False):
         queries = ["What do you want to search", "Tags"]
@@ -78,12 +81,12 @@ class Search():
         else:
             data = self.utility_object.get_ans(questions)
             print('''
-            \U0001F604 Hopefully you found what you were looking for! 
+            \U0001F604 Hopefully you found what you were looking for!
             \U0001F4C2 You can save an answer to a file with '-file'
 
             Not found what you were looking for \U00002754
             \U0001F4C4 Open browser and post your question on StackOverflow with '-n [title (optional)]'
-            
+
             \U0001F50E To search more use '-s'
             ''')
 

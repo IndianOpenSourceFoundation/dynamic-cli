@@ -32,3 +32,6 @@ cython_debug/
 # User files related to API testing and authentication
 access_token.json
 response_data.json
+
+# Selenium data
+geckodriver.log

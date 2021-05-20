@@ -310,6 +310,18 @@ class Utility():
         stackoverflow_panel.display_panel(questions_list)
         # Support for reddit searching can also be implemented from here
 
+    def get_browser_driver(self):
+        try:
+            return webdriver.Chrome(ChromeDriverManager().install())
+        except ValueError:
+            try:
+                return webdriver.Firefox(executable_path=GeckoDriverManager().install())
+            except ValueError:
+                try:
+                    return webdriver.Edge(EdgeChromiumDriverManager().install())
+                except ValueError:
+                    raise Exception("Browser/Browser driver now found.")
+
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod
     def setCustomKey(self):
@@ -332,15 +344,9 @@ class Utility():
         # Try to install web drivers for one of these browsers
         # Chrome, Firefox, Edge (One of them must be installed)
         try:
-            driver = webdriver.Chrome(ChromeDriverManager().install())
-        except ValueError:
-            try:
-                driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
-            except ValueError:
-                try:
-                    driver = webdriver.Edge(EdgeChromiumDriverManager().install())
-                except ValueError:
-                    print("You do not have one of these supported browsers: Chrome, Firefox, Edge")
+            driver = Utility().get_browser_driver()
+        except Exception as e:
+            print(e.message)
 
         # Open auth_url in one of the supported browsers
         driver.get(auth_url)

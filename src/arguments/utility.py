@@ -45,7 +45,8 @@ class Playbook():
 
     @property
     def playbook_path(self):
-        """Create an environment variable 'DYNAMIC'
+        """
+        Create an environment variable 'DYNAMIC'
         containing the path of dynamic_playbook.json and returns it
         """
         if not os.getenv(self.key):
@@ -361,7 +362,8 @@ class Utility():
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod
     def setCustomKey(self):
-        """scopes possible values:
+        """
+        scopes possible values:
         read_inbox - access a user's global inbox
         no_expiry - access_token's with this scope do not expire
         write_access - perform write operations as a user

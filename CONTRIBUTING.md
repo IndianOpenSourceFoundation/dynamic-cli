@@ -37,7 +37,7 @@ Refer to the following articles on the basics of Git and Github and can also con
 
 - Add Screenshots to help us know what this Script is all about.
 
-## ⭐ How to make a pull request ?
+## ⭐ How to make a pull request  
 
 **1.** Fork [this](https://github.com/IndianOpenSourceFoundation/dynamic-cli/fork) repository.
 Click on the <a href="https://github.com/IndianOpenSourceFoundation/dynamic-cli.git"><img src="https://img.icons8.com/ios/24/000000/code-fork.png"></a> symbol at the top right corner.
@@ -78,7 +78,7 @@ git push
 
 ***:trophy: After this, project leaders and mentors will review the changes and will merge your PR if they are found good, otherwise we will suggest the required changes.***
 
-## Style guide for git commit messages :memo: 
+## Style guide for git commit messages  
 
 *Here's a list of some good to have points, that can add more value to your contribution logs.*
 

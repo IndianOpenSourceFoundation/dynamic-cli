@@ -75,8 +75,8 @@ class Search():
         questions = self.utility_object.get_que(json_output)
         if questions == []:
             # evoke an error
-            search_error = SearchError("\U0001F613 No answer found",
-                                       "\U0001F604 Please try reddit")
+            SearchError("\U0001F613 No answer found",
+                        "\U0001F604 Please try reddit")
         else:
             data = self.utility_object.get_ans(questions)
             print('''

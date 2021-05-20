@@ -6,7 +6,7 @@ from .error import SearchError
 
 class UpdateApplication(object):
     def __init__(self, current_version):
-        
+
         """
         Check for updates in the application
 
@@ -34,7 +34,7 @@ class UpdateApplication(object):
                 print(colored("Yeah! You have the latest version",
                               "green"))
             else:
-                print(colored(f"New release found - {data.tag_name}", 
+                print(colored(f"New release found - {data.tag_name}",
                                "red"))
                 webbrowser.open(data["html_url"])
 

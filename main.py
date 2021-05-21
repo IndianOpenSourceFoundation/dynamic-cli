@@ -55,6 +55,11 @@ parser.add_argument("-p",
                     help="View and organise the playbook",
                     action='store_true')
 
+parser.add_argument("-no",
+                    "--notion",
+                    help="Login to your Notion account to save playbook",
+                    action='store_true')
+
 ARGV = parser.parse_args()
 
 search_flag = Search(ARGV)

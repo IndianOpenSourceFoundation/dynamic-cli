@@ -15,6 +15,7 @@ import webbrowser
 from .error import SearchError
 from .save import SaveSearchResults
 from .markdown import MarkdownRenderer
+from .settings import PLAYBOOK_DIR
 
 # Required for OAuth
 import json
@@ -36,11 +37,6 @@ console = Console()
 
 class Playbook():
     def __init__(self):
-        self.linux_path = "/home/{}/Documents/dynamic".\
-                          format(os.getenv('USER'))
-        self.mac_path = "/Users/{}/Documents/dynamic".\
-                        format(os.getenv('USER'))
-        self.file_name = 'dynamic_playbook.json'
         self.key = 'DYNAMIC'
 
     @property
@@ -51,11 +47,7 @@ class Playbook():
         """
         if not os.getenv(self.key):
             if(sys.platform=='linux'):
-                os.environ[self.key] = os.path.\
-                                       join(self.linux_path, self.file_name)
-            elif(sys.platform=='darwin'):
-                os.environ[self.key] = os.path.\
-                                       join(self.mac_path, self.file_name)
+                os.environ[self.key] = PLAYBOOK_DIR
         return os.getenv(self.key)
 
     @property

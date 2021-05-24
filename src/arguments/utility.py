@@ -35,6 +35,23 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 console = Console()
 
+def get_browser_driver():
+    # Try to install web drivers for one of these browsers
+    # Chrome, Firefox, Edge (One of them must be installed)
+    try:
+        return webdriver.Chrome(ChromeDriverManager().install())
+    except ValueError:
+        try:
+            return webdriver.Firefox(executable_path=
+                                        GeckoDriverManager().install())
+        except ValueError:
+            try:
+                return webdriver.Edge(EdgeChromiumDriverManager().\
+                                        install())
+            except ValueError:
+                print("You do not have one of these supported browsers:" +
+                        "Chrome, Firefox, Edge")
+
 class Playbook():
     def __init__(self):
         self.key = 'DYNAMIC'
@@ -350,23 +367,6 @@ class Utility():
         stackoverflow_panel.display_panel(questions_list)
         # Support for reddit searching can also be implemented from here
 
-    def get_browser_driver(self):
-        # Try to install web drivers for one of these browsers
-        # Chrome, Firefox, Edge (One of them must be installed)
-        try:
-            return webdriver.Chrome(ChromeDriverManager().install())
-        except ValueError:
-            try:
-                return webdriver.Firefox(executable_path=
-                                           GeckoDriverManager().install())
-            except ValueError:
-                try:
-                    return webdriver.Edge(EdgeChromiumDriverManager().\
-                                            install())
-                except ValueError:
-                    print("You do not have one of these supported browsers:" +
-                          "Chrome, Firefox, Edge")
-
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod
     def setCustomKey(self):
@@ -391,7 +391,7 @@ class Utility():
                                   scope=scopes, redirect_uri=redirect_uri)
         auth_url, state = stackApps.authorization_url(authorization_url)
 
-        driver = self.get_browser_driver()
+        driver = get_browser_driver()
 
         # Open auth_url in one of the supported browsers
         driver.get(auth_url)

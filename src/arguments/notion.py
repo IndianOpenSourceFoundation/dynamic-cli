@@ -1,8 +1,6 @@
 import os
-import sys
 
-from .utility import Utility
-from .error import SearchError
+from .utility import get_browser_driver
 from .settings import LOGIN_PATH
 from .settings import TOKEN_FILE_PATH
 
@@ -17,11 +15,18 @@ def get_token_from_cookie(cookie, token):
 
 class NotionClient():
     """
+    Implements Login and token retrieval
+
     Handles the entire procedure of connecting to User's Notion account,
-    generating Notion's tokenv2_cookie, storing it locally and uploading content
-    to User's space
+    generating Notion's tokenv2_cookie, storing it locally and uploading
+    content to User's space
     """
     def __init__(self):
+        """
+        No input parameters required for instatiating object.
+        tokenv2_cookie stores the cookie containing user's tokenv2
+        tokenv2_key is used to create environment variable
+        """
         self.tokenv2_cookie = None
         self.tokenv2_key = 'TOKENV2'
 
@@ -47,7 +52,7 @@ class NotionClient():
         Returns the user's cookies which can be used to
         access and transfer content to user's Notion account
         """
-        driver = Utility().get_browser_driver()
+        driver = get_browser_driver()
         try:
             driver.get(LOGIN_PATH)
             WebDriverWait(driver, 300).until(
@@ -64,7 +69,7 @@ class NotionClient():
         if not self.tokenv2_cookie:
             try:
                 self.tokenv2_cookie = self.get_token_from_file()
-            except Exception as e:
+            except Exception:
                 try:
                     cookies = self.get_cookies_from_login()
                     self.tokenv2_cookie = get_token_from_cookie(cookies, 'token_v2')

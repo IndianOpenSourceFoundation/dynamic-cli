@@ -367,7 +367,6 @@ class Utility():
                 except ValueError:
                     print("You do not have one of these supported browsers:" +
                           "Chrome, Firefox, Edge")
-        pass
 
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod

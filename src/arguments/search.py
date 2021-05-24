@@ -56,7 +56,7 @@ class Search():
         elif self.arguments.GET:
             self.api_test_object.get_request()
         elif self.arguments.notion:
-            NotionClient().print_token_v2()
+            NotionClient().get_tokenv2_cookie()
 
     def search_for_results(self, save=False):
         queries = ["What do you want to search", "Tags"]

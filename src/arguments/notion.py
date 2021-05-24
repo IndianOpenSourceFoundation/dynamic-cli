@@ -3,15 +3,12 @@ import sys
 
 from .utility import Utility
 from .error import SearchError
+from .settings import LOGIN_PATH
+from .settings import TOKEN_FILE_PATH
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
-
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 def get_token_from_cookie(cookie, token):
     for el in cookie:
@@ -27,21 +24,23 @@ class NotionClient():
     """
     def __init__(self):
         self.tokenv2_cookie = None
-        self.base_url = "https://www.notion.so/"
-        self.login_path = "login/"
-        self.linux_path = "/home/{}/Documents/dynamic".format(os.getenv('USER'))
-        self.mac_path = "/Users/{}/Documents/dynamic".format(os.getenv('USER'))
-        self.file_name = 'tokenv2_cookie.key'
+        self.tokenv2_key = 'TOKENV2'
 
     def get_token_from_file(self):
-        raise FileNotFoundError("File not found")
-        return None
-
-    def get_login_path(self):
-        return self.base_url + self.login_path
+        try:
+            with open(TOKEN_FILE_PATH, 'r') as f:
+                data = f.read()
+        except Exception as e:
+            raise e
+        if(not data or data==""):
+            raise Exception("Token not found in file")
+        else:
+            return data
 
     def save_token_file(self):
-        pass
+        if(self.tokenv2_cookie):
+            with open(TOKEN_FILE_PATH, 'w') as f:
+                f.write(str(self.tokenv2_cookie))
 
     def get_cookies_from_login(self):
         """
@@ -51,7 +50,7 @@ class NotionClient():
         """
         driver = Utility().get_browser_driver()
         try:
-            driver.get(self.get_login_path())
+            driver.get(LOGIN_PATH)
             WebDriverWait(driver, 300).until(
                 EC.presence_of_element_located((By.CLASS_NAME,
                                                 "notion-sidebar-container")))
@@ -61,7 +60,7 @@ class NotionClient():
         finally:
             driver.quit()
 
-    def set_tokenv2_cookie(self):
+    def get_tokenv2_cookie(self):
         # Sets 'tokenv2_cookie equal to the particular cookie containing token_v2
         if not self.tokenv2_cookie:
             try:
@@ -74,6 +73,9 @@ class NotionClient():
                     print(e)
                     self.tokenv2_cookie = None
                 finally:
-                    os.environ['tokenv2_cookie'] = self.tokenv2_cookie
                     if self.tokenv2_cookie:
+                        os.environ[self.tokenv2_key] = str(self.tokenv2_cookie)
                         self.save_token_file()
+                        return self.get_tokenv2_cookie
+                    else:
+                        raise Exception("Cookie unreachable")

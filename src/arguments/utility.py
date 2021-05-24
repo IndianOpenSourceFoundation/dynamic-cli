@@ -15,7 +15,7 @@ import webbrowser
 from .error import SearchError
 from .save import SaveSearchResults
 from .markdown import MarkdownRenderer
-from .settings import PLAYBOOK_DIR
+from .settings import PLAYBOOK_FILE
 
 # Required for OAuth
 import json
@@ -47,7 +47,7 @@ class Playbook():
         """
         if not os.getenv(self.key):
             if(sys.platform=='linux'):
-                os.environ[self.key] = PLAYBOOK_DIR
+                os.environ[self.key] = PLAYBOOK_FILE
         return os.getenv(self.key)
 
     @property
@@ -351,6 +351,24 @@ class Utility():
         stackoverflow_panel.display_panel(questions_list)
         # Support for reddit searching can also be implemented from here
 
+    def get_browser_driver(self):
+        # Try to install web drivers for one of these browsers
+        # Chrome, Firefox, Edge (One of them must be installed)
+        try:
+            return webdriver.Chrome(ChromeDriverManager().install())
+        except ValueError:
+            try:
+                return webdriver.Firefox(executable_path=
+                                           GeckoDriverManager().install())
+            except ValueError:
+                try:
+                    return webdriver.Edge(EdgeChromiumDriverManager().\
+                                            install())
+                except ValueError:
+                    print("You do not have one of these supported browsers:" +
+                          "Chrome, Firefox, Edge")
+        pass
+
     # Get an access token and extract to a JSON file "access_token.json"
     @classmethod
     def setCustomKey(self):
@@ -375,21 +393,7 @@ class Utility():
                                   scope=scopes, redirect_uri=redirect_uri)
         auth_url, state = stackApps.authorization_url(authorization_url)
 
-        # Try to install web drivers for one of these browsers
-        # Chrome, Firefox, Edge (One of them must be installed)
-        try:
-            driver = webdriver.Chrome(ChromeDriverManager().install())
-        except ValueError:
-            try:
-                driver = webdriver.Firefox(executable_path=
-                                           GeckoDriverManager().install())
-            except ValueError:
-                try:
-                    driver = webdriver.Edge(EdgeChromiumDriverManager().\
-                                            install())
-                except ValueError:
-                    print("You do not have one of these supported browsers:" +
-                          "Chrome, Firefox, Edge")
+        driver = self.get_browser_driver()
 
         # Open auth_url in one of the supported browsers
         driver.get(auth_url)

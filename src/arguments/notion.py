@@ -1,10 +1,9 @@
 import os
-import json
+import sys
 
 from .utility import Utility
 from .error import SearchError
 
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -73,7 +72,8 @@ class NotionClient():
                     self.tokenv2_cookie = get_token_from_cookie(cookies, 'token_v2')
                 except Exception as e:
                     print(e)
-
-    def print_token_v2(self):
-        self.set_tokenv2_cookie()
-        print(self.tokenv2_cookie)
+                    self.tokenv2_cookie = None
+                finally:
+                    os.environ['tokenv2_cookie'] = self.tokenv2_cookie
+                    if self.tokenv2_cookie:
+                        self.save_token_file()

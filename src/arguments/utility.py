@@ -46,8 +46,7 @@ class Playbook():
         containing the path of dynamic_playbook.json and returns it
         """
         if not os.getenv(self.key):
-            if(sys.platform=='linux'):
-                os.environ[self.key] = PLAYBOOK_FILE
+            os.environ[self.key] = PLAYBOOK_FILE
         return os.getenv(self.key)
 
     @property

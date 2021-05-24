@@ -14,7 +14,6 @@ def get_token_from_cookie(cookie, token):
     for el in cookie:
         if el['name'] == token:
             return el
-    pass
 
 class NotionClient():
     """
@@ -31,9 +30,9 @@ class NotionClient():
             with open(TOKEN_FILE_PATH, 'r') as f:
                 data = f.read()
         except Exception as e:
-            raise e
+            print(e)
         if(not data or data==""):
-            raise Exception("Token not found in file")
+            raise RuntimeError("Token not found in file")
         else:
             return data
 
@@ -65,7 +64,7 @@ class NotionClient():
         if not self.tokenv2_cookie:
             try:
                 self.tokenv2_cookie = self.get_token_from_file()
-            except:
+            except Exception as e:
                 try:
                     cookies = self.get_cookies_from_login()
                     self.tokenv2_cookie = get_token_from_cookie(cookies, 'token_v2')
@@ -76,6 +75,6 @@ class NotionClient():
                     if self.tokenv2_cookie:
                         os.environ[self.tokenv2_key] = str(self.tokenv2_cookie)
                         self.save_token_file()
-                        return self.get_tokenv2_cookie
                     else:
-                        raise Exception("Cookie unreachable")
+                        raise RuntimeError("Cookie unreachable")
+        return self.get_tokenv2_cookie

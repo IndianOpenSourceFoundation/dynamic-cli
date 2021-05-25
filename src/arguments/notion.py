@@ -26,7 +26,7 @@ def get_token_from_file():
 
 def get_cookies_from_login():
 
-    """
+    """Capture browser cookies for authentication
 
     Provides the user browser window to login to Notion
     Returns the user's cookies which can be used to

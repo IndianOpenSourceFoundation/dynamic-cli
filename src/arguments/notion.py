@@ -26,7 +26,7 @@ def get_token_from_file():
         return data
 
 def get_cookies_from_login():
-    """Capture browser cookies for authentication"""
+    """Capture browser cookies for authentication."""
     driver = get_browser_driver()
     try:
         driver.get(LOGIN_PATH)

@@ -1,12 +1,15 @@
 import os
 
 from .utility import get_browser_driver
+from .error import LoginError
 from .settings import LOGIN_PATH
 from .settings import TOKEN_FILE_PATH
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+from rich import console
 
 def get_token_from_cookie(cookie, token):
     for el in cookie:
@@ -72,17 +75,18 @@ class NotionClient():
         if not self.tokenv2_cookie:
             try:
                 self.tokenv2_cookie = get_token_from_file()
+                LoginError("Login Successful", success=True)
             except Exception:
                 try:
                     cookies = get_cookies_from_login()
                     self.tokenv2_cookie = get_token_from_cookie(cookies, 'token_v2')
                 except Exception as e:
-                    print(e)
                     self.tokenv2_cookie = None
                 finally:
                     if self.tokenv2_cookie:
                         os.environ[self.tokenv2_key] = str(self.tokenv2_cookie)
+                        LoginError("Login Successful", success=True)
                         self.save_token_file()
                     else:
-                        raise RuntimeError("Cookie unreachable")
+                        LoginError("Login Failed", success=False)
         return self.get_tokenv2_cookie

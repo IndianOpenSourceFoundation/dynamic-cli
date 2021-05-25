@@ -18,3 +18,18 @@ class SearchError():
         ]
         for text_to_print in print_text:
             print(text_to_print)
+
+class LoginError():
+    def __init__(self, error_statement, success=False):
+        # the error statement
+        self.error_statement = error_statement
+
+        # success determines the color of message
+        self.success = success
+
+        self.evoke_search_error()
+
+    def evoke_search_error(self):
+        color = "green" if self.success else "red"
+        print_text = colored(self.error_statement, color)
+        print(print_text)

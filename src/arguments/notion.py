@@ -45,6 +45,7 @@ def get_cookies_from_login():
         driver.quit()
 
 class NotionClient():
+    
     """
 
     Implements Login and token retrieval

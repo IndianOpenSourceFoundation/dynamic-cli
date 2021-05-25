@@ -26,14 +26,7 @@ def get_token_from_file():
         return data
 
 def get_cookies_from_login():
-
-    """
-    Capture browser cookies for authentication
-
-    Provides the user browser window to login to Notion
-    Returns the user's cookies which can be used to
-    access and transfer content to user's Notion account
-    """
+    """Capture browser cookies for authentication"""
     driver = get_browser_driver()
     try:
         driver.get(LOGIN_PATH)

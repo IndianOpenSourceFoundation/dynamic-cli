@@ -26,7 +26,8 @@ def get_token_from_file():
         return data
 
 def get_cookies_from_login():
-    """Capture browser cookies for authentication
+    """
+    Capture browser cookies for authentication
 
     Provides the user browser window to login to Notion
     Returns the user's cookies which can be used to
@@ -47,7 +48,6 @@ def get_cookies_from_login():
 class NotionClient():
 
     """
-
     Implements Login and token retrieval
 
     Handles the entire procedure of connecting to User's Notion account,
@@ -57,8 +57,9 @@ class NotionClient():
     def __init__(self):
         """
         No input parameters required for instatiating object.
-        tokenv2_cookie stores the cookie containing user's tokenv2
-        tokenv2_key is used to create environment variable
+
+        :tokenv2_cookie: stores the cookie containing user's tokenv2
+        :tokenv2_key: used to create environment variable
         """
         self.tokenv2_cookie = None
         self.tokenv2_key = 'TOKENV2'

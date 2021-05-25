@@ -21,12 +21,13 @@ class SearchError():
 
 class LoginError():
     def __init__(self, error_statement, success=False):
-        # the error statement
+        """Implements error printing for User Login
+
+        Error statement is printed in 'Green' or 'Red'
+        Color depending upon the value of success variable
+        """
         self.error_statement = error_statement
-
-        # success determines the color of message
         self.success = success
-
         self.evoke_search_error()
 
     def evoke_search_error(self):

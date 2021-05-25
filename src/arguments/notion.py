@@ -9,8 +9,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from rich import console
-
 def get_token_from_cookie(cookie, token):
     for el in cookie:
         if el['name'] == token:
@@ -80,7 +78,7 @@ class NotionClient():
                 try:
                     cookies = get_cookies_from_login()
                     self.tokenv2_cookie = get_token_from_cookie(cookies, 'token_v2')
-                except Exception as e:
+                except Exception:
                     self.tokenv2_cookie = None
                 finally:
                     if self.tokenv2_cookie:

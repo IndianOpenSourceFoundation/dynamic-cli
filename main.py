@@ -57,7 +57,10 @@ parser.add_argument("-p",
 
 parser.add_argument("-no",
                     "--notion",
-                    help="Login to your Notion account to save playbook",
+                    help="\
+                    Login to your Notion account to save playbook.\
+                    Opens a browser window for you to login to\
+                    your Notion accout",
                     action='store_true')
 
 ARGV = parser.parse_args()

@@ -65,11 +65,13 @@ class NotionClient():
                 f.write(str(self.tokenv2_cookie))
 
     def get_tokenv2_cookie(self):
+        message_success = "Successfully logged into Notion \U0001F389"
+        message_failure = "Login unsuccessful. Please try again \U0001F615"
         # Sets 'tokenv2_cookie equal to the particular cookie containing token_v2
         if not self.tokenv2_cookie:
             try:
                 self.tokenv2_cookie = get_token_from_file()
-                LoginError("Login Successful", success=True)
+                LoginError(message_success, success=True)
             except Exception:
                 try:
                     cookies = get_cookies_from_login()
@@ -79,8 +81,8 @@ class NotionClient():
                 finally:
                     if self.tokenv2_cookie:
                         os.environ[self.tokenv2_key] = str(self.tokenv2_cookie)
-                        LoginError("Login Successful", success=True)
+                        LoginError(message_success, success=True)
                         self.save_token_file()
                     else:
-                        LoginError("Login Failed", success=False)
+                        LoginError(message_failure, success=False)
         return self.get_tokenv2_cookie

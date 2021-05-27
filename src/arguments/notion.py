@@ -42,7 +42,6 @@ def get_cookies_from_login():
 class NotionClient():
 
     """
-
     Implements Login and token retrieval.
 
     Handles the entire procedure of connecting to User's Notion account,

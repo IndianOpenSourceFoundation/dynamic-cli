@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import argparse
 import webbrowser
 from termcolor import colored
 import sys as sys
@@ -44,7 +43,7 @@ class Search():
             self.playbook_object.display_panel()
         elif self.arguments.new:
             url = "https://stackoverflow.com/questions/ask"
-            if type(self.arguments.new) == str:
+            if isinstance(self.arguments.new, str):
                 webbrowser.open(f"{url}?title={self.arguments.new}")
             else:
                 webbrowser.open(url)
@@ -96,5 +95,7 @@ class Search():
             if save:
                 filename = SaveSearchResults(data)
                 print(
+                    colored(f"\U0001F604 Answers successfully saved into {filename}",
+                            "green"))
                     colored("\U0001F604 Answers successfully saved into" +\
                             filename, "green"))

@@ -50,6 +50,7 @@ Options: <br>
 `-GET -> Make a GET request to an API` <br>
 
 ## License🗄
+The project is licensed under the GNU General Public License v3. Check out [`LICENSE`](https://github.com/IndianOpenSourceFoundation/dynamic-cli/blob/master/LICENSE)
 
 ### Contributing
 
@@ -57,10 +58,9 @@ Options: <br>
 
 **We're accepting PRs for our open and unassigned [issues](https://github.com/IndianOpenSourceFoundation/dynamic-cli/issues)**. Please check [CONTRIBUTING.md](CONTRIBUTING.md). We'd love your contributions! **Kindly follow the steps below to get started:**
 
-**1.** Fork [this](https://github.com/IndianOpenSourceFoundation/dynamic-cli) repository.
+**1.** Fork [this](https://github.com/IndianOpenSourceFoundation/dynamic-cli/fork) repository.
 
-**2.** Clone the forked repository. Open terminal and type:
-
+**2.** Clone the forked repository. 
 ```bash
 git clone https://github.com/<your-github-username>/project_name.git
 ```
@@ -84,10 +84,10 @@ Eg: `\U0001F604`
 **5.** Stage your changes and commit
 
 ```bash
-#Add changes to Index
+# Add changes to Index
 git add .
 
-#Commit to the local repo
+# Commit to the local repo
 git commit -m "<your_commit_message>"
 ```
 

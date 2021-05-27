@@ -21,8 +21,7 @@ class SearchError():
 
 class LoginError():
     def __init__(self, error_statement, success=False):
-        """
-        Implements error printing for User Login
+        """Implements error printing for User Login
 
         :error_statement: Error statement to print
         :success: Indicates success of login attempt

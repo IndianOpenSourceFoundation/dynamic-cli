@@ -1,7 +1,7 @@
 from termcolor import colored
 
 
-class SearchError():
+class SearchError:
     def __init__(self, error_statement, suggestion="Try again"):
         # the error statement
         self.error_statement = error_statement
@@ -13,13 +13,14 @@ class SearchError():
 
     def evoke_search_error(self, error_statement):
         print_text = [
-            colored(error_statement, 'red'),
-            colored(self.suggestion, 'green')
+            colored(error_statement, "red"),
+            colored(self.suggestion, "green"),
         ]
         for text_to_print in print_text:
             print(text_to_print)
 
-class LoginError():
+
+class LoginError:
     def __init__(self, error_statement, success=False):
         """
         Implements error printing for User Login

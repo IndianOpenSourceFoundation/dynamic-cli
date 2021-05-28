@@ -14,5 +14,5 @@ try:
 except FileExistsError:
     pass
 
-if(not os.path.isfile(TOKEN_FILE_PATH)):
-    open(TOKEN_FILE_PATH, 'w').close()
+if not os.path.isfile(TOKEN_FILE_PATH):
+    open(TOKEN_FILE_PATH, "w").close()

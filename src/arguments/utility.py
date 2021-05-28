@@ -15,6 +15,7 @@ import webbrowser
 from .error import SearchError
 from .save import SaveSearchResults
 from .markdown import MarkdownRenderer
+from .settings import PLAYBOOK_FILE
 
 # Required for OAuth
 import json
@@ -34,25 +35,32 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 console = Console()
 
+def get_browser_driver():
+    # Try to install web drivers for one of these browsers
+    # Chrome, Firefox, Edge (One of them must be installed)
+    try:
+        return webdriver.Chrome(ChromeDriverManager().install())
+    except ValueError:
+        try:
+            return webdriver.Firefox(executable_path=
+                                        GeckoDriverManager().install())
+        except ValueError:
+            try:
+                return webdriver.Edge(EdgeChromiumDriverManager().\
+                                        install())
+            except ValueError:
+                print("You do not have one of these supported browsers:" +
+                        "Chrome, Firefox, Edge")
+
 class Playbook():
     def __init__(self):
-        self.linux_path = "/home/{}/Documents/dynamic".\
-                          format(os.getenv('USER'))
-        self.mac_path = "/Users/{}/Documents/dynamic".\
-                        format(os.getenv('USER'))
-        self.file_name = 'dynamic_playbook.json'
         self.key = 'DYNAMIC'
 
     @property
     def playbook_path(self):
         """Create an environment variable 'DYNAMIC containing the path of dynamic_playbook.json and returns i."""
         if not os.getenv(self.key):
-            if(sys.platform=='linux'):
-                os.environ[self.key] = os.path.\
-                                       join(self.linux_path, self.file_name)
-            elif(sys.platform=='darwin'):
-                os.environ[self.key] = os.path.\
-                                       join(self.mac_path, self.file_name)
+            os.environ[self.key] = PLAYBOOK_FILE
         return os.getenv(self.key)
 
     @property
@@ -380,21 +388,7 @@ class Utility():
                                   scope=scopes, redirect_uri=redirect_uri)
         auth_url, state = stackApps.authorization_url(authorization_url)
 
-        # Try to install web drivers for one of these browsers
-        # Chrome, Firefox, Edge (One of them must be installed)
-        try:
-            driver = webdriver.Chrome(ChromeDriverManager().install())
-        except ValueError:
-            try:
-                driver = webdriver.Firefox(executable_path=
-                                           GeckoDriverManager().install())
-            except ValueError:
-                try:
-                    driver = webdriver.Edge(EdgeChromiumDriverManager().\
-                                            install())
-                except ValueError:
-                    print("You do not have one of these supported browsers:" +
-                          "Chrome, Firefox, Edge")
+        driver = get_browser_driver()
 
         # Open auth_url in one of the supported browsers
         driver.get(auth_url)

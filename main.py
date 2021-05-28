@@ -63,6 +63,12 @@ parser.add_argument("-no",
                     your Notion accout",
                     action='store_true')
 
+parser.add_argument("-i",
+										"--issue",
+                    help="\
+                    Resport an issue",
+                    action='store_true')
+
 ARGV = parser.parse_args()
 
 search_flag = Search(ARGV)

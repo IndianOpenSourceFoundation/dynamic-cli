@@ -10,6 +10,7 @@ from .save import SaveSearchResults
 from .update import UpdateApplication
 from .api_test import ApiTesting
 from .notion import NotionClient
+from .issues import ReportIssues
 
 version = "0.1.0"
 
@@ -57,6 +58,8 @@ class Search:
             self.api_test_object.get_request()
         elif self.arguments.notion:
             NotionClient().get_tokenv2_cookie()
+        elif self.arguments.issue:
+            ReportIssues(Prompt)
 
     def search_for_results(self, save=False):
         queries = ["What do you want to search", "Tags"]

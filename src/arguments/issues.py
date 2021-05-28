@@ -2,6 +2,13 @@ import webbrowser
 
 
 class ReportIssues(object):
+    '''
+    Report issues via the command line
+
+    Args:
+        prompt The prompt class passed in along with the contructor to avoid import conflicts
+
+    '''
     url = "https://github.com/IndianOpenSourceFoundation/dynamic-cli/issues/new?assignees=&labels=proposal&template=proposal.md&title=<title-text>"
 
     def __init__(self, prompt=None):

@@ -54,7 +54,6 @@ parser.add_argument("-DELETE",
                      help = "Make a DELETE request to an API",
                      action = 'store_true')
 
-
 parser.add_argument("-p",
                     "--playbook",
                     help="View and organise the playbook",

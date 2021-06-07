@@ -60,7 +60,7 @@ class ApiTesting():
         output_json = highlight(parsed_json, lexers.JsonLexer(),
                                     formatters.TerminalFormatter())
         print(output_json)
-        return output_json, response_data
+        return response_data
 
     # Make GET request
     @classmethod
@@ -69,7 +69,7 @@ class ApiTesting():
         # Make GET request and store the response in response_data.json
         try:
             response = requests.get(request_data["request_url"], headers= request_data["request_headers"])
-            output_json, response_data = cls.print_response_json(response)
+            response_data = cls.print_response_json(response)
             cls.save_response_data(response_data)
 
         except requests.exceptions.InvalidSchema:
@@ -83,7 +83,7 @@ class ApiTesting():
         request_data = cls.fetch_input_url()
         try:
             response = requests.delete(request_data["request_url"], headers= request_data["request_headers"])
-            output_json, response_data = cls.print_response_json(response)
+            response_data = cls.print_response_json(response)
             cls.save_response_data(response_data)
 
         except requests.exceptions.InvalidSchema:

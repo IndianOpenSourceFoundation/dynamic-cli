@@ -55,7 +55,7 @@ class Search():
         elif self.arguments.GET:
             self.api_test_object.get_request()
         elif self.arguments.DELETE:
-            self.api_test_object.delete_endpoint_request()    
+            self.api_test_object.delete_endpoint_request()
         elif self.arguments.notion:
             NotionClient().get_tokenv2_cookie()
 

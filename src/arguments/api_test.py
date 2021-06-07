@@ -4,8 +4,7 @@ from pygments import highlight, lexers, formatters
 class ApiTesting():
     default_url = "https://127.0.0.1:8000"
     default_headers = {}
-    InvalidSchemaMessage = "Check whether the URL is valid or check if " +
-                            "the localhost server is active or not"
+    InvalidSchemaMessage = "Check whether the URL is valid or check if " + "the localhost server is active or not"                         
     # fetches the input data for making a request
     @classmethod
     def fetch_input_url(cls):

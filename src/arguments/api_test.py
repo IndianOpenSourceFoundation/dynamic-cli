@@ -4,162 +4,95 @@ from pygments import highlight, lexers, formatters
 class ApiTesting():
     default_url = "https://127.0.0.1:8000"
     default_headers = {}
+    InvalidSchemaMessage = "Check whether the URL is valid or check if " +
+                            "the localhost server is active or not"
+    # fetches the input data for making a request
+    @classmethod
+    def fetch_input_url(cls):
+        request_url = cls.default_url
+        request_headers = cls.default_headers
+        input_url = input('Enter URL: ')
+        input_headers = input('Enter Headers: ')
+        if input_url != '':
+            request_url = input_url
+        if input_headers != '':
+            try:
+                request_headers = json.loads(input_headers)
+            except Exception:
+                print("Failed to parse Input Headers")
+        # Check whether the request_url has an endpoint or not
+        has_endpoint = cls.__check_endpoint(request_url)
+
+        # Check if http:// or https:// is present in request_url
+        has_protocol = cls.__check_protocol(request_url)
+
+        if not(has_protocol):
+            request_url = "https://" + request_url
+
+        # Ask the user for endpoint if not present in request_url
+        if not(has_endpoint):
+            if(request_url[-1] == '/'):
+                endpoint = input("Input endpoint " +
+                                 "(Without the starting slash): ")
+            else:
+                endpoint = input("Input endpoint (With the starting slash): ")
+            request_url += endpoint
+
+        print("Trying ...\u26A1")
+        return {
+            "request_url" : request_url,
+            "request_headers" : request_headers,
+        }
+
+    #saves the json response into a file    
+    @classmethod
+    def save_response_data(cls,output_json):
+        store_data = input('Store response data? (Y/N): ')
+        if(store_data == 'Y' or store_data == 'y'):
+                with open('response_data.json', 'w') as jsonFile:
+                    json.dump(response_data, jsonFile, indent=4)
+                print("Response data stored in response_data.json")
+    
+    # formats the response data and prints it in json on console
+    @classmethod
+    def print_response_json(cls,response):
+        print(f"Reponse Status Code: {response.status_code}")
+        response_data = json.loads(response.content)
+        parsed_json = json.dumps(response_data, indent=4)
+        output_json = highlight(parsed_json, lexers.JsonLexer(),
+                                    formatters.TerminalFormatter())
+        print(output_json)
+        return output_json
+
     # Make GET request
     @classmethod
     def get_request(cls):
-        request_url = cls.default_url
-        request_headers = cls.default_headers
-        input_url = input('Enter URL: ')
-        input_headers = input('Enter Headers: ')
-        if input_url != '':
-            request_url = input_url
-        if input_headers != '':
-            try:
-                request_headers = json.loads(input_headers)
-            except Exception:
-                print("Failed to parse Input Headers")
-        # Check whether the request_url has an endpoint or not
-        has_endpoint = cls.__check_endpoint(request_url)
-
-        # Check if http:// or https:// is present in request_url
-        has_protocol = cls.__check_protocol(request_url)
-
-        if not(has_protocol):
-            request_url = "https://" + request_url
-
-        # Ask the user for endpoint if not present in request_url
-        if not(has_endpoint):
-            if(request_url[-1] == '/'):
-                endpoint = input("Input endpoint " +
-                                 "(Without the starting slash): ")
-            else:
-                endpoint = input("Input endpoint (With the starting slash): ")
-            request_url += endpoint
-
-        print("Trying ...\u26A1")
-
+        request_data = cls.fetch_input_url()
         # Make GET request and store the response in response_data.json
         try:
-            response = requests.get(request_url, headers=request_headers)
-            print(f"Reponse Status Code: {response.status_code}")
-            response_data = json.loads(response.content)
-            parsed_json = json.dumps(response_data, indent=4)
-            output_json = highlight(parsed_json, lexers.JsonLexer(),
-                                    formatters.TerminalFormatter())
-            print(output_json)
-
-            store_data = input('Store response data? (Y/N): ')
-            if(store_data == 'Y' or store_data == 'y'):
-                with open('response_data.json', 'w') as jsonFile:
-                    json.dump(response_data, jsonFile, indent=4)
-                print("Response data stored in response_data.json")
+            response = requests.get(request_data["request_url"], headers= request_data["request_headers"])
+            output_json = cls.print_response_json(response)
+            cls.save_response_data(output_json)
 
         except requests.exceptions.InvalidSchema:
-            print("Check whether the URL is valid or check if " +
-                  "the localhost server is active or not")
+            print(cls.InvalidSchemaMessage)
         except Exception as e:
             print(e)
+    # Make a delete request 
     @classmethod
     def delete_endpoint_request(cls):
-        request_url = cls.default_url
-        request_headers = cls.default_headers
-        input_url = input('Enter URL: ')
-        input_headers = input('Enter Headers: ')
-        if input_url != '':
-            request_url = input_url
-        if input_headers != '':
-            try:
-                request_headers = json.loads(input_headers)
-            except Exception:
-                print("Failed to parse Input Headers")
-        # Check whether the request_url has an endpoint or not
-        has_endpoint = cls.__check_endpoint(request_url)
-
-        # Check if http:// or https:// is present in request_url
-        has_protocol = cls.__check_protocol(request_url)
-
-        if not(has_protocol):
-            request_url = "https://" + request_url
-
-        # Ask the user for endpoint if not present in request_url
-        if not(has_endpoint):
-            if(request_url[-1] == '/'):
-                endpoint = input("Input endpoint " +
-                                 "(Without the starting slash): ")
-            else:
-                endpoint = input("Input endpoint (With the starting slash): ")
-            request_url += endpoint
-
-        print("Trying ...\u26A1")
+        
+        # request_data contains dictionary of inputs entered by user
+        request_data = cls.fetch_input_url()
         try:
-            response = requests.delete(request_url, headers=request_headers)
-            print(f"Reponse Status Code: {response.status_code}")
-            response_data = json.loads(response.content)
-            parsed_json = json.dumps(response_data, indent=4)
-            output_json = highlight(parsed_json, lexers.JsonLexer(),
-                                    formatters.TerminalFormatter())
-            print(output_json)
-
-            store_data = input('Store response data? (Y/N): ')
-            if(store_data == 'Y' or store_data == 'y'):
-                with open('response_data.json', 'w') as jsonFile:
-                    json.dump(response_data, jsonFile, indent=4)
-                print("Response data stored in response_data.json")
+            response = requests.delete(request_data["request_url"], headers= request_data["request_headers"])
+            output_json = cls.print_response_json(response)
+            cls.save_response_data(output_json)
 
         except requests.exceptions.InvalidSchema:
-            print("Check whether the URL is valid or check if " +
-                  "the localhost server is active or not")
+            print(cls.InvalidSchemaMessage)
         except Exception as e:
             print(e)
-
-        # Make GET request and store the response in response_data.json
-    @classmethod
-    def delete_endpoint_request(cls):
-        request_url = cls.default_url
-        request_headers = cls.default_headers
-        input_url = input('Enter URL: ')
-        input_headers = input('Enter Headers: ')
-        if input_url != '':
-            request_url = input_url
-        if input_headers != '':
-            try:
-                request_headers = json.loads(input_headers)
-            except Exception:
-                print("Failed to parse Input Headers")
-        # Check whether the request_url has an endpoint or not
-        has_endpoint = cls.__check_endpoint(request_url)
-
-        # Check if http:// or https:// is present in request_url
-        has_protocol = cls.__check_protocol(request_url)
-
-        if not(has_protocol):
-            request_url = "https://" + request_url
-
-        # Ask the user for endpoint if not present in request_url
-        if not(has_endpoint):
-            if(request_url[-1] == '/'):
-                endpoint = input("Input endpoint " +
-                                 "(Without the starting slash): ")
-            else:
-                endpoint = input("Input endpoint (With the starting slash): ")
-            request_url += endpoint
-
-        print("Trying ...\u26A1")
-        # Makes a DELETE request to the given endpoint
-        try:
-            response = requests.delete(request_url, headers=request_headers)
-            print(f"Reponse Status Code: {response.status_code}")
-            response_data = json.loads(response.content)
-            parsed_json = json.dumps(response_data, indent=4)
-            output_json = highlight(parsed_json, lexers.JsonLexer(),
-                                    formatters.TerminalFormatter())
-            print(output_json)
-
-        except requests.exceptions.InvalidSchema:
-            print("Check whether the URL is valid or check if " +
-                  "the localhost server is active or not")
-        except Exception as e:
-            print(e)        
 
     @classmethod
     def __check_endpoint(cls, request_url):
@@ -174,3 +107,4 @@ class ApiTesting():
             return True
         else:
             return False
+    

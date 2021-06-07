@@ -4,7 +4,7 @@ from pygments import highlight, lexers, formatters
 class ApiTesting():
     default_url = "https://127.0.0.1:8000"
     default_headers = {}
-    InvalidSchemaMessage = "Check whether the URL is valid or check if " + "the localhost server is active or not"                         
+    InvalidSchemaMessage = "Check whether the URL is valid or check if" + "the localhost server is active or not"
     # fetches the input data for making a request
     @classmethod
     def fetch_input_url(cls):
@@ -43,15 +43,14 @@ class ApiTesting():
             "request_headers" : request_headers,
         }
 
-    #saves the json response into a file    
+    #saves the json response into a file
     @classmethod
-    def save_response_data(cls,output_json):
+    def save_response_data(cls,response_data):
         store_data = input('Store response data? (Y/N): ')
         if(store_data == 'Y' or store_data == 'y'):
                 with open('response_data.json', 'w') as jsonFile:
                     json.dump(response_data, jsonFile, indent=4)
                 print("Response data stored in response_data.json")
-    
     # formats the response data and prints it in json on console
     @classmethod
     def print_response_json(cls,response):
@@ -61,7 +60,7 @@ class ApiTesting():
         output_json = highlight(parsed_json, lexers.JsonLexer(),
                                     formatters.TerminalFormatter())
         print(output_json)
-        return output_json
+        return output_json, response_data
 
     # Make GET request
     @classmethod
@@ -70,23 +69,22 @@ class ApiTesting():
         # Make GET request and store the response in response_data.json
         try:
             response = requests.get(request_data["request_url"], headers= request_data["request_headers"])
-            output_json = cls.print_response_json(response)
-            cls.save_response_data(output_json)
+            output_json, response_data = cls.print_response_json(response)
+            cls.save_response_data(response_data)
 
         except requests.exceptions.InvalidSchema:
             print(cls.InvalidSchemaMessage)
         except Exception as e:
             print(e)
-    # Make a delete request 
+    # Make a delete request
     @classmethod
     def delete_endpoint_request(cls):
-        
         # request_data contains dictionary of inputs entered by user
         request_data = cls.fetch_input_url()
         try:
             response = requests.delete(request_data["request_url"], headers= request_data["request_headers"])
-            output_json = cls.print_response_json(response)
-            cls.save_response_data(output_json)
+            output_json, response_data = cls.print_response_json(response)
+            cls.save_response_data(response_data)
 
         except requests.exceptions.InvalidSchema:
             print(cls.InvalidSchemaMessage)
@@ -106,4 +104,3 @@ class ApiTesting():
             return True
         else:
             return False
-    

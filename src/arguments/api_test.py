@@ -4,7 +4,7 @@ from pygments import highlight, lexers, formatters
 class ApiTesting():
     default_url = "https://127.0.0.1:8000"
     default_headers = {}
-    InvalidSchemaMessage = "Check whether the URL is valid or check if" + "the localhost server is active or not"
+    invalid_schema_message = "Check whether the URL is valid or check if" + "the localhost server is active or not"
     # fetches the input data for making a request
     @classmethod
     def fetch_input_url(cls):
@@ -51,6 +51,9 @@ class ApiTesting():
                 with open('response_data.json', 'w') as jsonFile:
                     json.dump(response_data, jsonFile, indent=4)
                 print("Response data stored in response_data.json")
+        else:
+            print(f"You have entered {store_data}, please enter 'Y' or 'y' to store the output")
+
     # formats the response data and prints it in json on console
     @classmethod
     def print_response_json(cls,response):
@@ -60,7 +63,6 @@ class ApiTesting():
         output_json = highlight(parsed_json, lexers.JsonLexer(),
                                     formatters.TerminalFormatter())
         print(output_json)
-        return response_data
 
     # Make GET request
     @classmethod
@@ -69,27 +71,29 @@ class ApiTesting():
         # Make GET request and store the response in response_data.json
         try:
             response = requests.get(request_data["request_url"], headers= request_data["request_headers"])
-            response_data = cls.print_response_json(response)
+            cls.print_response_json(response)
+            response_data = json.loads(response.content)
             cls.save_response_data(response_data)
 
         except requests.exceptions.InvalidSchema:
-            print(cls.InvalidSchemaMessage)
-        except Exception as e:
-            print(e)
+            print(cls.invalid_schema_message)
+        except Exception as exception_obj:
+            print(exception_obj)
     # Make a delete request
     @classmethod
-    def delete_endpoint_request(cls):
+    def delete_request(cls):
         # request_data contains dictionary of inputs entered by user
         request_data = cls.fetch_input_url()
         try:
             response = requests.delete(request_data["request_url"], headers= request_data["request_headers"])
-            response_data = cls.print_response_json(response)
+            cls.print_response_json(response)
+            response_data = json.loads(response.content)
             cls.save_response_data(response_data)
 
         except requests.exceptions.InvalidSchema:
-            print(cls.InvalidSchemaMessage)
-        except Exception as e:
-            print(e)
+            print(cls.invalid_schema_message)
+        except Exception as exception_obj:
+            print(exception_obj)
 
     @classmethod
     def __check_endpoint(cls, request_url):

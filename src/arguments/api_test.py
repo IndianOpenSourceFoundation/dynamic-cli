@@ -47,12 +47,12 @@ class ApiTesting():
     @classmethod
     def save_response_data(cls,response_data):
         store_data = input('Store response data? (Y/N): ')
-        if(store_data == 'Y' or store_data == 'y'):
+        if(store_data.lower() == 'y'):
                 with open('response_data.json', 'w') as jsonFile:
                     json.dump(response_data, jsonFile, indent=4)
                 print("Response data stored in response_data.json")
         else:
-            print(f"You have entered {store_data}, please enter 'Y' or 'y' to store the output")
+            print(f"You have entered {store_data}, So the response is not saved")
 
     # formats the response data and prints it in json on console
     @classmethod

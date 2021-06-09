@@ -48,6 +48,7 @@ Options: <br>
 `-c, --custom -> Setup a custom API key` <br>
 `-h, --help -> Shows this message and exit` <br>
 `-GET -> Make a GET request to an API` <br>
+`-DELETE -> Make a DELETE request to an API` <br>
 
 ## License🗄
 The project is licensed under the GNU General Public License v3. Check out [`LICENSE`](https://github.com/IndianOpenSourceFoundation/dynamic-cli/blob/master/LICENSE)
@@ -60,7 +61,7 @@ The project is licensed under the GNU General Public License v3. Check out [`LIC
 
 **1.** Fork [this](https://github.com/IndianOpenSourceFoundation/dynamic-cli/fork) repository.
 
-**2.** Clone the forked repository. 
+**2.** Clone the forked repository.
 ```bash
 git clone https://github.com/<your-github-username>/project_name.git
 ```

@@ -42,7 +42,39 @@ class ApiTesting():
             "request_url" : request_url,
             "request_headers" : request_headers,
         }
-
+    @classmethod
+    def read_data_from_file(cls):
+        filename = input("Enter a filename (response_data.json)")
+        if filename == '':
+            print("filename empty, so default file (response_data.json) is used ")
+        with open(filename, "r") as reader:
+            file_content = reader.read()
+            try:
+                json_data = json.loads(file_content)
+                data = json_data.get("data")
+                return data
+                # Make sure the data is not None and send
+            except json.JSONDecodeError:
+                 print("Unable to parse the file, Please try again")
+                 cls.read_data_from_file()
+    @classmethod
+    def fetch_payload_data(cls):
+        store = int(input("Please choose the below options? (1/2/3)"))
+        print("Option 1: For sending data payload from terminal\n")
+        print("Option 2: For sending data payload by reading from json file\n")
+        print("Option 3: For not sending any data to POST request")
+        data = None
+        if(store == 1):
+            data = input("Enter data as key value pairs")
+            data = eval(data)
+        elif(store == 2):
+            data = cls.read_data_from_file()
+        elif(store == 3):
+            print(f"you have entered {store}, so sending POST request without any data")
+        else:
+            print(f"You have entered {store_data}, please enter from the above options")
+            cls.fetch_payload_data()
+        return data
     #saves the json response into a file
     @classmethod
     def save_response_data(cls,response_data):
@@ -80,6 +112,20 @@ class ApiTesting():
             response_data = json.loads(response.content)
             cls.save_response_data(response_data)
 
+        except requests.exceptions.InvalidSchema:
+            print(cls.invalid_schema_message)
+        except Exception as exception_obj:
+            print(exception_obj)
+    #Make a POST request
+    @classmethod
+    def post_request(cls):
+        request_data = cls.fetch_input_url()
+        data = cls.fetch_payload_data()
+        try:
+            response= requests.post(url = request_data["request_url"], headers= request_data["request_headers"], data = data)
+            cls.print_response_json(response)
+            response_data = json.loads(response.content)
+            cls.save_response_data(response_data)
         except requests.exceptions.InvalidSchema:
             print(cls.invalid_schema_message)
         except Exception as exception_obj:

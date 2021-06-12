@@ -66,13 +66,13 @@ class ApiTesting():
         data = None
         if(store == 1):
             data = input("Enter data as key value pairs")
-            data = eval(data)
+            data = json.loads(data)
         elif(store == 2):
             data = cls.read_data_from_file()
         elif(store == 3):
             print(f"you have entered {store}, so sending POST request without any data")
         else:
-            print(f"You have entered {store_data}, please enter from the above options")
+            print(f"You have entered {store}, please enter from the above options")
             cls.fetch_payload_data()
         return data
     #saves the json response into a file

@@ -74,7 +74,7 @@ class ApiTesting:
             try:
                 data = json.loads(data)
             except Exception as exception_obj:
-                print("Unable to load the data, please try again \n")
+                print(f"Unable to load the data due to {exception_obj}, please try again \n")
                 cls.enter_data_payload()
         elif store == 2:
             data = cls.read_data_from_file()

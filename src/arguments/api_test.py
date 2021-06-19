@@ -50,8 +50,9 @@ class ApiTesting:
     def read_data_from_file(cls):
         filename = input("Enter a filename (response_data.json)")
         data = {}
-        if len(filename.trim()) == 0:
-            print("filename empty, so default file (response_data.json) is used ")
+        if filename == "":
+            filename = "response_data.json"
+            print(f"filename empty, so default file {filename} is used ")
         with open(filename, "r") as reader:
             file_content = reader.read()
             try:
@@ -65,9 +66,10 @@ class ApiTesting:
 
     @classmethod
     def enter_data_payload(cls):
-        store = int(input("Please choose the below options? (1/2/3)"))
         print("Option 1: For sending data payload from terminal\n")
         print("Option 2: For sending data payload by reading from json file\n")
+        store = int(input("Please choose the above options? (1/2)"))
+
         data = {}
         if store == 1:
             data = input("Enter data as key value pairs")

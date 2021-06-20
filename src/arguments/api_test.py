@@ -50,7 +50,7 @@ class ApiTesting:
     def read_data_from_file(cls):
         filename = input("Enter a filename (response_data.json)")
         data = {}
-        if filename == "":
+        if filename.strip() == "":
             filename = "response_data.json"
             print(f"filename empty, so default file {filename} is used ")
         with open(filename, "r") as reader:

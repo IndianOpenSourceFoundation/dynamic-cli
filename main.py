@@ -50,6 +50,10 @@ parser.add_argument("-GET",
                     help="Make a GET request to an API",
                     action='store_true')
 
+parser.add_argument("-POST",
+                    help="Make a POST request to an API",
+                    action='store_true')
+
 parser.add_argument("-DELETE",
                      help = "Make a DELETE request to an API",
                      action = 'store_true')

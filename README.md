@@ -48,6 +48,7 @@ Options: <br>
 `-c, --custom -> Setup a custom API key` <br>
 `-h, --help -> Shows this message and exit` <br>
 `-GET -> Make a GET request to an API` <br>
+`-POST -> Make a POST request to an API` <br>
 `-DELETE -> Make a DELETE request to an API` <br>
 
 ## License🗄

@@ -26,6 +26,14 @@ $ pip3 install -r requirements.txt
 $ pip3 install -e .
 ```
 
+> **Note for mac users**: Make sure to add these lines in you `~/.bashrc` or `~/.zhsrc`(*depending upon your shell*) 👇
+> ```bash
+> export LC_ALL=en_US.UTF-8
+> export LANG=en_US.UTF-8
+> export LC_CTYPE=en_US.UTF-8
+> ```
+
+
 ## Usage🛠
 
 Dynamic CLI allows users to search for keywords/issues with some relevant tags.

@@ -19,12 +19,19 @@ $ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 ```shell
 $ pip3 install -r requirements.txt
 ```
+**4.** Go to dynamic directory
 
-**4.** Install with pip
+```shell
+$ cd dynamic-cli/
+```
+
+**5.** Install with pip
 
 ```shell
 $ pip3 install -e .
 ```
+
+**If you face some issue running dynamic on mac, follow the below instructions**
 
 > **Note for mac users**: Make sure to add these lines in you `~/.bashrc` or `~/.zhsrc`(*depending upon your shell*) 👇
 > ```bash

@@ -351,7 +351,7 @@ class Utility():
         """
         que_id = []
         for data in json_data['items']:
-            if data["is_answered"]:
+            if data["answer_count"]:
                 que_id.append(data["question_id"])
         return que_id
 

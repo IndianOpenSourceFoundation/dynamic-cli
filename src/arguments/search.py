@@ -16,7 +16,7 @@ class Prompt():
     def __init__(self, message):
         self.message = message
 
-    def prompt(self, allow_null=False):
+    def prompt(self):
         print(colored(f"{self.message} : ", 'cyan'), end='')
         data = input()
         return data

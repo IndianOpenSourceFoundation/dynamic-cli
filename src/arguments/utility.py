@@ -336,7 +336,8 @@ class Utility():
         """
         with console.status("Searching..."):
             try:
-                resp = requests.get(self.__get_search_url(que, tag))
+                url = self.__get_search_url(que, tag)
+                resp = requests.get(url)
             except:
                 SearchError("\U0001F613 Search Failed",
                             "\U0001F4BB Try connecting to the internet")

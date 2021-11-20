@@ -16,15 +16,10 @@ class Prompt():
     def __init__(self, message):
         self.message = message
 
-    def prompt(self):
+    def prompt(self, allow_null=False):
         print(colored(f"{self.message} : ", 'cyan'), end='')
         data = input()
-        if data == "":
-            SearchError("\U0001F613 Input data empty",
-                        "\U0001F504 Please try again ")
-            sys.exit()
-        else:
-            return str(data)
+        return data
 
 
 class Search():
@@ -71,12 +66,18 @@ class Search():
             # KeyBoard Interrupts or EOErrors
             try:
                 prompt = Prompt(str(each_query)).prompt()
+                if each_query == "Tags":
+                    continue
+                if prompt.strip() == "":
+                    SearchError("\U0001F613 Input data empty",
+                                "\U0001F504 Please try again ")
+                    sys.exit()
             except:
                 sys.exit()
 
             query_solutions.append(prompt)
 
-        question, tags = query_solutions[0], query_solutions[1]
+        question, tags = query_solutions[0], query_solutions[1] if len(query_solutions) > 1 else ""
         json_output = self.utility_object.make_request(question, tags)
         questions = self.utility_object.get_que(json_output)
         if questions == []:

@@ -45,7 +45,7 @@ $ pip3 install -e .
 
 Dynamic CLI allows users to search for keywords/issues with some relevant tags.
 
-![dynamic_cli.gif](dynamic_cli.gif)
+![dynamic-gif](https://user-images.githubusercontent.com/31731827/146558085-c3e9f396-9e48-482f-a1e1-6e24808ef7f9.gif)
 
 ## Arguments⚙
 

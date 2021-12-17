@@ -6,6 +6,7 @@ __pycache__
 src/arguments/__pycache__
 .vscode/
 src/dynamic_cli.egg-info/
+dynamic_cli.egg-info/
 
 # Environments
 .env

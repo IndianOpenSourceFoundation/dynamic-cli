@@ -35,3 +35,6 @@ response_data.json
 
 # Selenium
 geckodriver.log
+
+#dist
+dist/

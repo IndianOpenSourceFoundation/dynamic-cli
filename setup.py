@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 DEPENDENCIES = []
 
 setuptools.setup(
-    name="dynamic",
+    name="dynamic-cli",
     version="0.0.1",
     author="IOSF Community",
     author_email="ping@iosf.in",

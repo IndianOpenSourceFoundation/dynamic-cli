@@ -23,10 +23,10 @@ DEPENDENCIES = [
 
 setuptools.setup(
     name="dynamic-cli",
-    version="1.0.0",
+    version="1.1",
     author="IOSF Community",
     author_email="ping@iosf.in",
-    description="Search for your questions in stackoverflow",
+    description="A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/IndianOpenSourceFoundation/dynamic-cli",

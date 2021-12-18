@@ -11,8 +11,7 @@ class SaveSearchResults(object):
         self.save_data_to_file(self.result_json, self.save_results_filename)
 
     def save_data_to_file(self, data, filename):
-        with open(os.path.join(os.getcwd(), f"{filename}.json"),
-                  "w") as result_writer:
+        with open(os.path.join(os.getcwd(), f"{filename}.json"), "w") as result_writer:
             json.dump(data, result_writer, indent=6)
 
     def __get_as_dict(self, json_array):

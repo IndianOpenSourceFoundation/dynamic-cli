@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from src.arguments.search import Search
+from dynamic.search import Search
 
 
 version = "0.1.0"
@@ -74,9 +74,9 @@ ARGV = parser.parse_args()
 
 search_flag = Search(ARGV)
 
-if __name__ == "__main__":
-    if ARGV.start:
-        print('''\U0001F604 Hello and Welcome to Dynamic CLI
+def main():
+  if ARGV.start:
+    print('''\U0001F604 Hello and Welcome to Dynamic CLI
                  \U0001F917 Use the following commands to get started
                  \U0001F50E Search on StackOverflow with '-s'
                  \U0001F4C4 Open browser to create new Stack Overflow question with '-n [title(optional)]'
@@ -85,5 +85,8 @@ if __name__ == "__main__":
                  \U0001F609 See this message again with '-st'
                  \U00002755 Get help with '-h'
                 ''')
-    else:
-        search_flag.search_args()
+  else:
+    search_flag.search_args()
+
+  
+    

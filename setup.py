@@ -3,8 +3,7 @@ import setuptools
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-DEPENDENCIES = []
-
+DEPENDENCIES = ["rich", "simple-term-menu", "termcolor", "oauthlib", "requests-oauthlib", "selenium", "webdriver-manager"]
 setuptools.setup(
     name="dynamic-cli",
     version="0.1.0",
@@ -20,7 +19,7 @@ setuptools.setup(
     install_requires=DEPENDENCIES,
     package_dir={},
     packages=setuptools.find_packages(),
-    entry_points={"console_scripts": ['dynamic=src.arguments.search:search_args']},
+    entry_points={"console_scripts": ['dynamic=dynamic.__main__:main']},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

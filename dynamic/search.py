@@ -12,17 +12,19 @@ from .api_test import ApiTesting
 from .notion import NotionClient
 
 version = "0.1.0"
-class Prompt():
+
+
+class Prompt:
     def __init__(self, message):
         self.message = message
 
     def prompt(self):
-        print(colored(f"{self.message} : ", 'cyan'), end='')
+        print(colored(f"{self.message} : ", "cyan"), end="")
         data = input()
         return data
 
 
-class Search():
+class Search:
     def __init__(self, arguments):
         self.arguments = arguments
         self.utility_object = Utility()
@@ -69,24 +71,28 @@ class Search():
                 if each_query == "Tags":
                     continue
                 if prompt.strip() == "":
-                    SearchError("\U0001F613 Input data empty",
-                                "\U0001F504 Please try again ")
+                    SearchError(
+                        "\U0001F613 Input data empty", "\U0001F504 Please try again "
+                    )
                     sys.exit()
             except:
                 sys.exit()
 
             query_solutions.append(prompt)
 
-        question, tags = query_solutions[0], query_solutions[1] if len(query_solutions) > 1 else ""
+        question, tags = (
+            query_solutions[0],
+            query_solutions[1] if len(query_solutions) > 1 else "",
+        )
         json_output = self.utility_object.make_request(question, tags)
         questions = self.utility_object.get_que(json_output)
         if questions == []:
             # evoke an error
-            SearchError("\U0001F613 No answer found",
-                        "\U0001F604 Please try reddit")
+            SearchError("\U0001F613 No answer found", "\U0001F604 Please try reddit")
         else:
             data = self.utility_object.get_ans(questions)
-            print('''
+            print(
+                """
             \U0001F604  Hopefully you found what you were looking for!
             \U0001F4C2  You can save an answer to a file with '-file'
 
@@ -95,12 +101,17 @@ class Search():
                 on StackOverflow with '-n [title (optional)]'
 
             \U0001F50E  To search more use '-s'
-            ''')
+            """
+            )
 
             if save:
                 filename = SaveSearchResults(data)
                 print(
-                    colored(f"\U0001F604 Answers successfully saved into {filename}",
-                            "green"),
-                    colored("\U0001F604 Answers successfully saved into" +\
-                            filename, "green"))
+                    colored(
+                        f"\U0001F604 Answers successfully saved into {filename}",
+                        "green",
+                    ),
+                    colored(
+                        "\U0001F604 Answers successfully saved into" + filename, "green"
+                    ),
+                )

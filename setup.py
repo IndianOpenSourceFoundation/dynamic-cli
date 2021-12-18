@@ -23,7 +23,7 @@ DEPENDENCIES = [
 
 setuptools.setup(
     name="dynamic-cli",
-    version="0.1.0",
+    version="1.0.0",
     author="IOSF Community",
     author_email="ping@iosf.in",
     description="Search for your questions in stackoverflow",

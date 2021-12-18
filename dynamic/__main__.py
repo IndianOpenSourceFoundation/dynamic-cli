@@ -81,3 +81,7 @@ def main():
         )
     else:
         search_flag.search_args()
+
+
+if __name__ == "__main__":
+    main()

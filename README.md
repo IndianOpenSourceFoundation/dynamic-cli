@@ -1,7 +1,6 @@
 ![dynamic-cli](https://socialify.git.ci/IndianOpenSourceFoundation/dynamic-cli/image?description=1&descriptionEditable=A%20Modern%2C%20user-friendly%20command-line%20%20for%20the%20API%20testing%2C%20and%20if%20you%27re%20stuck%20-%20Search%20and%20browse%20StackOverflow%20without%20leaving%20the%20CLI&font=Inter&forks=1&issues=1&language=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Light)
 
-# Dynamic CLI [![PyPI](https://img.shields.io/pypi/v/dynamic-cli?color=brightgreen) ![PyPI Downloads](https://img.shields.io/pypi/dm/dynamic-cli)](https://pypi.org/project/dynamic-cli/) [![Downloads](https://pepy.tech/badge/dynamic-cli)](https://pepy.tech/project/dynamic-cli)
-
+# Dynamic CLI [![PyPI](https://img.shields.io/pypi/v/dynamic-cli?color=brightgreen) ![PyPI Downloads](https://img.shields.io/pypi/dm/dynamic-cli)](https://pypi.org/project/dynamic-cli/) [![Downloads](https://static.pepy.tech/personalized-badge/dynamic-cli?period=month&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/dynamic-cli)
 
 
 ## Setup📦

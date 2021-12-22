@@ -19,7 +19,9 @@ Although the Stackoverflow website is really cool, it can be **tough to remember
 
 ## `dynamic-cli` - A Supercharged Command Line Utility
 
-#Screenshots
+![dynamic-gif](https://user-images.githubusercontent.com/31731827/146558085-c3e9f396-9e48-482f-a1e1-6e24808ef7f9.gif)
+
+## Index
 
 * [Installation](#installation)
     * [Pip Installation](#pip-installation)
@@ -32,12 +34,6 @@ Although the Stackoverflow website is really cool, it can be **tough to remember
 * [License](#license)
 * [Contributing](#contributing)
 
-
-## Usage🛠
-
-Dynamic CLI allows users to search for keywords/issues with some relevant tags.
-
-![dynamic-gif](https://user-images.githubusercontent.com/31731827/146558085-c3e9f396-9e48-482f-a1e1-6e24808ef7f9.gif)
 
 ## Arguments⚙
 

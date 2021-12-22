@@ -62,7 +62,7 @@ Options: <br>
 
 [![PyPI version](https://badge.fury.io/py/dynamic-cli.svg)](http://badge.fury.io/py/dynamic-cli) [![PyPI](https://img.shields.io/pypi/pyversions/dynamic-cli.svg)](https://pypi.python.org/pypi/dynamic-cli/)
 
-`dynamic-cli` is hosted on [PyPI](https://pypi.python.org/pypi/dynamic-cli).  The following command will install `gitsome`:
+`dynamic-cli` is hosted on [PyPI](https://pypi.python.org/pypi/dynamic-cli).  The following command will install `Dynamic-cli`:
 
     $ pip3 install dynamic-cli
 

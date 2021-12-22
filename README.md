@@ -3,7 +3,9 @@
 ![dynamic-cli-cropped](https://user-images.githubusercontent.com/31731827/147034382-2e8b724c-f196-4e98-b524-a61439601671.png)
 
 
- [![PyPI](https://img.shields.io/pypi/v/dynamic-cli?color=brightgreen) ![PyPI Downloads](https://img.shields.io/pypi/dm/dynamic-cli)](https://pypi.org/project/dynamic-cli/) [![Downloads](https://static.pepy.tech/personalized-badge/dynamic-cli?period=month&units=international_system&left_color=black&right_color=red&left_text=Downloads)](https://pepy.tech/project/dynamic-cli) [![PyPI](https://img.shields.io/pypi/pyversions/dynamic-cli.svg)](https://pypi.python.org/pypi/dynamic-cli/)
+ [![PyPI](https://img.shields.io/pypi/v/dynamic-cli?color=brightgreen) ![PyPI Downloads](https://img.shields.io/pypi/dm/dynamic-cli)](https://pypi.org/project/dynamic-cli/) [![Downloads](https://static.pepy.tech/personalized-badge/dynamic-cli?period=month&units=international_system&left_color=black&right_color=red&left_text=Downloads)](https://pepy.tech/project/dynamic-cli) 
+ [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![PyPI](https://img.shields.io/pypi/pyversions/dynamic-cli.svg)](https://pypi.python.org/pypi/dynamic-cli/) 
 
 A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI
 
@@ -263,4 +265,4 @@ ynamic CLI is a part of these open source programs
 	</tr>
 </table>
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+

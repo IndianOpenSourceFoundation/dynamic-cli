@@ -32,7 +32,9 @@ Although the Stackoverflow website is really cool, it can be **tough to remember
 * [Developer Installation](#developer-installation)
     * [Documentation](#documentation)
 * [License](#license)
-* [Contributing](#contributing)
+* [Contribution Guidelines](https://github.com/IndianOpenSourceFoundation/dynamic-cli/blob/master/CONTRIBUTING.md)
+* [Code Of Conduct](https://github.com/IndianOpenSourceFoundation/dynamic-cli/blob/master/CODE_OF_CONDUCT.md)
+* [New to Open Source ?](#contributing)
 
 
 ## Arguments⚙

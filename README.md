@@ -100,7 +100,7 @@ Install `virtualenv` and `virtualenvwrapper`:
     $ export WORKON_HOME=~/.virtualenvs
     $ source /usr/local/bin/virtualenvwrapper.sh
 
-Create a `dynamic-cli` `virtualenv` and install `gitsome`:
+Create a `dynamic-cli` `virtualenv` and install `dynamic-cli`:
 
     $ mkvirtualenv dynamic-cli
     $ pip3 install dynamic-cli

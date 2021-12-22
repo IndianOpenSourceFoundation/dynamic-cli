@@ -1,11 +1,159 @@
 ![dynamic-cli](https://socialify.git.ci/IndianOpenSourceFoundation/dynamic-cli/image?description=1&descriptionEditable=A%20Modern%2C%20user-friendly%20command-line%20%20for%20the%20API%20testing%2C%20and%20if%20you%27re%20stuck%20-%20Search%20and%20browse%20StackOverflow%20without%20leaving%20the%20CLI&font=Inter&forks=1&issues=1&language=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Light)
 
-# Dynamic CLI [![PyPI](https://img.shields.io/pypi/v/dynamic-cli?color=brightgreen) ![PyPI Downloads](https://img.shields.io/pypi/dm/dynamic-cli)](https://pypi.org/project/dynamic-cli/) [![Downloads](https://static.pepy.tech/personalized-badge/dynamic-cli?period=month&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/dynamic-cli)
+![dynamic-cli-cropped](https://user-images.githubusercontent.com/31731827/147034382-2e8b724c-f196-4e98-b524-a61439601671.png)
 
 
-## Setup📦
+ [![PyPI](https://img.shields.io/pypi/v/dynamic-cli?color=brightgreen) ![PyPI Downloads](https://img.shields.io/pypi/dm/dynamic-cli)](https://pypi.org/project/dynamic-cli/) [![Downloads](https://static.pepy.tech/personalized-badge/dynamic-cli?period=month&units=international_system&left_color=black&right_color=red&left_text=Downloads)](https://pepy.tech/project/dynamic-cli) [![PyPI](https://img.shields.io/pypi/pyversions/dynamic-cli.svg)](https://pypi.python.org/pypi/dynamic-cli/)
 
-**1.** Installing pip [Python Package Manager]
+A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI
+
+## Why `Dynamic-cli`?
+
+### The Command Line Utility
+
+Although the Stackoverflow website is really cool, it can be **tough to remember the same question that you faced earlier** :
+
+* Countless answers, you can save it to playbook
+* Toggle between multiple answers is easy
+* Are you a developer ? Integrate your own feature and install it
+
+## `dynamic-cli` - A Supercharged Command Line Utility
+
+#Screenshots
+
+* [Installation](#installation)
+    * [Pip Installation](#pip-installation)
+    * [Virtual Environment Installation](#virtual-environment-installation)
+    * [Supported Python Versions](#supported-python-versions)
+    * [Supported Platforms](#supported-platforms)
+    * [Windows Support](#windows-support)
+* [Developer Installation](#developer-installation)
+    * [Documentation](#documentation)
+* [License](#license)
+* [Contributing](#contributing)
+
+
+## Usage🛠
+
+Dynamic CLI allows users to search for keywords/issues with some relevant tags.
+
+![dynamic-gif](https://user-images.githubusercontent.com/31731827/146558085-c3e9f396-9e48-482f-a1e1-6e24808ef7f9.gif)
+
+## Arguments⚙
+
+Usage: Dynamic [OPTIONS] <br>
+
+A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI. <br>
+
+Options: <br>
+
+`-st, --start -> Introduces Dynamic CLI` <br>
+`-v, --version -> Gives the Version of the CLI` <br>
+`-s, --search -> Search a question on Stackoverflow` <br>
+`-no, --notion -> Open browser to login to Notion.so` <br>
+`-d, --debug -> Turn on Debugging mode` <br>
+`-c, --custom -> Setup a custom API key` <br>
+`-h, --help -> Shows this message and exit` <br>
+`-GET -> Make a GET request to an API` <br>
+`-POST -> Make a POST request to an API` <br>
+`-DELETE -> Make a DELETE request to an API` <br>
+
+## Installation
+
+### Pip Installation
+
+[![PyPI version](https://badge.fury.io/py/dynamic-cli.svg)](http://badge.fury.io/py/dynamic-cli) [![PyPI](https://img.shields.io/pypi/pyversions/dynamic-cli.svg)](https://pypi.python.org/pypi/dynamic-cli/)
+
+`dynamic-cli` is hosted on [PyPI](https://pypi.python.org/pypi/dynamic-cli).  The following command will install `gitsome`:
+
+    $ pip3 install dynamic-cli
+
+You can also install the latest `dynamic-cli` from GitHub source which can contain changes not yet pushed to PyPI:
+
+    $ pip3 install git+https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
+
+If you are not installing in a `virtualenv`, you might need to run with `sudo`:
+
+    $ sudo pip3 install dynamic-cli
+
+#### `pip3`
+
+Depending on your setup, you might also want to run `pip3` with the [`-H flag`](http://stackoverflow.com/a/28619739):
+
+    $ sudo -H pip3 install dynamic-cli
+
+For most linux users, `pip3` can be installed on your system using the `python3-pip` package.
+
+For example, Ubuntu users can run:
+
+    $ sudo apt-get install python3-pip
+
+
+### Virtual Environment Installation
+
+You can install Python packages in a [`virtualenv`](http://docs.python-guide.org/en/latest/dev/virtualenvs/) to avoid potential issues with dependencies or permissions.
+
+If you are a Windows user or if you would like more details on `virtualenv`, check out this [guide](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+
+Install `virtualenv` and `virtualenvwrapper`:
+
+    $ pip3 install virtualenv
+    $ pip3 install virtualenvwrapper
+    $ export WORKON_HOME=~/.virtualenvs
+    $ source /usr/local/bin/virtualenvwrapper.sh
+
+Create a `dynamic-cli` `virtualenv` and install `gitsome`:
+
+    $ mkvirtualenv dynamic-cli
+    $ pip3 install dynamic-cli
+
+If the `pip` install does not work, you might be running Python 2 by default.  Check what version of Python you are running:
+
+    $ python --version
+
+If the call above results in Python 2, find the path for Python 3:
+
+    $ which python3  # Python 3 path for mkvirtualenv's --python option
+
+Install Python 3 if needed.  Set the Python version when calling `mkvirtualenv`:
+
+    $ mkvirtualenv --python [Python 3 path from above] dynamic-cli
+    $ pip3 install dynamic-cli
+
+If you want to activate the `dynamic-cli` `virtualenv` again later, run:
+
+    $ workon dynamic-cli
+
+To deactivate the `dynamic-cli` `virtualenv`, run:
+
+    $ deactivate
+
+
+### Supported Python Versions
+
+* Python 3.5 - Tested
+* Python 3.6 - Tested
+* Python 3.7 - Tested
+* Python 3.8 - Tested
+
+### Supported Platforms
+
+* Mac OS X
+    * Tested on OS X 11.16.1
+* Linux, Unix
+    * Tested on Ubuntu 20 LTS
+* Windows*
+    * Tested on Windows 10/11 with WSL only [Currently, you need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) for this]
+
+### Windows Support
+
+`dynamic-cli` has been tested on Windows 10/11 with [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) installed.
+
+
+
+## Developer Installation📦
+
+**1.** Installing pip
 
 ```shell
 $ sudo apt-get install python3-pip
@@ -44,32 +192,8 @@ $ pip3 install -e .
 > ```
 
 
-## Usage🛠
 
-Dynamic CLI allows users to search for keywords/issues with some relevant tags.
-
-![dynamic-gif](https://user-images.githubusercontent.com/31731827/146558085-c3e9f396-9e48-482f-a1e1-6e24808ef7f9.gif)
-
-## Arguments⚙
-
-Usage: Dynamic [OPTIONS] <br>
-
-A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI. <br>
-
-Options: <br>
-
-`-st, --start -> Introduces Dynamic CLI` <br>
-`-v, --version -> Gives the Version of the CLI` <br>
-`-s, --search -> Search a question on Stackoverflow` <br>
-`-no, --notion -> Open browser to login to Notion.so` <br>
-`-d, --debug -> Turn on Debugging mode` <br>
-`-c, --custom -> Setup a custom API key` <br>
-`-h, --help -> Shows this message and exit` <br>
-`-GET -> Make a GET request to an API` <br>
-`-POST -> Make a POST request to an API` <br>
-`-DELETE -> Make a DELETE request to an API` <br>
-
-## License🗄
+## License
 The project is licensed under the GNU General Public License v3. Check out [`LICENSE`](https://github.com/IndianOpenSourceFoundation/dynamic-cli/blob/master/LICENSE)
 
 ### Contributing
@@ -120,8 +244,8 @@ git push
 **8.** Create a [PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) !
 
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
+ynamic CLI is a part of these open source programs
 
-# Dynamic CLI is a part of these open source programs
 
 <p align="center">
  <a>

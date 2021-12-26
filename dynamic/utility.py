@@ -147,7 +147,6 @@ class Playbook:
                 del content["items_stackoverflow"][i]
                 break
         self.playbook_content = content
-        os.system("cls" if os.name == "nt" else "clear")
         self = Playbook()
         self.display_panel()
 

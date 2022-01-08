@@ -333,7 +333,7 @@ class Utility:
         data provided by the user such as tags and question, which
         can finally be used to get answers
         """
-        return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&title={question}&site=stackoverflow"
+        return f"{self.search_content_url}/2.2/search/advanced?order=desc&sort=relevance&tagged={tags}&q={question}&site=stackoverflow"
 
     def get_batch_ques_url(self, ques_id_list):
         """

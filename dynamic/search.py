@@ -68,9 +68,7 @@ class Search:
             # KeyBoard Interrupts or EOErrors
             try:
                 prompt = Prompt(str(each_query)).prompt()
-                if each_query == "Tags":
-                    continue
-                if prompt.strip() == "":
+                if not each_query == "Tags" and prompt.strip() == "":
                     SearchError(
                         "\U0001F613 Input data empty", "\U0001F504 Please try again "
                     )

@@ -59,7 +59,7 @@ class Search:
             NotionClient().get_tokenv2_cookie()
 
     def search_for_results(self, save=False):
-        queries = ["What do you want to search", "Tags"]
+        queries = ["What do you want to search", "Tags (optional)"]
         query_solutions = []
 
         # ask question
@@ -68,7 +68,7 @@ class Search:
             # KeyBoard Interrupts or EOErrors
             try:
                 prompt = Prompt(str(each_query)).prompt()
-                if not each_query == "Tags" and prompt.strip() == "":
+                if not each_query == "Tags (optional)" and prompt.strip() == "":
                     SearchError(
                         "\U0001F613 Input data empty", "\U0001F504 Please try again "
                     )

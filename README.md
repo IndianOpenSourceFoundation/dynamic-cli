@@ -5,10 +5,11 @@
 
  ![PyPI](https://img.shields.io/pypi/v/dynamic-cli?color=brightgreen)
  [![<Sonarcloud quality gate>](https://sonarcloud.io/api/project_badges/measure?project=IndianOpenSourceFoundation_dynamic-cli&metric=alert_status)](https://sonarcloud.io/dashboard?id=IndianOpenSourceFoundation_dynamic-cli)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/dynamic-cli)](https://pypi.org/project/dynamic-cli/) 
-[![Downloads](https://static.pepy.tech/personalized-badge/dynamic-cli?period=month&units=international_system&left_color=black&right_color=red&left_text=Downloads)](https://pepy.tech/project/dynamic-cli) 
+[![Downloads](https://pepy.tech/badge/dynamic-cli/month)](https://pepy.tech/project/dynamic-cli)
+[![Downloads](https://pepy.tech/badge/dynamic-cli)](https://pepy.tech/project/dynamic-cli)
  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![PyPI](https://img.shields.io/pypi/pyversions/dynamic-cli.svg)](https://pypi.python.org/pypi/dynamic-cli/) 
+<!-- [![PyPI Downloads](https://img.shields.io/pypi/dm/dynamic-cli)](https://pypi.org/project/dynamic-cli/)  -->
 
 A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI
 

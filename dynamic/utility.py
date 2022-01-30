@@ -60,7 +60,7 @@ class Playbook:
 
     @property
     def playbook_path(self):
-        """Create an environment variable 'DYNAMIC containing the path of dynamic_playbook.json and returns i."""
+        """Creates an environment variable 'DYNAMIC containing the path of dynamic_playbook.json and returns i."""
         if not os.getenv(self.key):
             os.environ[self.key] = PLAYBOOK_FILE
         return os.getenv(self.key)
@@ -338,7 +338,7 @@ class Utility:
 
     def get_batch_ques_url(self, ques_id_list):
         """
-        Returns URL which contains ques_ids which can be use to get
+        Returns URL which contains ques_ids which can be used to get
         get the details of all the corresponding questions
         """
         batch_ques_id = ""

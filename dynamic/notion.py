@@ -55,7 +55,7 @@ class NotionClient:
 
     def __init__(self):
         """
-        No input parameters required for instatiating object.
+        No input parameters required for instantiating object.
 
         :tokenv2_cookie: stores the cookie containing user's tokenv2
         :tokenv2_key: used to create environment variable

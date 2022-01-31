@@ -248,7 +248,8 @@ git push
 **8.** Create a [PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) !
 
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
-ynamic CLI is a part of these open source programs
+
+### Dynamic CLI is a part of these open source programs
 
 
 <p align="center">

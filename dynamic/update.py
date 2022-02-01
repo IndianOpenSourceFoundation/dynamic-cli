@@ -13,7 +13,7 @@ class UpdateApplication(object):
 
         Check for updates in the application
         via github's public api. The application
-        checks for the latest release and make
+        checks for the latest release and makes
         sure that the version of the application
         is same as the latest release tag
 
@@ -27,7 +27,7 @@ class UpdateApplication(object):
             data = data.json()
             if "message" in data:
                 if data["message"] == "Not Found":
-                    print(colored("The application do not have any release", "yellow"))
+                    print(colored("The application does not have any release", "yellow"))
                     return None
 
             if data["tag_name"] == self.current_version:

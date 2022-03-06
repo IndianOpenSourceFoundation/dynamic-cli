@@ -3,9 +3,9 @@ import json
 from ..api_test import ApiTesting
 
 class TestApi():
+    
     def test_get_request_no_headers(self, monkeypatch):
         """Test to check get api response without header."""
-        
         self.test_object = ApiTesting()
         
         test_uri = "https://reqres.in/api/users/2"

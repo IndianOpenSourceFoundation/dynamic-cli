@@ -1,4 +1,5 @@
-import requests, json
+import requests
+import json
 from pygments import highlight, lexers, formatters
 
 
@@ -10,6 +11,7 @@ class ApiTesting:
         + "the localhost server is active or not"
     )
     # fetches the input data for making a request
+
     @classmethod
     def fetch_input_url(cls):
         request_url = cls.default_url
@@ -35,7 +37,8 @@ class ApiTesting:
         # Ask the user for endpoint if not present in request_url
         if not (has_endpoint):
             if request_url[-1] == "/":
-                endpoint = input("Input endpoint " + "(Without the starting slash): ")
+                endpoint = input("Input endpoint " +
+                                 "(Without the starting slash): ")
             else:
                 endpoint = input("Input endpoint (With the starting slash): ")
             request_url += endpoint
@@ -83,7 +86,8 @@ class ApiTesting:
         elif store == 2:
             data = cls.read_data_from_file()
         else:
-            print(f"you have entered {store}, please choose from above options")
+            print(
+                f"you have entered {store}, please choose from above options")
             cls.enter_data_payload()
         return data
 
@@ -97,7 +101,8 @@ class ApiTesting:
         elif store.lower() == "n":
             data = {}
         else:
-            print(f"You have entered {store}, please enter from the above options")
+            print(
+                f"You have entered {store}, please enter from the above options")
             cls.fetch_payload_data()
         return data
 
@@ -113,7 +118,8 @@ class ApiTesting:
                 json.dump(response_data, jsonFile, indent=4)
             print(f"Response data stored in {filename}")
         elif (store_data.lower()) == "n":
-            print(f"You have entered {store_data}, So the response is not saved")
+            print(
+                f"You have entered {store_data}, So the response is not saved")
         else:
             print(f"You have entered {store_data}, please enter either Y or N")
             cls.save_response_data(response_data)
@@ -141,6 +147,7 @@ class ApiTesting:
             cls.print_response_json(response)
             response_data = json.loads(response.content)
             cls.save_response_data(response_data)
+            return response.json()
 
         except requests.exceptions.InvalidSchema:
             print(cls.invalid_schema_message)
@@ -161,6 +168,7 @@ class ApiTesting:
             cls.print_response_json(response)
             response_data = json.loads(response.content)
             cls.save_response_data(response_data)
+
         except requests.exceptions.InvalidSchema:
             print(cls.invalid_schema_message)
         except Exception as exception_obj:

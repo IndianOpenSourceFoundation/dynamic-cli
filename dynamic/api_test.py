@@ -114,6 +114,7 @@ class ApiTesting:
             print(f"Response data stored in {filename}")
         elif (store_data.lower()) == "n":
             print(f"You have entered {store_data}, So the response is not saved")
+            return 
         else:
             print(f"You have entered {store_data}, please enter either Y or N")
             cls.save_response_data(response_data)
@@ -141,6 +142,8 @@ class ApiTesting:
             cls.print_response_json(response)
             response_data = json.loads(response.content)
             cls.save_response_data(response_data)
+            
+            return response.json()
 
         except requests.exceptions.InvalidSchema:
             print(cls.invalid_schema_message)
@@ -161,6 +164,7 @@ class ApiTesting:
             cls.print_response_json(response)
             response_data = json.loads(response.content)
             cls.save_response_data(response_data)
+            
         except requests.exceptions.InvalidSchema:
             print(cls.invalid_schema_message)
         except Exception as exception_obj:

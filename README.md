@@ -152,6 +152,7 @@ To deactivate the `dynamic-cli` `virtualenv`, run:
 ### Windows Support
 
 `dynamic-cli` has been tested on Windows 10/11 with [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) installed.
+Window_setup.txt
 
 
 

@@ -68,10 +68,8 @@ class CompleterDynamic(Completer):
         :rtype: bool
         :return: Specifies whether we are currently completing the gh command.
         """
-        if len(words) == 1 and word_before_cursor != '':
-            return True
-        else:
-            return False
+        return (len(words) == 1 and word_before_cursor != '')
+         
 
     def completing_subcommand(self, words, word_before_cursor):
         """Determine if we are currently completing a subcommand.
@@ -86,11 +84,8 @@ class CompleterDynamic(Completer):
         :rtype: bool
         :return: Specifies whether we are currently completing a subcommand.
         """
-        if (len(words) == 1 and word_before_cursor == '') \
-                or (len(words) == 2 and word_before_cursor != ''):
-            return True
-        else:
-            return False
+        return (len(words) == 1 and word_before_cursor == '') \
+                or (len(words) == 2 and word_before_cursor != '')
 
     def completing_arg(self, words, word_before_cursor):
         """Determine if we are currently completing an arg.
@@ -105,11 +100,8 @@ class CompleterDynamic(Completer):
         :rtype: bool
         :return: Specifies whether we are currently completing an arg.
         """
-        if (len(words) == 2 and word_before_cursor == '') \
-                or (len(words) == 3 and word_before_cursor != ''):
-            return True
-        else:
-            return False
+        return (len(words) == 2 and word_before_cursor == '') \
+                or (len(words) == 3 and word_before_cursor != '')
 
     def completing_subcommand_option(self, words, word_before_cursor):
         """Determine if we are currently completing an option.
@@ -126,9 +118,8 @@ class CompleterDynamic(Completer):
         """
         options = []
         for subcommand, args_opts in COMPLETIONS_DYNAMIC.items():
-            if subcommand in words and \
-                (words[-2] == subcommand or
-                    self.completing_subcommand_option_util(subcommand, words)):
+            if subcommand in words and (words[-2] == subcommand or \
+                self.completing_subcommand_option_util(subcommand, words)):
                 options.extend(COMPLETIONS_DYNAMIC[subcommand]['opts'])
         return options
 

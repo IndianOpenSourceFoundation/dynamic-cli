@@ -439,3 +439,4 @@ def default_threadable_predictors():
         "zsh": predict_shell,
     }
     return predictors
+    

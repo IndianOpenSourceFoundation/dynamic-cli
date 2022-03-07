@@ -48,3 +48,4 @@ class Completer(object):
 
                 return tuple(sorted(res, key=sortkey)), lprefix
         return set(), lprefix
+        

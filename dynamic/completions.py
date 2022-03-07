@@ -297,7 +297,7 @@ META_LOOKUP_DYNAMIC = {
                               'expression comment filter'),
     '1': 'index: int (req) views the post index',
     '"user"': 'user:string (req) shows info on the specified user',
-    'gh': 'Git auto-completer with GitHub integration.',
+    'dynamic': 'Git auto-completer with GitHub integration.',
 }
 SUBCOMMANDS = {}
 
@@ -310,6 +310,5 @@ def build_meta_lookups():
             META_LOOKUP_DYNAMIC.update({opt: meta})
         for arg, meta in args_opts['args'].items():
             META_LOOKUP_DYNAMIC.update({arg: meta})
-
 
 build_meta_lookups()

@@ -323,8 +323,11 @@ class EventManager:
             newevent.add(handler)
 
     def exists(self, name):
+
         """Checks if an event with a given name exist. If it does not exist, it
+
         will not be created. That is what makes this different than
+
         ``hasattr(events, name)``, which will create the event.
         """
         return name in self.__dict__

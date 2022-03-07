@@ -678,3 +678,4 @@ def _getblockattr(name, lineno, col):
         lineno=lineno,
         col=col,
     )
+    

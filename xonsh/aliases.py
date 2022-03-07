@@ -825,3 +825,4 @@ def make_default_aliases():
         default_aliases["fgrep"] = ["fgrep", "--color=auto"]
         default_aliases["ls"] = ["ls", "--color=auto", "-v"]
     return default_aliases
+    

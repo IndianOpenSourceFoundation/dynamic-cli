@@ -417,3 +417,4 @@ def make_palette(strings):
             t, _, s = t.partition(" ")
             palette[t] = rgb_to_ints(t)
     return palette
+    

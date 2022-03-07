@@ -147,9 +147,8 @@ class TextUtils(object):
                 if name.lower().startswith(word) or not word:
                     display = None
                     display_meta = None
-                    # print(len(words))
                     if name in META_LOOKUP_DYNAMIC:
-                        display_meta = META_LOOKUP_DYNAMIC[name]
+                        display_meta = META_LOOKUP_DYNAMIC.get(name)
                     yield Completion(name,
                                      -len(word),
                                      display=display,
@@ -195,3 +194,4 @@ class TextUtils(object):
         :return: String which is empty if None.
         """
         return text if text is not None else ''
+        

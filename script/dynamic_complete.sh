@@ -1,7 +1,7 @@
 _dynamic_completion() {
     COMPREPLY=( $( env COMP_WORDS="${COMP_WORDS[*]}" \
                    COMP_CWORD=$COMP_CWORD \
-                   _GH_COMPLETE=complete $1 ) )
+                   _DYNAMIC_COMPLETE=complete $1 ) )
     return 0
 }
 

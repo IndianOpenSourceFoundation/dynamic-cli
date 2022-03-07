@@ -28,4 +28,4 @@ def complete_base(prefix, line, start, end, ctx):
             return out
         else:
             return out, python_comps_len
-    return set()
+            

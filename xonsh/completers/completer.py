@@ -1,7 +1,7 @@
 import builtins
 
 
-def complete_completer(prefix, line, start, end, ctx):
+def complete_completer(prefix, line):
     """
     Completion for "completer"
     """

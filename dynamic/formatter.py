@@ -647,3 +647,4 @@ class Formatter(object):
         text = re.sub(r'\r', '', text)
         text = re.sub(r'\n', ' ', text)
         return text
+        

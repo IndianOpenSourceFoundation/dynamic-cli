@@ -1093,3 +1093,4 @@ def ansi_style_by_name(name):
     astyle = make_ansi_style(palette)
     ANSI_STYLES[name] = astyle
     return astyle
+    

@@ -509,7 +509,7 @@ class BaseShell(object):
             "linux",
         ]:
             return
-        t = 'gitsome'
+        t = 'dynamic'
         if t is None:
             return
         t = self.prompt_formatter(t)
@@ -583,3 +583,4 @@ class BaseShell(object):
         it only affects ^Z backgrounding behaviour.
         """
         pass
+    

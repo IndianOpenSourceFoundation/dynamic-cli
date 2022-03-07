@@ -641,7 +641,7 @@ def get_config_paths(env: "Env", name: str):
 
 @default_value
 def default_xonshrcdir(env):
-    """``['$XONSH_SYS_CONFIG_DIR/rc.d', '$XONSH_CONFIG_DIR/rc.d']``\n"""
+    """``['$XONSH_SYS_CONFIG_DIR/rc.d', '$XONSH_CONFIG_DIR/rc.d']``"""
     return get_config_paths(env, "rc.d")
 
 
@@ -829,7 +829,9 @@ class Xettings:
 
 
 class GeneralSetting(Xettings):
-    """General"""
+    """
+    General
+    """
 
     AUTO_CONTINUE = Var.with_default(
         False,

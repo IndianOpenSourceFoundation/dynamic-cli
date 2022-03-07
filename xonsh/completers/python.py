@@ -185,7 +185,8 @@ def complete_python_mode(prefix, line, start, end, ctx):
 
 
 def _safe_eval(expr, ctx):
-    """Safely tries to evaluate an expression. If this fails, it will return
+    """
+    Safely tries to evaluate an expression. If this fails, it will return
     a (None, None) tuple.
     """
     _ctx = None

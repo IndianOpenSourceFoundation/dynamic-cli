@@ -19,6 +19,9 @@ DEPENDENCIES = [
     "selenium==3.141.0",
     "webdriver-manager==3.3.0",
     "simple-term-menu==1.0.1",
+    "xonsh==0.11.0",
+    "prompt_toolkit==3.0",
+    "jedi==0.18.2"
 ]
 
 setuptools.setup(

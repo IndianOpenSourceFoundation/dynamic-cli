@@ -1,9 +1,0 @@
-To run dynamic cli on windows:
-follow the steps!!
-1. first you will require WSL to run dynamic-cli on windows.
-2. https://docs.microsoft.com/en-us/windows/wsl/install (hyperlink for WSL)
-3. after that install python3 using pip ($ sudo apt-get install python3-pip)
-4. clone the Dynamic-cli repository in your local system ($ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git)
-5. Install dependencies ($ pip3 install -r requirements.txt)
-6. go to the dynamic directory ($ cd dynamic-cli/)
-7. install with pip ($ pip3 install -e .)

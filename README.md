@@ -160,31 +160,31 @@ To deactivate the `dynamic-cli` `virtualenv`, run:
 **1.** Installing pip
 
 ```shell
-$ sudo apt-get install python3-pip
+sudo apt-get install python3-pip
 ```
 
 **2.** Clone this repository to your local drive
 
 ```shell
-$ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
+git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 ```
 
 **3.** Go to dynamic directory
 
 ```shell
-$ cd dynamic-cli/
+cd dynamic-cli/
 ```
 
 **4.** Install dependencies
 
 ```shell
-$ pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 **5.** Install with pip
 
 ```shell
-$ pip3 install -e .
+pip3 install -e .
 ```
 
 **If you face some issue running dynamic on mac, follow the below instructions**

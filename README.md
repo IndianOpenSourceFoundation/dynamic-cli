@@ -71,27 +71,27 @@ Options: <br>
 
 `dynamic-cli` is hosted on [PyPI](https://pypi.python.org/pypi/dynamic-cli).  The following command will install `Dynamic-cli`:
 
-    $ pip3 install dynamic-cli
+    pip3 install dynamic-cli
 
 You can also install the latest `dynamic-cli` from GitHub source which can contain changes not yet pushed to PyPI:
 
-    $ pip3 install git+https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
+    pip3 install git+https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 
 If you are not installing in a `virtualenv`, you might need to run with `sudo`:
 
-    $ sudo pip3 install dynamic-cli
+    sudo pip3 install dynamic-cli
 
 #### `pip3`
 
 Depending on your setup, you might also want to run `pip3` with the [`-H flag`](http://stackoverflow.com/a/28619739):
 
-    $ sudo -H pip3 install dynamic-cli
+    sudo -H pip3 install dynamic-cli
 
 For most linux users, `pip3` can be installed on your system using the `python3-pip` package.
 
 For example, Ubuntu users can run:
 
-    $ sudo apt-get install python3-pip
+    sudo apt-get install python3-pip
 
 
 ### Virtual Environment Installation
@@ -102,36 +102,36 @@ If you are a Windows user or if you would like more details on `virtualenv`, che
 
 Install `virtualenv` and `virtualenvwrapper`:
 
-    $ pip3 install virtualenv
-    $ pip3 install virtualenvwrapper
-    $ export WORKON_HOME=~/.virtualenvs
-    $ source /usr/local/bin/virtualenvwrapper.sh
+    pip3 install virtualenv
+    pip3 install virtualenvwrapper
+    export WORKON_HOME=~/.virtualenvs
+    source /usr/local/bin/virtualenvwrapper.sh
 
 Create a `dynamic-cli` `virtualenv` and install `dynamic-cli`:
 
-    $ mkvirtualenv dynamic-cli
-    $ pip3 install dynamic-cli
+    mkvirtualenv dynamic-cli
+    pip3 install dynamic-cli
 
 If the `pip` install does not work, you might be running Python 2 by default.  Check what version of Python you are running:
 
-    $ python --version
+    python --version
 
 If the call above results in Python 2, find the path for Python 3:
 
-    $ which python3  # Python 3 path for mkvirtualenv's --python option
+    which python3  # Python 3 path for mkvirtualenv's --python option
 
 Install Python 3 if needed.  Set the Python version when calling `mkvirtualenv`:
 
-    $ mkvirtualenv --python [Python 3 path from above] dynamic-cli
-    $ pip3 install dynamic-cli
+    mkvirtualenv --python [Python 3 path from above] dynamic-cli
+    pip3 install dynamic-cli
 
 If you want to activate the `dynamic-cli` `virtualenv` again later, run:
 
-    $ workon dynamic-cli
+    workon dynamic-cli
 
 To deactivate the `dynamic-cli` `virtualenv`, run:
 
-    $ deactivate
+    deactivate
 
 
 ### Supported Python Versions
@@ -161,30 +161,31 @@ To deactivate the `dynamic-cli` `virtualenv`, run:
 **1.** Installing pip
 
 ```shell
-$ sudo apt-get install python3-pip
+sudo apt-get install python3-pip
 ```
 
 **2.** Clone this repository to your local drive
 
 ```shell
-$ git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
+git clone https://github.com/IndianOpenSourceFoundation/dynamic-cli.git
 ```
 
-**3.** Install dependencies
+**3.** Go to dynamic directory
 
 ```shell
-$ pip3 install -r requirements.txt
+cd dynamic-cli/
 ```
-**4.** Go to dynamic directory
+
+**4.** Install dependencies
 
 ```shell
-$ cd dynamic-cli/
+pip3 install -r requirements.txt
 ```
 
 **5.** Install with pip
 
 ```shell
-$ pip3 install -e .
+pip3 install -e .
 ```
 
 **If you face some issue running dynamic on mac, follow the below instructions**

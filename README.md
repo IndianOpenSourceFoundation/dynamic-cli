@@ -61,6 +61,7 @@ Options: <br>
 `-GET -> Make a GET request to an API` <br>
 `-POST -> Make a POST request to an API` <br>
 `-DELETE -> Make a DELETE request to an API` <br>
+`-p -> To access all the answers saved in the playbook` <br>
 
 ## Installation
 

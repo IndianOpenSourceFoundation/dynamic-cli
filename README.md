@@ -57,6 +57,7 @@ Options: <br>
 `-no, --notion -> Open browser to login to Notion.so` <br>
 `-d, --debug -> Turn on Debugging mode` <br>
 `-c, --custom -> Setup a custom API key` <br>
+`-p, --playbook -> To access all the answers saved in the playbook` <br>	
 `-h, --help -> Shows this message and exit` <br>
 `-GET -> Make a GET request to an API` <br>
 `-POST -> Make a POST request to an API` <br>

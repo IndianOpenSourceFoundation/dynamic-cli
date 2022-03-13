@@ -24,6 +24,7 @@ class Prompt:
         return data
 
 
+
 class Search:
     def __init__(self, arguments):
         self.arguments = arguments
@@ -34,6 +35,19 @@ class Search:
     def search_args(self):
         if self.arguments.search:
             self.search_for_results()
+        elif self.arguments.start:
+            print(
+            """\U0001F604 Hello and Welcome to Dynamic CLI
+                 \U0001F917 Use the following commands to get started
+                 \U0001F50E Search on StackOverflow with 'dynamic -s'
+                 \U0001F4C4 Open browser to create new Stack Overflow question with '-n [title(optional)]'
+                 \U0001F4C2 Save answer to a file with 'dynamic -file'
+                 \U00002728 Know the version of Dynamic CLI with 'dynamic -v'
+                 \U0001F609 See this message again with 'dynamic -st'
+                 \U00002755 Get help with 'dynamic -h'
+                """)
+        elif self.arguments.version:
+            print(f"Dynamic-CLI version {version}")
         elif self.arguments.file:
             self.search_for_results(True)
         elif self.arguments.playbook:
@@ -57,6 +71,7 @@ class Search:
             self.api_test_object.delete_request()
         elif self.arguments.notion:
             NotionClient().get_tokenv2_cookie()
+        
 
     def search_for_results(self, save=False):
         queries = ["What do you want to search", "Tags (optional)"]

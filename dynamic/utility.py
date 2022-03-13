@@ -157,7 +157,7 @@ class Playbook:
                 "You have no entries in the playbook",
                 "Browse and save entries in playbook with 'p' key",
             )
-            sys.exit()
+            return
         # Creates QuestionPanelStackoverflow object
         # populates its question_data and answer_data and displays it
         question_panel = QuestionsPanelStackoverflow()
@@ -302,7 +302,7 @@ class QuestionsPanelStackoverflow:
             try:
                 question_link = self.questions_data[options_index][2]
             except Exception:
-                return sys.exit() if playbook else None
+                return
             else:
                 if question_menu.chosen_accept_key == "enter":
                     webbrowser.open(question_link)

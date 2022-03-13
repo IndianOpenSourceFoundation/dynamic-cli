@@ -4,7 +4,7 @@ import argparse
 from dynamic.search import Search
 
 
-version = "0.1.0"
+version = "1.1.0"
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -74,7 +74,7 @@ def main():
                  \U0001F50E Search on StackOverflow with '-s'
                  \U0001F4C4 Open browser to create new Stack Overflow question with '-n [title(optional)]'
                  \U0001F4C2 Save answer to a file with '-file'
-                 \U00002728 Know the version of Dynamic CLI with '-V'
+                 \U00002728 Know the version of Dynamic CLI with '-v'
                  \U0001F609 See this message again with '-st'
                  \U00002755 Get help with '-h'
                 """

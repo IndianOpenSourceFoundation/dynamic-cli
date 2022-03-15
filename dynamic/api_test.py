@@ -168,6 +168,8 @@ class ApiTesting:
             response_data = json.loads(response.content)
             cls.save_response_data(response_data)
 
+            return response
+
         except requests.exceptions.InvalidSchema:
             print(cls.invalid_schema_message)
         except Exception as exception_obj:

@@ -16,5 +16,5 @@ class TestApi():
         res = self.test_object.get_request()
 
         file = open(
-            'dynamic/tests/test_get_api/output.json')
+            'dynamic/tests/test_get/output.json')
         assert res == json.loads(file.read())

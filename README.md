@@ -251,6 +251,18 @@ git push
 
 **9.** **Congratulations!** Sit and relax, you've made your contribution to Dynamic-CLI project.
 
+### Testing
+We also have written **unit tests for API features** of dynamic-cli, if you have made changes to that section you can run tests as follows:
+
+**1.** To run every test in dynamic-cli:
+```bash
+pytest
+```
+**2.** To run test related to only one feature for ex. for GET API Feature:
+```bash
+pytest -k test_get_api
+```
+
 ### Dynamic CLI is a part of these open source programs
 
 

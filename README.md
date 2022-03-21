@@ -26,6 +26,14 @@ Although the Stackoverflow website is really cool, it can be **tough to remember
 ## `dynamic-cli` - A Supercharged Command Line Utility
 
 ![dynamic-gif](https://user-images.githubusercontent.com/31731827/146558085-c3e9f396-9e48-482f-a1e1-6e24808ef7f9.gif)
+	
+![dynamic_api](https://user-images.githubusercontent.com/72400676/159194711-3a31fc35-7cbc-40e6-9f5d-e33c894bb6cd.gif)
+
+![dynamic_search](https://user-images.githubusercontent.com/72400676/159194727-ca939e06-2c9f-4c8b-ad27-1948e9c82010.gif)
+
+![dynamic_saving_to_playbook](https://user-images.githubusercontent.com/72400676/159194738-004fa3f0-9888-4a35-b15f-055b351b4481.gif)
+
+![dynamic_retrieving_from_playbook](https://user-images.githubusercontent.com/72400676/159194746-e171c00e-6c8e-4896-8ab9-50ada2cd1e37.gif)
 
 ## Index
 

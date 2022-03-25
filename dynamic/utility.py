@@ -12,10 +12,10 @@ from collections import defaultdict
 from simple_term_menu import TerminalMenu
 import webbrowser
 
-from .error import SearchError
-from .save import SaveSearchResults
-from .markdown import MarkdownRenderer
-from .settings import PLAYBOOK_FILE
+from error import SearchError
+from save import SaveSearchResults
+from markdown import MarkdownRenderer
+from settings import PLAYBOOK_FILE
 
 # Required for OAuth
 import json

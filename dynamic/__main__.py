@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from dynamic.search import Search
+from search import Search
 
 
 version = "1.1.0"

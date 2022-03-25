@@ -3,13 +3,13 @@ import webbrowser
 from termcolor import colored
 import sys as sys
 
-from .error import SearchError
-from .utility import Utility
-from .utility import Playbook
-from .save import SaveSearchResults
-from .update import UpdateApplication
-from .api_test import ApiTesting
-from .notion import NotionClient
+from error import SearchError
+from utility import Utility
+from utility import Playbook
+from save import SaveSearchResults
+from update import UpdateApplication
+from api_test import ApiTesting
+from notion import NotionClient
 
 version = "0.1.0"
 

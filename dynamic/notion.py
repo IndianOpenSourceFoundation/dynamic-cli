@@ -1,9 +1,9 @@
 import os
 
-from .utility import get_browser_driver
-from .error import LoginError
-from .settings import LOGIN_PATH
-from .settings import TOKEN_FILE_PATH
+from utility import get_browser_driver
+from error import LoginError
+from settings import LOGIN_PATH
+from settings import TOKEN_FILE_PATH
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait

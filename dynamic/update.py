@@ -2,7 +2,7 @@ import requests as requests
 from termcolor import colored
 import webbrowser as webbrowser
 
-from .error import SearchError
+from error import SearchError
 
 
 class UpdateApplication(object):

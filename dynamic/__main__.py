@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 
-import argparse
-from dynamic.search import Search
 
+import sys
+import os
+import argparse
+
+root = os.path.dirname(__file__)
+sys.path.append(root)
+#from dynamic.search import Search
+from search import Search
 
 version = "1.1.0"
 

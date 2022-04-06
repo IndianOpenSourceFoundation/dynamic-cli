@@ -1,21 +1,40 @@
+[tool.poetry]
+name = "dynamic"
+version = "1.1"
+description = "A Modern, user-friendly command-line HTTP client for the API testing, and if you're stuck - Search and browse StackOverflow without leaving the CLI"
+authors = ["IndianOpenSourceFoundation"]
+license = "General Public License GNU"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+certifi = "2020.6.20"
+chardet = "3.0.4"
+idna = "2.10"
+requests = "2.24.0"
+termcolor = "1.1.0"
+urllib3 = "1.25.10"
+rich = "9.9.0"
+oauthlib = "3.1.0"
+requests-oauthlib = "1.3.0"
+colorama = "0.4.4"
+configparser = "5.0.2"
+crayons = "0.4.0"
+selenium = "3.141.0"
+webdriver-manager = "3.3.0"
+simple-term-menu = "1.0.1"
+
+[tool.poetry.dev-dependencies]
+
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel",
-    "certifi==2020.6.20",
-    "chardet==3.0.4",
-    "idna==2.10",
-    "requests==2.24.0",
-    "termcolor==1.1.0",
-    "urllib3==1.25.10",
-    "rich==9.9.0",
-    "oauthlib==3.1.0",
-    "requests-oauthlib==1.3.0",
-    "colorama==0.4.4",
-    "configparser==5.0.2",
-    "crayons==0.4.0",
-    "selenium==3.141.0",
-    "webdriver-manager==3.3.0",
-    "simple-term-menu==1.0.1"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+packages = [
+    { include = "dynamic" },
+    { include = "dynamic_cli.egg-info" },
+    { include = "LICENSE" },
+    { include = "poetry.lock" },
+    { include = "pyproject.toml" },
+    { include = "README.md" },
+    { include = "setup.py" }
 ]
-build-backend = "setuptools.build_meta"

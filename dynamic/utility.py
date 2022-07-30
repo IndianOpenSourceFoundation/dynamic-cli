@@ -15,7 +15,7 @@ import webbrowser
 
 from error import SearchError
 from save import SaveSearchResults
-from markdown import MarkdownRenderer
+# from markdown import MarkdownRenderer
 from settings import PLAYBOOK_FILE
 
 # Required for OAuth
@@ -324,12 +324,14 @@ class QuestionsPanelStackoverflow:
                         if self.dbmd[i] == " ":
                             while(i<len(self.dbmd)):
                                 if self.dbmd[i] == " ":
+                                    if counter == 4:
+                                        break
                                     counter +=1
                                     i += 1
                                 else:
                                     break
                         # checks if there are 4 spaces, the basic format for a markdown code input
-                        if (counter>0) and (counter % 4 == 0):
+                        if counter == 4:
                             flag = True
                             # once code beginning is found we go till the end of that code only and stop where that snippet stops
                             while((self.dbmd[i] != '\n' and self.dbmd[i] != '\r') and i+1 < len(self.dbmd)  ):

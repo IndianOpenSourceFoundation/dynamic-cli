@@ -14,3 +14,4 @@ selenium==3.141.0
 webdriver-manager==3.3.0
 simple-term-menu==1.0.1
 pytest==7.1.1
+pyperclip==1.8.2

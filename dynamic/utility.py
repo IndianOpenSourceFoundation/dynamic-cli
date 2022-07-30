@@ -15,7 +15,7 @@ import webbrowser
 
 from error import SearchError
 from save import SaveSearchResults
-# from markdown import MarkdownRenderer
+from markdown import MarkdownRenderer
 from settings import PLAYBOOK_FILE
 
 # Required for OAuth

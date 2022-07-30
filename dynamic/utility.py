@@ -317,7 +317,7 @@ class QuestionsPanelStackoverflow:
                     code = ""                # "code" will be edited later
                     i = 0
                     flag = False
-                    self.dbmd = "'''" + self.dbmd + "'''"   
+                    self.dbmd = "'''" + self.dbmd + "'''"
                     #to avoid situstion where text break due to any other colons in the middle
                     while i <len(self.dbmd):
                         counter = 0
@@ -347,12 +347,12 @@ class QuestionsPanelStackoverflow:
                                 #checks if the next 4 spots are spaces aswell indicating continuation of snippet
                                     while((self.dbmd[i] != '\n' and self.dbmd[i] != '\r') and i+1 < len(self.dbmd)  ):
                                         code += self.dbmd[i]
-                                        i += 1 
+                                        i += 1
                                 else:
                                     break
                         i += 1
                         if flag:
-                        #breaks if code is finished
+                            #breaks if code is finished
                             break
                     pc.copy(code)
                     console.print("\nCopied Sucessfully !!\n")

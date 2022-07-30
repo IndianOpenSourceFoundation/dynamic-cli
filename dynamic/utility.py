@@ -3,6 +3,7 @@ import requests
 from rich.console import Console
 from rich.markdown import Markdown
 import sys as sys
+import pyperclip as pc
 
 # Required for Questions Panel
 import os
@@ -14,7 +15,7 @@ import webbrowser
 
 from error import SearchError
 from save import SaveSearchResults
-from markdown import MarkdownRenderer
+# from markdown import MarkdownRenderer
 from settings import PLAYBOOK_FILE
 
 # Required for OAuth
@@ -246,6 +247,7 @@ class QuestionsPanelStackoverflow:
         ]
         for convert_from, convert_to in xml_markup_replacement:
             body_markdown = body_markdown.replace(convert_from, convert_to)
+        self.dbmd = body_markdown
         width = os.get_terminal_size().columns
         console = Console(width=width - 4)
         markdown = Markdown(body_markdown, hyperlinks=False)
@@ -277,16 +279,17 @@ class QuestionsPanelStackoverflow:
         if playbook:
             message = "Playbook Questions"
             instructions = ". Press 'd' to delete from playbook"
-            keys = ("enter", "d")
+            keys = ("enter", "d", "c")
         else:
             message = "Relevant Questions"
             instructions = ". Press 'p' to save in playbook"
-            keys = ("enter", "p")
+            keys = ("enter", "p", "c")
         console.rule("[bold blue] {}".format(message), style="bold red")
         console.print(
             "[yellow] Use arrow keys to navigate."
             + "'q' or 'Esc' to quit. 'Enter' to open in a browser"
             + instructions
+            +". Press 'c' to Copy Code"
         )
         console.print()
         options = ["|".join(map(str, question)) for question in self.questions_data]
@@ -310,6 +313,44 @@ class QuestionsPanelStackoverflow:
                     self.playbook.add_to_playbook(
                         self, self.questions_data[options_index][1]
                     )
+                elif question_menu.chosen_accept_key == "c":
+                    code = ""
+                    i = 0
+                    flag = False
+                    self.dbmd = "'''" + self.dbmd + "'''"
+                    while i <len(self.dbmd):
+                        a = self.dbmd[i]
+                        counter = 0
+                        if self.dbmd[i] == " ":
+                            while(i<len(self.dbmd)):
+                                if self.dbmd[i] == " ":
+                                    counter +=1
+                                    i += 1
+                                else:
+                                    break
+                        if (counter>0) and (counter % 4 == 0):
+                            flag = True
+                            while((self.dbmd[i] != '\n' and self.dbmd[i] != '\r') and i+1 < len(self.dbmd)  ):
+                                code += self.dbmd[i]
+                                i += 1
+                            while(True):
+                                b = self.dbmd[i]
+                                while(self.dbmd[i] == '\n' or self.dbmd[i] == '\r'):
+                                    code += self.dbmd[i]
+                                    i+=1
+                                    b = self.dbmd[i]
+                                if self.dbmd[i] == " " and self.dbmd[i+1] == " " and self.dbmd[i+2] == " " and self.dbmd[i+3] == " ":
+                                    i += 4
+                                    while((self.dbmd[i] != '\n' and self.dbmd[i] != '\r') and i+1 < len(self.dbmd)  ):
+                                        code += self.dbmd[i]
+                                        i += 1 
+                                else:
+                                    break
+                        i += 1
+                        if flag:
+                            break
+                    pc.copy(code)
+                    console.print("\nCopied Sucessfully !!\n")
                 elif question_menu.chosen_accept_key == "d" and playbook:
                     self.playbook.delete_from_playbook(
                         self, self.questions_data[options_index][1]

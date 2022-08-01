@@ -184,6 +184,9 @@ class QuestionsPanelStackoverflow:
         self.utility = Utility()
         self.playbook = Playbook()
 
+        # setting default value of variable dbmd
+        self.dbmd = ""
+
     def populate_question_data(self, questions_list):
         """
         Function to populate question data property

@@ -318,11 +318,11 @@ class QuestionsPanelStackoverflow:
                     i = 0
                     flag = False
                     self.dbmd = "'''" + self.dbmd + "'''"
-                    #to avoid situstion where text break due to any other colons in the middle
+                    # to avoid situstion where text break due to any other colons in the middle
                     while i <len(self.dbmd):
                         counter = 0
                         if self.dbmd[i] == " ":
-                            while(i<len(self.dbmd)):
+                            while i<len(self.dbmd) :
                                 if self.dbmd[i] == " ":
                                     if counter == 4:
                                         break
@@ -333,25 +333,31 @@ class QuestionsPanelStackoverflow:
                         # checks if there are 4 spaces, the basic format for a markdown code input
                         if counter == 4:
                             flag = True
-                            # once code beginning is found we go till the end of that code only and stop where that snippet stops
-                            while((self.dbmd[i] != '\n' and self.dbmd[i] != '\r') and i+1 < len(self.dbmd)  ):
+                            # once code beginning is found we go till the end of that code only and
+                            # stop where that snippet stops
+                            while((self.dbmd[i] != '\n' and self.dbmd[i] != '\r')
+                                and i+1 < len(self.dbmd)):
                                 code += self.dbmd[i]
                                 #the word attach to the code variable
                                 i += 1
-                            while(True):
+                            while True:
                                 while(self.dbmd[i] == '\n' or self.dbmd[i] == '\r'):
                                     code += self.dbmd[i]
                                     i+=1
-                                if self.dbmd[i] == " " and self.dbmd[i+1] == " " and self.dbmd[i+2] == " " and self.dbmd[i+3] == " ":
+                                if ( self.dbmd[i] == " " and self.dbmd[i+1] == " " and
+                                    self.dbmd[i+2] == " " and self.dbmd[i+3] == " " ):
                                     i += 4
-                                #checks if the next 4 spots are spaces aswell indicating continuation of snippet
-                                    while((self.dbmd[i] != '\n' and self.dbmd[i] != '\r') and i+1 < len(self.dbmd)  ):
+                                #checks if the next 4 spots are spaces aswell indicating
+                                # continuation of snippet
+                                    while((self.dbmd[i] != '\n' and self.dbmd[i] != '\r')
+                                        and i+1 < len(self.dbmd)  ):
                                         code += self.dbmd[i]
                                         i += 1
                                 else:
                                     break
                         i += 1
                         if flag:
+                            
                             #breaks if code is finished
                             break
                     pc.copy(code)

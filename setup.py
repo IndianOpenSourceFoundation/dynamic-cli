@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 DEPENDENCIES = [
-    "certifi==2020.6.20",
+    "certifi==2022.12.7",
     "chardet==3.0.4",
     "idna==2.10",
     "requests==2.24.0",

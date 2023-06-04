@@ -33,6 +33,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
+# Required for replacing html escape characters with their corresponding ascii characters
+import html
+
 console = Console()
 
 
@@ -183,6 +186,18 @@ class QuestionsPanelStackoverflow:
         self.utility = Utility()
         self.playbook = Playbook()
 
+    def replaceHtmlEscapeCharacters(self, question_title):
+        """
+            Function to replace HTML escape characters in question's title
+                to their corresponding ASCII characters
+            For example, if the title was something like this:
+                '&quot;static const&quot; vs &quot;#define&quot; vs &quot;enum&quot;'
+                the HTML escape characters would be replaced with their corresponding ASCII
+                characters and the resulting string would be:
+                '"static const" vs "#define" vs "enum"'
+        """
+        return html.unescape(question_title)
+
     def populate_question_data(self, questions_list):
         """
         Function to populate question data property
@@ -199,7 +214,7 @@ class QuestionsPanelStackoverflow:
                 sys.exit()
         json_ques_data = resp.json()
         self.questions_data = [
-            [item["title"].replace("|", ""), item["question_id"], item["link"]]
+            [self.replaceHtmlEscapeCharacters(item["title"].replace("|", "")), item["question_id"], item["link"]]
             for item in json_ques_data["items"]
         ]
 

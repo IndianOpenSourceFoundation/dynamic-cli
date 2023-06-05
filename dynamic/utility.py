@@ -1,3 +1,5 @@
+# Required for replacing html escape characters with their corresponding ascii characters
+import html
 from termcolor import colored
 import requests
 from rich.console import Console
@@ -33,8 +35,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
-# Required for replacing html escape characters with their corresponding ascii characters
-import html
+
 
 console = Console()
 
@@ -186,7 +187,7 @@ class QuestionsPanelStackoverflow:
         self.utility = Utility()
         self.playbook = Playbook()
 
-    def replaceHtmlEscapeCharacters(self, question_title):
+    def unescape_html_characters(self, question_title):
         """
             Function to replace HTML escape characters in question's title
                 to their corresponding ASCII characters
@@ -214,7 +215,7 @@ class QuestionsPanelStackoverflow:
                 sys.exit()
         json_ques_data = resp.json()
         self.questions_data = [
-            [self.replaceHtmlEscapeCharacters(item["title"].replace("|", "")), item["question_id"], item["link"]]
+            [self.unescape_html_characters(item["title"].replace("|", "")), item["question_id"], item["link"]]
             for item in json_ques_data["items"]
         ]
 

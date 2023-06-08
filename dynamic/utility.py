@@ -1,4 +1,5 @@
-""" Required for replacing html escape characters with their corresponding unicode/ascii characters """
+""" Required for replacing html escape characters with their
+    corresponding unicode/ascii characters """
 import html
 
 from termcolor import colored

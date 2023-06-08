@@ -195,7 +195,7 @@ class QuestionsPanelStackoverflow:
         details of questions with id in the list. Stores the returned
         data in the following format:
             list(  list( question_title, question_link, question_id )  )
-        User html.unescape function to convert html character references
+        Uses html.unescape function to convert html character references
         to the corresponding unicode to corresponding unicode characters
         """
         with console.status("Getting the questions..."):

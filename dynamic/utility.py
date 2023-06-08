@@ -1,3 +1,7 @@
+""" Required for replacing html escape characters with their
+    corresponding unicode/ascii characters """
+import html
+
 from termcolor import colored
 import requests
 from rich.console import Console
@@ -32,6 +36,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
+
 
 console = Console()
 
@@ -190,6 +196,8 @@ class QuestionsPanelStackoverflow:
         details of questions with id in the list. Stores the returned
         data in the following format:
             list(  list( question_title, question_link, question_id )  )
+        Uses html.unescape function to convert html character references
+        to the corresponding unicode to corresponding unicode characters
         """
         with console.status("Getting the questions..."):
             try:
@@ -199,7 +207,7 @@ class QuestionsPanelStackoverflow:
                 sys.exit()
         json_ques_data = resp.json()
         self.questions_data = [
-            [item["title"].replace("|", ""), item["question_id"], item["link"]]
+            [html.unescape(item["title"].replace("|", "")), item["question_id"], item["link"]]
             for item in json_ques_data["items"]
         ]
 

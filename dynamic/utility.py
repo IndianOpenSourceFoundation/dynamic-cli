@@ -1,5 +1,6 @@
-# Required for replacing html escape characters with their corresponding ascii characters
+""" Required for replacing html escape characters with their corresponding unicode/ascii characters """
 import html
+
 from termcolor import colored
 import requests
 from rich.console import Console
@@ -187,18 +188,6 @@ class QuestionsPanelStackoverflow:
         self.utility = Utility()
         self.playbook = Playbook()
 
-    def unescape_html_characters(self, question_title):
-        """
-            Function to replace HTML escape characters in question's title
-                to their corresponding ASCII characters
-            For example, if the title was something like this:
-                '&quot;static const&quot; vs &quot;#define&quot; vs &quot;enum&quot;'
-                the HTML escape characters would be replaced with their corresponding ASCII
-                characters and the resulting string would be:
-                '"static const" vs "#define" vs "enum"'
-        """
-        return html.unescape(question_title)
-
     def populate_question_data(self, questions_list):
         """
         Function to populate question data property
@@ -206,6 +195,8 @@ class QuestionsPanelStackoverflow:
         details of questions with id in the list. Stores the returned
         data in the following format:
             list(  list( question_title, question_link, question_id )  )
+        User html.unescape function to convert html character references
+        to the corresponding unicode to corresponding unicode characters
         """
         with console.status("Getting the questions..."):
             try:
@@ -215,7 +206,7 @@ class QuestionsPanelStackoverflow:
                 sys.exit()
         json_ques_data = resp.json()
         self.questions_data = [
-            [self.unescape_html_characters(item["title"].replace("|", "")), item["question_id"], item["link"]]
+            [html.unescape(item["title"].replace("|", "")), item["question_id"], item["link"]]
             for item in json_ques_data["items"]
         ]
 
